@@ -1,0 +1,74 @@
+#vmpro
+
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    phone VARCHAR(20),
+    password_hash VARCHAR(255) NOT NULL,
+    role VARCHAR(50) DEFAULT 'staff',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE visitors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(20),
+    email VARCHAR(150),
+    visit_date DATETIME NOT NULL,
+    host_employee INT NOT NULL,  -- refers to employees.id, no FK constraint
+    qr_token VARCHAR(100) NOT NULL UNIQUE,
+    status VARCHAR(50) DEFAULT 'pending',  -- pending, arrived, entered, left
+    photo_url VARCHAR(255),
+    document_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE visit_logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    visitor_id INT NOT NULL,  -- refers to visitors.id, no FK constraint
+    event_type VARCHAR(50) NOT NULL,  -- e.g., registered, arrived, entered, left
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    recipient_type VARCHAR(20) NOT NULL,    -- 'visitor' or 'employee'
+    recipient_id INT NOT NULL,              -- visitors.id or employees.id (no FK)
+    method VARCHAR(20) NOT NULL,            -- 'email', 'sms'
+    status VARCHAR(20) DEFAULT 'sent',      -- 'sent', 'failed', 'queued'
+    message TEXT,
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE intercom_events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    visitor_id INT NOT NULL,
+    event_type VARCHAR(50) NOT NULL,           -- e.g., 'photo_capture', 'qr_scanned'
+    image_url VARCHAR(255),                    -- stored snapshot from camera or upload
+    device_id VARCHAR(100),                    -- optional: intercom ID
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE checkout_audits (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    visitor_id INT NOT NULL,
+    method VARCHAR(50) NOT NULL,               -- 'manual', 'scan', 'auto'
+    performed_by INT,                          -- employee ID if manual
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+alter table checkout_audits add in_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+alter table checkout_audits add out_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE locations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    address VARCHAR(255),
+    timezone VARCHAR(50),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+GRANT ALL PRIVILEGES ON vmpro.* TO 'devops'@'%';
+SHOW GRANTS FOR 'devops'@'%';

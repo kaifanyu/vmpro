@@ -1,0 +1,9 @@
+__pycache__/
+
+/static/**/*.jpg
+/static/**/*.png
+/static/**/*.jpeg
+
+bak/
+
+doc/

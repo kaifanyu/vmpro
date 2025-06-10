@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout Audits</title>
+    <link rel="stylesheet" href="/static/styles/global.css">
+</head>
+<body class="standard">
+    <h2>Checkout Audits</h2>
+    <input type="text" id="searchInput" placeholder="Search by Visitor ID or Method...">
+    <button onclick="exportCSV()">Export CSV</button>
+    <table id="auditTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Visitor ID</th>
+                <th>Method</th>
+                <th>Performed By</th>
+                <th>Notes</th>
+                <th>Created At</th>
+                <th>In Time</th>
+                <th>Out Time</th>
+            </tr>
+        </thead>
+        <tbody id="auditBody">
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchData() {
+            const res = await fetch('/api/checkout_audits');
+            const data = await res.json();
+            renderTable(data);
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('auditBody');
+            tbody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.id}</td>
+                    <td>${row.visitor_id}</td>
+                    <td>${row.method}</td>
+                    <td>${row.performed_by || ''}</td>
+                    <td>${row.notes || ''}</td>
+                    <td>${row.created_at}</td>
+                    <td>${row.in_time}</td>
+                    <td>${row.out_time}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#auditTable tbody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+
+        function exportCSV() {
+            const rows = document.querySelectorAll('table tr');
+            const csv = Array.from(rows).map(row =>
+                Array.from(row.cells).map(cell => `"${cell.textContent}"`).join(',')
+            ).join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'checkout_audits.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>

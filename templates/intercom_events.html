@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Intercom Events</title>
+    <link rel="stylesheet" href="/static/styles/global.css">
+</head>
+<body class="standard">
+    <h2>Intercom Events</h2>
+    <input type="text" id="searchInput" placeholder="Search by Visitor ID or Event Type...">
+    <button onclick="exportCSV()">Export CSV</button>
+    <table id="eventTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Visitor ID</th>
+                <th>Event Type</th>
+                <th>Image</th>
+                <th>Device ID</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody id="eventBody">
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchData() {
+            const res = await fetch('/api/intercom_events');
+            const data = await res.json();
+            renderTable(data);
+        }
+
+        function renderTable(data) {
+            const tbody = document.getElementById('eventBody');
+            tbody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${row.id}</td>
+                    <td>${row.visitor_id}</td>
+                    <td>${row.event_type}</td>
+                    <td>${row.image_url ? `<img src="${row.image_url}" alt="Image">` : ''}</td>
+                    <td>${row.device_id}</td>
+                    <td>${row.created_at}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#eventTable tbody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+
+        function exportCSV() {
+            const rows = document.querySelectorAll('table tr');
+            const csv = Array.from(rows).map(row =>
+                Array.from(row.cells).map(cell => `"${cell.textContent}"`).join(',')
+            ).join('\n');
+
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'intercom_events.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>

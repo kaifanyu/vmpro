@@ -1,0 +1,9 @@
+cryptography>=3.3.1
+Flask
+Flask-SQLAlchemy
+Flask-Admin
+pymysql
+pyzbar
+qrcode[pil]
+cryptography
+rapidfuzz

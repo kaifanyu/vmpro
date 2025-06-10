@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Visitor Records</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes slide-down {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-slide-down {
+      animation: slide-down 0.6s ease-out;
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.4s ease-out;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-badge.pending {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    }
+
+    .status-badge.checked-in {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+    .status-badge.checked-out {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: white;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+    }
+
+    .status-badge.cancelled {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    }
+
+    .status-badge.completed {
+      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+      color: white;
+      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    }
+
+    .table-row {
+      transition: all 0.2s ease;
+    }
+
+    .table-row:hover {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(16, 185, 129, 0.05));
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      transform: translateX(400px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .notification.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .notification.success {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .notification.error {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+    }
+
+    .search-container {
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .search-input {
+      padding-left: 44px;
+    }
+
+    .preview {
+      width: 30px;
+      height: 30px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .preview:hover {
+      transform: scale(1.2);
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-teal-100">
+  <!-- Notification System -->
+  <div id="notification" class="notification px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm">
+    <div class="flex items-center">
+      <div id="notificationIcon" class="mr-3"></div>
+      <span id="notificationText"></span>
+    </div>
+  </div>
+
+  <!-- Image Modal -->
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      <img id="modalImage" src="" alt="Preview">
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header Section -->
+    <div class="mb-8 transform animate-slide-down">
+      <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+        <header class="relative px-8 py-6 bg-gradient-to-r from-emerald-600 to-teal-700 text-white">
+          <!-- Decorative Elements -->
+          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+          <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+
+          <div class="relative flex items-center justify-between">
+            <div class="flex items-center">
+              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                  <path d="M8 6h13"/>
+                  <path d="M8 12h13"/>
+                  <path d="M8 18h13"/>
+                  <path d="M3 6h.01"/>
+                  <path d="M3 12h.01"/>
+                  <path d="M3 18h.01"/>
+                </svg>
+              </div>
+              <div>
+                <h1 class="text-3xl font-bold tracking-tight">Visitor Records</h1>
+                <p class="text-emerald-100 mt-1">Comprehensive visitor management and tracking</p>
+              </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <div class="bg-white/20 px-4 py-2 rounded-lg">
+                <span class="text-sm font-medium">Total Visitors: </span>
+                <span id="totalVisitors" class="font-bold">0</span>
+              </div>
+            </div>
+          </div>
+        </header>
+      </div>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="mb-6 transform animate-fade-in">
+      <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 p-6">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <!-- Search Bar -->
+          <div class="flex-1 max-w-md">
+            <label class="text-sm font-medium text-gray-700 mb-2 block">Search Visitors</label>
+            <div class="search-container">
+              <div class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <input type="text" id="searchInput"
+                     placeholder="Search name or host..."
+                     class="search-input w-full px-4 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex items-center space-x-3">
+            <button onclick="refreshData()"
+                    class="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95">
+              <span class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                  <path d="M3 2v6h6"/>
+                  <path d="M21 12A9 9 0 0 0 6 5.3L3 8"/>
+                  <path d="M21 22v-6h-6"/>
+                  <path d="M3 12a9 9 0 0 0 15 6.7l3-2.7"/>
+                </svg>
+                Refresh
+              </span>
+            </button>
+
+            <button onclick="exportCSV()" id="exportBtn"
+                    class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95">
+              <span class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="7,10 12,15 17,10"/>
+                  <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Export CSV
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visitor Records Table -->
+    <div class="transform animate-fade-in" style="animation-delay: 0.2s;">
+      <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
+        <div class="px-6 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+          <h2 class="text-xl font-semibold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="m22 21-3-3"/>
+            </svg>
+            All Visitor Records
+            <span id="filteredCount" class="ml-auto bg-white/20 px-3 py-1 rounded-full text-sm"></span>
+          </h2>
+        </div>
+
+        <div class="p-6">
+          <div class="overflow-x-auto">
+            <table class="w-full" id="visitorTable">
+              <thead>
+                <tr class="border-b border-gray-200">
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Name</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Email</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Phone</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Visit Time</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Host</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">QR Code</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Photo</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Document</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Location</th>
+                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="visitorTableBody">
+                <!-- Dynamic content will be inserted here -->
+              </tbody>
+            </table>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="text-center py-12 hidden">
+              <div class="w-24 h-24 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500">
+                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                  <circle cx="9" cy="7" r="4"/>
+                  <path d="m22 21-3-3"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-700 mb-2">No visitors found</h3>
+              <p class="text-gray-500">No visitor records are available at this time.</p>
+            </div>
+
+            <!-- No Results State -->
+            <div id="noResultsState" class="text-center py-12 hidden">
+              <div class="w-24 h-24 bg-gradient-to-br from-orange-200 to-yellow-300 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-orange-600">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="m21 21-4.35-4.35"/>
+                </svg>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-700 mb-2">No matching results</h3>
+              <p class="text-gray-500">Try adjusting your search terms.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let visitors = [];
+
+    // Notification system
+    function showNotification(message, type = 'success') {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notificationText');
+      const notificationIcon = document.getElementById('notificationIcon');
+
+      notification.className = `notification ${type} px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm`;
+      notificationText.textContent = message;
+
+      if (type === 'success') {
+        notificationIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22,4 12,14.01 9,11.01"/>
+          </svg>
+        `;
+      } else {
+        notificationIcon.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="15" y1="9" x2="9" y2="15"/>
+            <line x1="9" y1="9" x2="15" y2="15"/>
+          </svg>
+        `;
+      }
+
+      notification.classList.add('show');
+
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 4000);
+    }
+
+    // Get status badge class - FIXED VERSION
+    function getStatusBadgeClass(status) {
+      const statusLower = status.toLowerCase().replace(/[^a-z]/g, '');
+      
+      // Check for check-in variations (green)
+      if (statusLower.includes('checkedin') || statusLower.includes('checkin') || statusLower.includes('active') || statusLower.includes('arrived')) {
+        return 'checked-in';
+      }
+      // Check for check-out variations (purple/indigo)
+      else if (statusLower.includes('checkedout') || statusLower.includes('checkout') || statusLower.includes('departed')) {
+        return 'checked-out';
+      }
+      // Check for pending variations (orange)
+      else if (statusLower.includes('pending') || statusLower.includes('scheduled') || statusLower.includes('waiting')) {
+        return 'pending';
+      }
+      // Check for cancelled variations (red)
+      else if (statusLower.includes('cancelled') || statusLower.includes('canceled') || statusLower.includes('rejected') || statusLower.includes('denied')) {
+        return 'cancelled';
+      }
+      // Check for completed variations (blue)
+      else if (statusLower.includes('completed') || statusLower.includes('finished') || statusLower.includes('done')) {
+        return 'completed';
+      }
+      
+      // Default to pending
+      return 'pending';
+    }
+
+    // Modal functions
+    function openImageModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = src;
+      modal.classList.add('show');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('show');
+    }
+
+    // Load visitors from API
+    async function loadVisitors() {
+      try {
+        const res = await fetch('/api/visitor/list');
+        visitors = await res.json();
+        renderTable(visitors);
+        updateStats(visitors);
+      } catch (error) {
+        console.error('Error loading visitors:', error);
+        showNotification('Failed to load visitor records', 'error');
+      }
+    }
+
+    // Update statistics
+    function updateStats(data) {
+      document.getElementById('totalVisitors').textContent = data.length;
+    }
+
+    // Render table with data
+    function renderTable(data) {
+      const tbody = document.getElementById('visitorTableBody');
+      const emptyState = document.getElementById('emptyState');
+      const noResultsState = document.getElementById('noResultsState');
+
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        if (visitors.length === 0) {
+          emptyState.classList.remove('hidden');
+          noResultsState.classList.add('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+          noResultsState.classList.remove('hidden');
+        }
+      } else {
+        emptyState.classList.add('hidden');
+        noResultsState.classList.add('hidden');
+
+        data.forEach((visitor, index) => {
+          const tr = document.createElement('tr');
+          tr.className = 'table-row border-b border-gray-100';
+          tr.style.animationDelay = `${index * 0.05}s`;
+          tr.classList.add('animate-fade-in');
+
+          const statusBadgeClass = getStatusBadgeClass(visitor.status);
+
+          tr.innerHTML = `
+            <td class="py-4 px-4 font-medium text-gray-900">${visitor.name}</td>
+            <td class="py-4 px-4 text-gray-700">${visitor.email || ''}</td>
+            <td class="py-4 px-4 text-gray-700">${visitor.phone || ''}</td>
+            <td class="py-4 px-4 text-gray-700">${visitor.visit_date}</td>
+            <td class="py-4 px-4 text-gray-700">${visitor.host_employee || ''}</td>
+            <td class="py-4 px-4">
+              <span class="status-badge ${statusBadgeClass}">${visitor.status}</span>
+            </td>
+            <td class="py-4 px-4">
+              ${visitor.token ? `
+                <a href="/static/qr/${visitor.token}.png" download>
+                  <img src="/static/qr/${visitor.token}.png" class="preview" onclick="openImageModal('/static/qr/${visitor.token}.png')" alt="QR Code">
+                </a>
+              ` : ''}
+            </td>
+            <td class="py-4 px-4">
+              ${visitor.photo_url ? `
+                <a href="${visitor.photo_url}" download>
+                  <img src="${visitor.photo_url}" class="preview" onclick="openImageModal('${visitor.photo_url}')" alt="Photo">
+                </a>
+              ` : ''}
+            </td>
+            <td class="py-4 px-4">
+              ${visitor.document_url ? `
+                <a href="${visitor.document_url}" download>
+                  <img src="${visitor.document_url}" class="preview" onclick="openImageModal('${visitor.document_url}')" alt="Document">
+                </a>
+              ` : ''}
+            </td>
+            <td class="py-4 px-4 text-gray-700">${visitor.location || ''}</td>
+            <td class="py-4 px-4">
+              <button class="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
+                      onclick="deleteVisitor(${visitor.id})">
+                <span class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                    <polyline points="3,6 5,6 21,6"/>
+                    <path d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"/>
+                  </svg>
+                  Delete
+                </span>
+              </button>
+            </td>
+          `;
+
+          tbody.appendChild(tr);
+        });
+      }
+
+      updateCounts(visitors.length, data.length);
+    }
+
+    // Update counters
+    function updateCounts(total, filtered) {
+      document.getElementById('filteredCount').textContent = filtered === total ? `${filtered}` : `${filtered} of ${total}`;
+    }
+
+    // Delete visitor function
+    async function deleteVisitor(id) {
+      if (!confirm('Are you sure you want to delete this visitor?')) return;
+
+      try {
+        const res = await fetch(`/api/visitor/${id}`, { method: 'DELETE' });
+
+        if (res.ok) {
+          showNotification('Visitor deleted successfully', 'success');
+          await loadVisitors(); // Refresh the data
+        } else {
+          showNotification('Failed to delete visitor', 'error');
+        }
+      } catch (error) {
+        console.error('Error deleting visitor:', error);
+        showNotification('Network error occurred', 'error');
+      }
+    }
+
+    // Search functionality (same as original)
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const keyword = this.value.trim().toLowerCase();
+      const filtered = visitors.filter(v =>
+        v.name.toLowerCase().includes(keyword) ||
+        String(v.host_employee).toLowerCase().includes(keyword)
+      );
+      renderTable(filtered);
+    });
+
+    // Refresh data function
+    async function refreshData() {
+      const refreshButton = document.querySelector('button[onclick="refreshData()"]');
+      const originalHTML = refreshButton.innerHTML;
+
+      refreshButton.disabled = true;
+      refreshButton.innerHTML = `
+        <span class="flex items-center">
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Refreshing...
+        </span>
+      `;
+
+      try {
+        await loadVisitors();
+        showNotification('Visitor records refreshed successfully', 'success');
+      } finally {
+        setTimeout(() => {
+          refreshButton.disabled = false;
+          refreshButton.innerHTML = originalHTML;
+        }, 1000);
+      }
+    }
+
+    // Export CSV function (same as original)
+    function exportCSV() {
+      try {
+        const headers = ['Name', 'Email', 'Phone', 'Visit Time', 'Host', 'Status', 'QR Token', 'Photo URL', 'Document URL', 'Location'];
+        const rows = visitors.map(v => [
+          v.name,
+          v.email || '',
+          v.phone || '',
+          v.visit_date,
+          v.host_employee || '',
+          v.status,
+          v.token || '',
+          v.photo_url || '',
+          v.document_url || '',
+          v.location || ''
+        ]);
+
+        const csv = [headers, ...rows].map(r => r.map(cell => `"${cell}"`).join(",")).join("\n");
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "visitors.csv";
+        link.click();
+        URL.revokeObjectURL(url);
+
+        showNotification('CSV file downloaded successfully', 'success');
+      } catch (error) {
+        console.error('Error exporting CSV:', error);
+        showNotification('Failed to export CSV', 'error');
+      }
+    }
+
+    // Initialize the page
+    loadVisitors();
+
+    // Close modal with escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    // Prevent modal close when clicking image
+    document.getElementById('modalImage').addEventListener('click', function(e) {
+		e.stopPropagation();
+    });
+	
+	window.addEventListener('message', function(event) {
+		if (event.data.type === 'PERFORM_SEARCH') {
+			const searchTerm = event.data.searchTerm;
+			performVisitorSearch(searchTerm);
+		}
+	});
+	
+	
+	function performVisitorSearch(searchTerm) {
+	  const searchInput = document.getElementById('searchInput');
+	  if (searchInput) {
+		searchInput.value = searchTerm;
+		
+		const inputEvent = new Event('input', { bubbles: true });
+		searchInput.dispatchEvent(inputEvent);
+	  }
+	}
+  </script>
+</body>
+</html>

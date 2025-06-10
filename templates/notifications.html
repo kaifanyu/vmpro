@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #10b981;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-container {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .success-container {
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .debug-info {
+            background: #f3f4f6;
+            border: 1px solid #d1d5db;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            font-size: 0.875rem;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Notifications</h2>
+                <div class="flex space-x-3">
+                    <button onclick="toggleDebug()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                        Debug Info
+                    </button>
+                    <button onclick="refreshData()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+                        Refresh
+                    </button>
+                    <button onclick="exportCSV()" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
+                        Export CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Debug Section -->
+            <div id="debugSection" class="hidden">
+                <h3 class="text-lg font-semibold mb-2">Debug Information</h3>
+                <div id="debugInfo" class="debug-info"></div>
+            </div>
+
+            <!-- Status Messages -->
+            <div id="statusContainer"></div>
+
+            <!-- Search -->
+            <div class="mb-4">
+                <input type="text"
+                       id="searchInput"
+                       placeholder="Search by Recipient or Method..."
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading">
+                <div class="spinner"></div>
+                <span class="ml-3 text-gray-600">Loading notifications...</span>
+            </div>
+
+            <!-- Table -->
+            <div id="tableContainer" class="hidden">
+                <table id="notificationTable" class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recipient Type</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recipient ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sent At</th>
+                        </tr>
+                    </thead>
+                    <tbody id="notificationBody" class="bg-white divide-y divide-gray-200">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-12">
+                <div class="text-gray-400">
+                    <svg class="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM7 7h5v5H7V7z"/>
+                    </svg>
+                </div>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">No notifications</h3>
+                <p class="mt-1 text-sm text-gray-500">No notification records found in the database.</p>
+                <div class="mt-6">
+                    <button onclick="testNotification()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                        Test Notification
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allNotifications = [];
+        let debugData = {};
+
+        // Show status message
+        function showStatus(message, type = 'info') {
+            const container = document.getElementById('statusContainer');
+            const className = type === 'error' ? 'error-container' : 'success-container';
+            container.innerHTML = `<div class="${className}">${message}</div>`;
+
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
+        }
+
+        // Toggle debug section
+        function toggleDebug() {
+            const section = document.getElementById('debugSection');
+            const info = document.getElementById('debugInfo');
+
+            if (section.classList.contains('hidden')) {
+                section.classList.remove('hidden');
+                info.textContent = JSON.stringify(debugData, null, 2);
+            } else {
+                section.classList.add('hidden');
+            }
+        }
+
+        // Fetch data with comprehensive error handling
+        async function fetchData() {
+            const loadingState = document.getElementById('loadingState');
+            const tableContainer = document.getElementById('tableContainer');
+            const emptyState = document.getElementById('emptyState');
+
+            try {
+                // Show loading
+                loadingState.classList.remove('hidden');
+                tableContainer.classList.add('hidden');
+                emptyState.classList.add('hidden');
+
+                console.log('🔄 Fetching notifications...');
+
+                // Fetch notifications
+                const response = await fetch('/api/notifications');
+
+                // Store debug information
+                debugData = {
+                    timestamp: new Date().toISOString(),
+                    url: '/api/notifications',
+                    status: response.status,
+                    statusText: response.statusText,
+                    headers: Object.fromEntries(response.headers.entries()),
+                };
+
+                console.log('📡 Response received:', debugData);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                // Update debug info
+                debugData.responseData = data;
+                debugData.dataType = typeof data;
+                debugData.isArray = Array.isArray(data);
+                debugData.length = Array.isArray(data) ? data.length : 'N/A';
+
+                console.log('📊 Data received:', data);
+
+                if (Array.isArray(data)) {
+                    allNotifications = data;
+                    renderTable(data);
+
+                    if (data.length === 0) {
+                        showEmptyState();
+                        showStatus('No notifications found in the database.', 'info');
+                    } else {
+                        showStatus(`Successfully loaded ${data.length} notifications.`, 'success');
+                    }
+                } else {
+                    throw new Error('Response is not an array: ' + JSON.stringify(data));
+                }
+
+            } catch (error) {
+                console.error('❌ Error fetching notifications:', error);
+
+                debugData.error = {
+                    message: error.message,
+                    stack: error.stack,
+                    timestamp: new Date().toISOString()
+                };
+
+                showStatus(`Error: ${error.message}`, 'error');
+                showEmptyState();
+            } finally {
+                loadingState.classList.add('hidden');
+            }
+        }
+
+        // Render table
+        function renderTable(data) {
+            const tbody = document.getElementById('notificationBody');
+            const tableContainer = document.getElementById('tableContainer');
+            const emptyState = document.getElementById('emptyState');
+
+            if (data.length === 0) {
+                showEmptyState();
+                return;
+            }
+
+            tbody.innerHTML = '';
+
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-gray-50';
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${row.id || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.recipient_type || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.recipient_id || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getMethodBadgeClass(row.method)}">
+                            ${row.method || 'N/A'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusBadgeClass(row.status)}">
+                            ${row.status || 'N/A'}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-gray-900 max-w-xs truncate" title="${row.message || ''}">${row.message || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.sent_at || 'N/A'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            tableContainer.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+        }
+
+        // Show empty state
+        function showEmptyState() {
+            const tableContainer = document.getElementById('tableContainer');
+            const emptyState = document.getElementById('emptyState');
+
+            tableContainer.classList.add('hidden');
+            emptyState.classList.remove('hidden');
+        }
+
+        // Get badge classes
+        function getStatusBadgeClass(status) {
+            const s = (status || '').toLowerCase();
+            if (s.includes('sent') || s.includes('delivered')) {
+                return 'bg-green-100 text-green-800';
+            } else if (s.includes('pending') || s.includes('queued')) {
+                return 'bg-yellow-100 text-yellow-800';
+            } else if (s.includes('failed') || s.includes('error')) {
+                return 'bg-red-100 text-red-800';
+            }
+            return 'bg-gray-100 text-gray-800';
+        }
+
+        function getMethodBadgeClass(method) {
+            const m = (method || '').toLowerCase();
+            if (m.includes('email')) {
+                return 'bg-blue-100 text-blue-800';
+            } else if (m.includes('sms')) {
+                return 'bg-purple-100 text-purple-800';
+            }
+            return 'bg-gray-100 text-gray-800';
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const query = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#notificationTable tbody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+
+        // Refresh data
+        function refreshData() {
+            console.log('🔄 Manual refresh triggered');
+            fetchData();
+        }
+
+        // Export CSV
+        function exportCSV() {
+            try {
+                const rows = document.querySelectorAll('#notificationTable tr');
+                const csv = Array.from(rows).map(row =>
+                    Array.from(row.cells).map(cell => `"${cell.textContent.replace(/"/g, '""')}"`).join(',')
+                ).join('\n');
+
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `notifications_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                showStatus('CSV exported successfully!', 'success');
+            } catch (error) {
+                console.error('Export error:', error);
+                showStatus('Failed to export CSV: ' + error.message, 'error');
+            }
+        }
+
+        // Test notification (for debugging)
+        async function testNotification() {
+            try {
+                // This is a test endpoint you can add to your Flask app
+                const response = await fetch('/api/notifications/test', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        recipient_type: 'visitor',
+                        recipient_id: 999,
+                        method: 'email',
+                        status: 'sent',
+                        message: 'Test notification created from frontend'
+                    })
+                });
+
+                if (response.ok) {
+                    showStatus('Test notification created!', 'success');
+                    setTimeout(() => fetchData(), 1000);
+                } else {
+                    showStatus('Failed to create test notification', 'error');
+                }
+            } catch (error) {
+                console.error('Test notification error:', error);
+                showStatus('Error creating test notification: ' + error.message, 'error');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Page loaded, fetching notifications...');
+            fetchData();
+        });
+    </script>
+</body>
+</html>
