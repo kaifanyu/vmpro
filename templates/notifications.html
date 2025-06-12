@@ -4,7 +4,129 @@
     <meta charset="UTF-8">
     <title>Notifications</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --item-white: #FFFFFF;
+            --item-black: #000000;
+            --item-purple: #6B46C1;
+            --item-orange: #F97316;
+            --item-lavender: #E6E6FA;
+            --item-lilac: #C8A2C8;
+            --item-orchid: #DA70D6;
+            --item-iris: #5D3FD3;
+            --item-violet: #8A2BE2;
+            --item-indigo: #4B0082;
+            --item-mist: #F2F2F2;
+            --item-dove: #E6E6E6;
+            --item-steel: #CCCCCC;
+            --item-glacier: #999999;
+            --item-slate: #808080;
+            --item-iron: #666666;
+            --item-shadow: #4D4D4D;
+        }
+
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--item-white) 0%, var(--item-mist) 50%, var(--item-dove) 100%);
+            color: var(--item-shadow);
+        }
+
+        .item-card {
+            background: var(--item-white);
+            border: 1px solid var(--item-dove);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .item-card:hover {
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .item-input {
+            background: var(--item-white);
+            border: 1px solid var(--item-steel);
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.2s ease;
+            font-weight: 400;
+            color: var(--item-shadow);
+            width: 100%;
+        }
+
+        .item-input:focus {
+            outline: none;
+            border-color: var(--item-purple);
+            box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+        }
+
+        .item-input::placeholder {
+            color: var(--item-glacier);
+        }
+
+        .item-button-primary {
+            background: var(--item-purple);
+            color: var(--item-white);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-button-primary:hover {
+            background: var(--item-iris);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(107, 70, 193, 0.3);
+        }
+
+        .item-button-secondary {
+            background: var(--item-white);
+            color: var(--item-purple);
+            border: 1px solid var(--item-purple);
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-button-secondary:hover {
+            background: var(--item-lavender);
+        }
+
+        .item-button-orange {
+            background: var(--item-orange);
+            color: var(--item-white);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-button-orange:hover {
+            background: #ea580c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.3);
+        }
+
         .loading {
             display: flex;
             justify-content: center;
@@ -13,8 +135,8 @@
         }
 
         .spinner {
-            border: 4px solid #f3f4f6;
-            border-top: 4px solid #10b981;
+            border: 4px solid var(--item-mist);
+            border-top: 4px solid var(--item-purple);
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -27,108 +149,210 @@
         }
 
         .error-container {
-            background: #fee2e2;
-            border: 1px solid #fecaca;
-            color: #991b1b;
+            background: var(--item-white);
+            border: 1px solid var(--item-orange);
+            color: var(--item-orange);
             padding: 1rem;
-            border-radius: 0.5rem;
+            border-radius: 12px;
             margin: 1rem 0;
+            box-shadow: 0 4px 20px rgba(249, 115, 22, 0.1);
         }
 
         .success-container {
-            background: #dcfce7;
-            border: 1px solid #bbf7d0;
-            color: #166534;
+            background: var(--item-white);
+            border: 1px solid var(--item-purple);
+            color: var(--item-purple);
             padding: 1rem;
-            border-radius: 0.5rem;
+            border-radius: 12px;
             margin: 1rem 0;
+            box-shadow: 0 4px 20px rgba(107, 70, 193, 0.1);
         }
 
         .debug-info {
-            background: #f3f4f6;
-            border: 1px solid #d1d5db;
+            background: var(--item-mist);
+            border: 1px solid var(--item-steel);
             padding: 1rem;
-            border-radius: 0.5rem;
+            border-radius: 12px;
             margin: 1rem 0;
-            font-family: monospace;
+            font-family: 'SF Mono', Monaco, 'Inconsolata', 'Roboto Mono', Consolas, 'Courier New', monospace;
             font-size: 0.875rem;
             white-space: pre-wrap;
+            color: var(--item-shadow);
+        }
+
+        .table-header {
+            background: var(--item-mist);
+            border-bottom: 1px solid var(--item-dove);
+        }
+
+        .table-row {
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--item-dove);
+        }
+
+        .table-row:hover {
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.05), rgba(249, 115, 22, 0.03));
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-sent {
+            background: var(--item-lavender);
+            color: var(--item-purple);
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-failed {
+            background: #fce8e6;
+            color: var(--item-orange);
+        }
+
+        .status-default {
+            background: var(--item-mist);
+            color: var(--item-glacier);
+        }
+
+        .method-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .method-email {
+            background: var(--item-lavender);
+            color: var(--item-iris);
+        }
+
+        .method-sms {
+            background: #e0e7ff;
+            color: var(--item-violet);
+        }
+
+        .method-default {
+            background: var(--item-mist);
+            color: var(--item-glacier);
+        }
+
+        .empty-state-icon {
+            background: linear-gradient(135deg, var(--item-mist) 0%, var(--item-dove) 100%);
+            color: var(--item-glacier);
         }
     </style>
 </head>
-<body class="bg-gray-50 p-6">
+<body class="p-6">
     <div class="max-w-7xl mx-auto">
-        <div class="bg-white rounded-lg shadow p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">Notifications</h2>
-                <div class="flex space-x-3">
-                    <button onclick="toggleDebug()" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                        Debug Info
-                    </button>
-                    <button onclick="refreshData()" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-                        Refresh
-                    </button>
-                    <button onclick="exportCSV()" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">
-                        Export CSV
-                    </button>
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="item-card overflow-hidden">
+                <header class="relative px-8 py-8" style="background: linear-gradient(135deg, var(--item-purple) 0%, var(--item-iris) 100%);">
+                    <!-- Decorative Elements -->
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                    <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+                    
+                    <div class="relative flex items-center justify-between text-white">
+                        <div class="flex items-center">
+                            <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mr-6 backdrop-blur-sm">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/>
+                                    <path d="m13.73 21a2 2 0 0 1-3.46 0"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h1 class="text-4xl font-bold tracking-tight mb-2">Notifications</h1>
+                                <p class="text-white/80 text-lg font-medium">Monitor and manage system notifications</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-3">
+                            <button onclick="toggleDebug()" class="item-button-secondary bg-white/20 border-white/30 text-white hover:bg-white/30">
+                                Debug Info
+                            </button>
+                            <button onclick="refreshData()" class="item-button-secondary bg-white/20 border-white/30 text-white hover:bg-white/30">
+                                Refresh
+                            </button>
+                            <button onclick="exportCSV()" class="item-button-secondary bg-white/20 border-white/30 text-white hover:bg-white/30">
+                                Export CSV
+                            </button>
+                        </div>
+                    </div>
+                </header>
+            </div>
+        </div>
+
+        <div class="item-card">
+            <div class="p-6">
+                <!-- Debug Section -->
+                <div id="debugSection" class="hidden mb-6">
+                    <h3 class="text-lg font-semibold mb-2" style="color: var(--item-shadow);">Debug Information</h3>
+                    <div id="debugInfo" class="debug-info"></div>
                 </div>
-            </div>
 
-            <!-- Debug Section -->
-            <div id="debugSection" class="hidden">
-                <h3 class="text-lg font-semibold mb-2">Debug Information</h3>
-                <div id="debugInfo" class="debug-info"></div>
-            </div>
+                <!-- Status Messages -->
+                <div id="statusContainer" class="mb-6"></div>
 
-            <!-- Status Messages -->
-            <div id="statusContainer"></div>
-
-            <!-- Search -->
-            <div class="mb-4">
-                <input type="text"
-                       id="searchInput"
-                       placeholder="Search by Recipient or Method..."
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            </div>
-
-            <!-- Loading State -->
-            <div id="loadingState" class="loading">
-                <div class="spinner"></div>
-                <span class="ml-3 text-gray-600">Loading notifications...</span>
-            </div>
-
-            <!-- Table -->
-            <div id="tableContainer" class="hidden">
-                <table id="notificationTable" class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recipient Type</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recipient ID</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Method</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sent At</th>
-                        </tr>
-                    </thead>
-                    <tbody id="notificationBody" class="bg-white divide-y divide-gray-200">
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Empty State -->
-            <div id="emptyState" class="hidden text-center py-12">
-                <div class="text-gray-400">
-                    <svg class="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM7 7h5v5H7V7z"/>
-                    </svg>
+                <!-- Search -->
+                <div class="mb-6">
+                    <input type="text"
+                           id="searchInput"
+                           placeholder="Search by Recipient or Method..."
+                           class="item-input">
                 </div>
-                <h3 class="mt-2 text-sm font-medium text-gray-900">No notifications</h3>
-                <p class="mt-1 text-sm text-gray-500">No notification records found in the database.</p>
-                <div class="mt-6">
-                    <button onclick="testNotification()" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                        Test Notification
-                    </button>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="loading">
+                    <div class="spinner"></div>
+                    <span class="ml-3" style="color: var(--item-glacier);">Loading notifications...</span>
+                </div>
+
+                <!-- Table -->
+                <div id="tableContainer" class="hidden">
+                    <div class="overflow-x-auto rounded-lg border" style="border-color: var(--item-dove);">
+                        <table id="notificationTable" class="min-w-full bg-white">
+                            <thead class="table-header">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style="color: var(--item-iron);">ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style="color: var(--item-iron);">Recipient Type</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style="color: var(--item-iron);">Recipient ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style="color: var(--item-iron);">Method</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style="color: var(--item-iron);">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style="color: var(--item-iron);">Message</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider" style="color: var(--item-iron);">Sent At</th>
+                                </tr>
+                            </thead>
+                            <tbody id="notificationBody" class="bg-white">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="hidden text-center py-12">
+                    <div class="empty-state-icon w-24 h-24 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <svg class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM7 7h5v5H7V7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="mt-2 text-lg font-semibold" style="color: var(--item-shadow);">No notifications</h3>
+                    <p class="mt-1" style="color: var(--item-glacier);">No notification records found in the database.</p>
+                    <div class="mt-6">
+                        <button onclick="testNotification()" class="item-button-primary">
+                            Test Notification
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -249,23 +473,23 @@
 
             data.forEach(row => {
                 const tr = document.createElement('tr');
-                tr.className = 'hover:bg-gray-50';
+                tr.className = 'table-row';
                 tr.innerHTML = `
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${row.id || 'N/A'}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.recipient_type || 'N/A'}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.recipient_id || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium" style="color: var(--item-shadow);">${row.id || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm" style="color: var(--item-shadow);">${row.recipient_type || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm" style="color: var(--item-shadow);">${row.recipient_id || 'N/A'}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getMethodBadgeClass(row.method)}">
+                        <span class="method-badge ${getMethodBadgeClass(row.method)}">
                             ${row.method || 'N/A'}
                         </span>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusBadgeClass(row.status)}">
+                        <span class="status-badge ${getStatusBadgeClass(row.status)}">
                             ${row.status || 'N/A'}
                         </span>
                     </td>
-                    <td class="px-6 py-4 text-sm text-gray-900 max-w-xs truncate" title="${row.message || ''}">${row.message || 'N/A'}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${row.sent_at || 'N/A'}</td>
+                    <td class="px-6 py-4 text-sm max-w-xs truncate" style="color: var(--item-shadow);" title="${row.message || ''}">${row.message || 'N/A'}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm" style="color: var(--item-glacier);">${row.sent_at || 'N/A'}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -287,23 +511,23 @@
         function getStatusBadgeClass(status) {
             const s = (status || '').toLowerCase();
             if (s.includes('sent') || s.includes('delivered')) {
-                return 'bg-green-100 text-green-800';
+                return 'status-sent';
             } else if (s.includes('pending') || s.includes('queued')) {
-                return 'bg-yellow-100 text-yellow-800';
+                return 'status-pending';
             } else if (s.includes('failed') || s.includes('error')) {
-                return 'bg-red-100 text-red-800';
+                return 'status-failed';
             }
-            return 'bg-gray-100 text-gray-800';
+            return 'status-default';
         }
 
         function getMethodBadgeClass(method) {
             const m = (method || '').toLowerCase();
             if (m.includes('email')) {
-                return 'bg-blue-100 text-blue-800';
+                return 'method-email';
             } else if (m.includes('sms')) {
-                return 'bg-purple-100 text-purple-800';
+                return 'method-sms';
             }
-            return 'bg-gray-100 text-gray-800';
+            return 'method-default';
         }
 
         // Search functionality

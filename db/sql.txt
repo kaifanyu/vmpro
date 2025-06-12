@@ -1,5 +1,4 @@
-#vmpro
-
+-- Create employees table
 CREATE TABLE employees (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -7,68 +6,87 @@ CREATE TABLE employees (
     phone VARCHAR(20),
     password_hash VARCHAR(255) NOT NULL,
     role VARCHAR(50) DEFAULT 'staff',
+    profile_photo VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create visitors table
 CREATE TABLE visitors (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     phone VARCHAR(20),
     email VARCHAR(150),
     visit_date DATETIME NOT NULL,
-    host_employee INT NOT NULL,  -- refers to employees.id, no FK constraint
+    host_employee INT NOT NULL,
     qr_token VARCHAR(100) NOT NULL UNIQUE,
-    status VARCHAR(50) DEFAULT 'pending',  -- pending, arrived, entered, left
+    status VARCHAR(50) DEFAULT 'pending',
     photo_url VARCHAR(255),
     document_url VARCHAR(255),
+    location_id INT,
+    host_notified BOOLEAN DEFAULT FALSE,
+    visitor_notified BOOLEAN DEFAULT FALSE,
+    checkin_completed BOOLEAN DEFAULT FALSE,
+    checkout_notified BOOLEAN DEFAULT FALSE,
+    estimate_time TIME,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create visit logs
 CREATE TABLE visit_logs (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    visitor_id INT NOT NULL,  -- refers to visitors.id, no FK constraint
-    event_type VARCHAR(50) NOT NULL,  -- e.g., registered, arrived, entered, left
+    visitor_id INT NOT NULL,
+    event_type VARCHAR(50) NOT NULL,
     timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create notifications
 CREATE TABLE notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    recipient_type VARCHAR(20) NOT NULL,    -- 'visitor' or 'employee'
-    recipient_id INT NOT NULL,              -- visitors.id or employees.id (no FK)
-    method VARCHAR(20) NOT NULL,            -- 'email', 'sms'
-    status VARCHAR(20) DEFAULT 'sent',      -- 'sent', 'failed', 'queued'
+    recipient_type VARCHAR(20) NOT NULL,
+    recipient_id INT NOT NULL,
+    method VARCHAR(20) NOT NULL,
+    status VARCHAR(20) DEFAULT 'sent',
     message TEXT,
     sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create intercom events
 CREATE TABLE intercom_events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     visitor_id INT NOT NULL,
-    event_type VARCHAR(50) NOT NULL,           -- e.g., 'photo_capture', 'qr_scanned'
-    image_url VARCHAR(255),                    -- stored snapshot from camera or upload
-    device_id VARCHAR(100),                    -- optional: intercom ID
+    event_type VARCHAR(50) NOT NULL,
+    image_url VARCHAR(255),
+    device_id VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create checkout audits
 CREATE TABLE checkout_audits (
     id INT AUTO_INCREMENT PRIMARY KEY,
     visitor_id INT NOT NULL,
-    method VARCHAR(50) NOT NULL,               -- 'manual', 'scan', 'auto'
-    performed_by INT,                          -- employee ID if manual
+    method VARCHAR(50) NOT NULL,
+    performed_by INT,
     notes TEXT,
+    in_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    out_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-alter table checkout_audits add in_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-alter table checkout_audits add out_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
+-- Create locations
 CREATE TABLE locations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     address VARCHAR(255),
     timezone VARCHAR(50),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    default_employee INT,
+    FOREIGN KEY (default_employee) REFERENCES employees(id)
+        ON DELETE SET NULL
+        ON UPDATE CASCADE
 );
 
+
+
+-- Grant privileges
 GRANT ALL PRIVILEGES ON vmpro.* TO 'devops'@'%';
 SHOW GRANTS FOR 'devops'@'%';

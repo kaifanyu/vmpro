@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics Dashboard - Visitor Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --item-purple: #6B46C1;
+            --item-purple-light: #8B5CF6;
+            --item-purple-dark: #553C9A;
+            --item-orange: #F97316;
+            --item-orange-light: #FB923C;
+            --item-white: #FFFFFF;
+            --item-black: #000000;
+            --item-lavender: #E6E6FA;
+            --item-lilac: #C8A2C8;
+            --item-mist: #F2F2F2;
+            --item-dove: #E6E6E6;
+            --item-steel: #CCCCCC;
+            --item-slate: #808080;
+            --item-iron: #666666;
+            --item-shadow: #4D4D4D;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 400;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: #FAFAFA;
+        }
+
+        .analytics-card {
+            background: var(--item-white);
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--item-dove);
+            transition: all 0.2s ease;
+        }
+
+        .analytics-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateY(-1px);
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--item-white) 0%, #F8FAFC 100%);
+            border-radius: 12px;
+            border: 1px solid var(--item-dove);
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--item-purple), var(--item-orange));
+            border-radius: 12px 12px 0 0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--item-shadow);
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--item-slate);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 8px;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            margin-top: 12px;
+            font-size: 0.875rem;
+        }
+
+        .trend-up {
+            color: #10B981;
+        }
+
+        .trend-down {
+            color: #EF4444;
+        }
+
+        .trend-neutral {
+            color: var(--item-slate);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .chart-container-large {
+            height: 400px;
+        }
+
+        .filter-tabs {
+            display: flex;
+            background: var(--item-mist);
+            border-radius: 8px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+
+        .filter-tab {
+            flex: 1;
+            padding: 8px 16px;
+            text-align: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--item-slate);
+        }
+
+        .filter-tab.active {
+            background: var(--item-white);
+            color: var(--item-purple);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--item-dove);
+            border-top: 3px solid var(--item-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .section-header {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--item-shadow);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header i {
+            margin-right: 8px;
+            color: var(--item-purple);
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .full-width-chart {
+            grid-column: 1 / -1;
+        }
+
+        .alert-card {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            border: 1px solid #F59E0B;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .alert-card.danger {
+            background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+            border-color: #EF4444;
+        }
+
+        .alert-card.success {
+            background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+            border-color: #10B981;
+        }
+
+        .date-range-picker {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .date-input {
+            padding: 8px 12px;
+            border: 1px solid var(--item-dove);
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+
+        .refresh-btn {
+            background: var(--item-purple);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .refresh-btn:hover {
+            background: var(--item-purple-dark);
+            transform: translateY(-1px);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--item-dove);
+        }
+
+        .analytics-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .analytics-table th {
+            background: var(--item-mist);
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--item-shadow);
+            font-size: 0.875rem;
+            border-bottom: 1px solid var(--item-dove);
+        }
+
+        .analytics-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--item-dove);
+            font-size: 0.875rem;
+        }
+
+        .analytics-table tr:hover {
+            background: #F8FAFC;
+        }
+    </style>
+</head>
+<body>
+    <div class="p-6 min-h-screen">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
+                <p class="text-gray-600 mt-2">Comprehensive visitor insights and trends</p>
+            </div>
+            
+            <!-- Date Range Picker -->
+            <div class="date-range-picker">
+                <label class="text-sm font-medium text-gray-700">Date Range:</label>
+                <input type="date" id="startDate" class="date-input">
+                <span class="text-gray-500">to</span>
+                <input type="date" id="endDate" class="date-input">
+                <button id="refreshData" class="refresh-btn">
+                    <i class="fas fa-sync-alt mr-2"></i>
+                    Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="text-center py-12">
+            <div class="loading-spinner"></div>
+            <p class="text-gray-600 mt-4">Loading analytics data...</p>
+        </div>
+
+        <!-- Analytics Content -->
+        <div id="analyticsContent" style="display: none;">
+            <!-- Core Stats Grid -->
+            <div class="metric-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalVisitors">-</div>
+                    <div class="stat-label">Total Visitors</div>
+                    <div class="stat-trend" id="totalVisitorsTrend">
+                        <i class="fas fa-chart-line mr-1"></i>
+                        <span>-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="checkedInVisitors">-</div>
+                    <div class="stat-label">Checked In</div>
+                    <div class="stat-trend" id="checkedInTrend">
+                        <i class="fas fa-sign-in-alt mr-1"></i>
+                        <span>-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="checkedOutVisitors">-</div>
+                    <div class="stat-label">Checked Out</div>
+                    <div class="stat-trend" id="checkedOutTrend">
+                        <i class="fas fa-sign-out-alt mr-1"></i>
+                        <span>-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="avgDuration">-</div>
+                    <div class="stat-label">Avg Visit Duration</div>
+                    <div class="stat-trend" id="avgDurationTrend">
+                        <i class="fas fa-clock mr-1"></i>
+                        <span>-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="noShowRate">-</div>
+                    <div class="stat-label">No-Show Rate</div>
+                    <div class="stat-trend" id="noShowTrend">
+                        <i class="fas fa-user-times mr-1"></i>
+                        <span>-</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-value" id="repeatVisitors">-</div>
+                    <div class="stat-label">Repeat Visitors</div>
+                    <div class="stat-trend" id="repeatVisitorsTrend">
+                        <i class="fas fa-redo mr-1"></i>
+                        <span>-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visitor Activity Chart -->
+            <div class="chart-grid">
+                <div class="analytics-card p-6 full-width-chart">
+                    <div class="section-header">
+                        <i class="fas fa-chart-bar"></i>
+                        Visitor Activity Overview
+                    </div>
+                    <div class="filter-tabs">
+                        <div class="filter-tab active" data-period="daily">Daily View</div>
+                        <div class="filter-tab" data-period="weekly">Weekly View</div>
+                        <div class="filter-tab" data-period="monthly">Monthly View</div>
+                    </div>
+                    <div class="chart-container chart-container-large">
+                        <canvas id="visitorActivityChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Hourly Distribution -->
+                <div class="analytics-card p-6">
+                    <div class="section-header">
+                        <i class="fas fa-clock"></i>
+                        Peak Hours Distribution
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="hourlyChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Top Host Employees -->
+                <div class="analytics-card p-6">
+                    <div class="section-header">
+                        <i class="fas fa-users"></i>
+                        Top Host Employees
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="employeeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location & Duration Analytics -->
+            <div class="chart-grid">
+                <!-- Top Locations -->
+                <div class="analytics-card p-6">
+                    <div class="section-header">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Visitors by Location
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="locationChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Visit Duration Analysis -->
+                <div class="analytics-card p-6">
+                    <div class="section-header">
+                        <i class="fas fa-stopwatch"></i>
+                        Visit Duration Distribution
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="durationChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alerts & Issues -->
+            <div class="analytics-card p-6 mb-8">
+                <div class="section-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Alerts & Issues
+                </div>
+                <div id="alertsContainer">
+                    <!-- Alerts will be populated here -->
+                </div>
+            </div>
+
+            <!-- Detailed Tables -->
+            <div class="chart-grid">
+                <!-- Top Employees Table -->
+                <div class="analytics-card p-6">
+                    <div class="section-header">
+                        <i class="fas fa-medal"></i>
+                        Employee Performance
+                    </div>
+                    <div class="table-container">
+                        <table class="analytics-table">
+                            <thead>
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Total Visitors</th>
+                                    <th>Check-in Rate</th>
+                                    <th>Avg Duration</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employeeTableBody">
+                                <tr>
+                                    <td colspan="4" class="text-center text-gray-500 py-4">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Recent Visitor Activity -->
+                <div class="analytics-card p-6">
+                    <div class="section-header">
+                        <i class="fas fa-history"></i>
+                        Recent Activity
+                    </div>
+                    <div class="table-container">
+                        <table class="analytics-table">
+                            <thead>
+                                <tr>
+                                    <th>Visitor</th>
+                                    <th>Event</th>
+                                    <th>Time</th>
+                                    <th>Host</th>
+                                </tr>
+                            </thead>
+                            <tbody id="activityTableBody">
+                                <tr>
+                                    <td colspan="4" class="text-center text-gray-500 py-4">Loading...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class AnalyticsDashboard {
+            constructor() {
+                this.charts = {};
+                this.currentPeriod = 'daily';
+                this.dateRange = this.getDefaultDateRange();
+                
+                this.initEventListeners();
+                this.setDefaultDates();
+                this.loadAnalytics();
+            }
+
+            getDefaultDateRange() {
+                const endDate = new Date();
+                const startDate = new Date();
+                startDate.setMonth(startDate.getMonth() - 1); // Last 30 days
+                
+                return {
+                    start: startDate.toISOString().split('T')[0],
+                    end: endDate.toISOString().split('T')[0]
+                };
+            }
+
+            setDefaultDates() {
+                document.getElementById('startDate').value = this.dateRange.start;
+                document.getElementById('endDate').value = this.dateRange.end;
+            }
+
+            initEventListeners() {
+                // Date range picker
+                document.getElementById('refreshData').addEventListener('click', () => {
+                    this.updateDateRange();
+                    this.loadAnalytics();
+                });
+
+                // Period filter tabs
+                document.querySelectorAll('.filter-tab').forEach(tab => {
+                    tab.addEventListener('click', (e) => {
+                        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentPeriod = e.target.dataset.period;
+                        this.updateVisitorActivityChart();
+                    });
+                });
+            }
+
+            updateDateRange() {
+                this.dateRange.start = document.getElementById('startDate').value;
+                this.dateRange.end = document.getElementById('endDate').value;
+            }
+
+            async loadAnalytics() {
+                try {
+                    this.showLoading();
+                    
+                    // Fetch all analytics data
+                    const [
+                        coreStats,
+                        visitorTrends,
+                        hourlyData,
+                        locationData,
+                        employeeData,
+                        durationData,
+                        alertsData,
+                        recentActivity
+                    ] = await Promise.all([
+                        this.fetchCoreStats(),
+                        this.fetchVisitorTrends(),
+                        this.fetchHourlyData(),
+                        this.fetchLocationData(),
+                        this.fetchEmployeeData(),
+                        this.fetchDurationData(),
+                        this.fetchAlertsData(),
+                        this.fetchRecentActivity()
+                    ]);
+
+                    // Update UI
+                    this.updateCoreStats(coreStats);
+                    this.createVisitorActivityChart(visitorTrends);
+                    this.createHourlyChart(hourlyData);
+                    this.createLocationChart(locationData);
+                    this.createEmployeeChart(employeeData);
+                    this.createDurationChart(durationData);
+                    this.updateAlerts(alertsData);
+                    this.updateTables(employeeData, recentActivity);
+
+                    this.hideLoading();
+                } catch (error) {
+                    console.error('Error loading analytics:', error);
+                    this.showError('Failed to load analytics data');
+                }
+            }
+
+            async fetchCoreStats() {
+                const response = await fetch(`/api/analytics/core-stats?start=${this.dateRange.start}&end=${this.dateRange.end}`);
+                return await response.json();
+            }
+
+            async fetchVisitorTrends() {
+                const response = await fetch(`/api/analytics/visitor-trends?start=${this.dateRange.start}&end=${this.dateRange.end}&period=${this.currentPeriod}`);
+                return await response.json();
+            }
+
+            async fetchHourlyData() {
+                const response = await fetch(`/api/analytics/hourly-distribution?start=${this.dateRange.start}&end=${this.dateRange.end}`);
+                return await response.json();
+            }
+
+            async fetchLocationData() {
+                const response = await fetch(`/api/analytics/locations?start=${this.dateRange.start}&end=${this.dateRange.end}`);
+                return await response.json();
+            }
+
+            async fetchEmployeeData() {
+                const response = await fetch(`/api/analytics/employees?start=${this.dateRange.start}&end=${this.dateRange.end}`);
+                return await response.json();
+            }
+
+            async fetchDurationData() {
+                const response = await fetch(`/api/analytics/visit-duration?start=${this.dateRange.start}&end=${this.dateRange.end}`);
+                return await response.json();
+            }
+
+            async fetchAlertsData() {
+                const response = await fetch(`/api/analytics/alerts?start=${this.dateRange.start}&end=${this.dateRange.end}`);
+                return await response.json();
+            }
+
+            async fetchRecentActivity() {
+                const response = await fetch(`/api/analytics/recent-activity?limit=10`);
+                return await response.json();
+            }
+
+            updateCoreStats(stats) {
+                document.getElementById('totalVisitors').textContent = stats.total_visitors || 0;
+                document.getElementById('checkedInVisitors').textContent = stats.checked_in_visitors || 0;
+                document.getElementById('checkedOutVisitors').textContent = stats.checked_out_visitors || 0;
+                document.getElementById('avgDuration').textContent = stats.avg_duration || 'N/A';
+                document.getElementById('noShowRate').textContent = `${stats.no_show_rate || 0}%`;
+                document.getElementById('repeatVisitors').textContent = stats.repeat_visitors || 0;
+
+                // Update trends
+                this.updateTrend('totalVisitorsTrend', stats.total_visitors_trend);
+                this.updateTrend('checkedInTrend', stats.checked_in_trend);
+                this.updateTrend('checkedOutTrend', stats.checked_out_trend);
+                this.updateTrend('avgDurationTrend', stats.avg_duration_trend);
+                this.updateTrend('noShowTrend', stats.no_show_trend);
+                this.updateTrend('repeatVisitorsTrend', stats.repeat_visitors_trend);
+            }
+
+            updateTrend(elementId, trend) {
+                const element = document.getElementById(elementId);
+                const span = element.querySelector('span');
+                const icon = element.querySelector('i');
+                
+                if (!trend) {
+                    span.textContent = 'No change';
+                    element.className = 'stat-trend trend-neutral';
+                    return;
+                }
+
+                const value = Math.abs(trend.percentage || 0);
+                const direction = trend.direction || 'neutral';
+                
+                span.textContent = `${value}% ${direction === 'up' ? 'increase' : direction === 'down' ? 'decrease' : 'no change'}`;
+                
+                if (direction === 'up') {
+                    element.className = 'stat-trend trend-up';
+                    icon.className = 'fas fa-arrow-up mr-1';
+                } else if (direction === 'down') {
+                    element.className = 'stat-trend trend-down';
+                    icon.className = 'fas fa-arrow-down mr-1';
+                } else {
+                    element.className = 'stat-trend trend-neutral';
+                    icon.className = 'fas fa-minus mr-1';
+                }
+            }
+
+            createVisitorActivityChart(data) {
+                const ctx = document.getElementById('visitorActivityChart').getContext('2d');
+                
+                if (this.charts.visitorActivity) {
+                    this.charts.visitorActivity.destroy();
+                }
+
+                this.charts.visitorActivity = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels || [],
+                        datasets: [
+                            {
+                                label: 'Total Visitors',
+                                data: data.total_visitors || [],
+                                backgroundColor: 'rgba(107, 70, 193, 0.8)',
+                                borderColor: 'rgb(107, 70, 193)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Checked In',
+                                data: data.checked_in || [],
+                                backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                                borderColor: 'rgb(16, 185, 129)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Checked Out',
+                                data: data.checked_out || [],
+                                backgroundColor: 'rgba(249, 115, 22, 0.8)',
+                                borderColor: 'rgb(249, 115, 22)',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: {
+                            mode: 'index',
+                            intersect: false,
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    usePointStyle: true,
+                                    pointStyle: 'circle'
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        return `${context[0].label}`;
+                                    },
+                                    label: function(context) {
+                                        return `${context.dataset.label}: ${context.parsed.y} visitors`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Number of Visitors'
+                                }
+                            },
+                            x: {
+                                grid: {
+                                    color: 'rgba(0, 0, 0, 0.1)'
+                                },
+                                title: {
+                                    display: true,
+                                    text: this.currentPeriod === 'daily' ? 'Date' : 
+                                          this.currentPeriod === 'weekly' ? 'Week' : 'Month'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            createHourlyChart(data) {
+                const ctx = document.getElementById('hourlyChart').getContext('2d');
+                
+                if (this.charts.hourly) {
+                    this.charts.hourly.destroy();
+                }
+
+                this.charts.hourly = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.hours || [],
+                        datasets: [{
+                            label: 'Visitors',
+                            data: data.counts || [],
+                            backgroundColor: 'rgba(107, 70, 193, 0.8)',
+                            borderColor: 'rgb(107, 70, 193)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            createLocationChart(data) {
+                const ctx = document.getElementById('locationChart').getContext('2d');
+                
+                if (this.charts.location) {
+                    this.charts.location.destroy();
+                }
+
+                this.charts.location = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: data.locations || [],
+                        datasets: [{
+                            data: data.counts || [],
+                            backgroundColor: [
+                                'rgb(107, 70, 193)',
+                                'rgb(249, 115, 22)',
+                                'rgb(16, 185, 129)',
+                                'rgb(239, 68, 68)',
+                                'rgb(59, 130, 246)',
+                                'rgb(168, 85, 247)'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    }
+                });
+            }
+
+            createEmployeeChart(data) {
+                const ctx = document.getElementById('employeeChart').getContext('2d');
+                
+                if (this.charts.employee) {
+                    this.charts.employee.destroy();
+                }
+
+                // Take top 10 employees and ensure data is an array
+                const employees = Array.isArray(data) ? data : [];
+                const topEmployees = employees.slice(0, 10);
+
+                this.charts.employee = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: topEmployees.map(emp => emp.name) || [],
+                        datasets: [{
+                            label: 'Visitors Hosted',
+                            data: topEmployees.map(emp => emp.total_visitors) || [],
+                            backgroundColor: 'rgba(249, 115, 22, 0.8)',
+                            borderColor: 'rgb(249, 115, 22)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y',
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            createDurationChart(data) {
+                const ctx = document.getElementById('durationChart').getContext('2d');
+                
+                if (this.charts.duration) {
+                    this.charts.duration.destroy();
+                }
+
+                this.charts.duration = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.ranges || [],
+                        datasets: [{
+                            label: 'Number of Visits',
+                            data: data.counts || [],
+                            backgroundColor: 'rgba(16, 185, 129, 0.8)',
+                            borderColor: 'rgb(16, 185, 129)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            updateAlerts(alerts) {
+                const container = document.getElementById('alertsContainer');
+                let html = '';
+
+                if (!alerts || alerts.length === 0) {
+                    html = '<div class="alert-card success"><i class="fas fa-check-circle mr-2"></i>No issues detected. All systems operating normally.</div>';
+                } else {
+                    alerts.forEach(alert => {
+                        const alertClass = alert.severity === 'high' ? 'danger' : alert.severity === 'medium' ? '' : 'success';
+                        const icon = alert.severity === 'high' ? 'fas fa-exclamation-triangle' : 
+                                   alert.severity === 'medium' ? 'fas fa-exclamation-circle' : 'fas fa-info-circle';
+                        
+                        html += `<div class="alert-card ${alertClass}">
+                            <i class="${icon} mr-2"></i>
+                            <strong>${alert.title}</strong>: ${alert.message}
+                        </div>`;
+                    });
+                }
+
+                container.innerHTML = html;
+            }
+
+            updateTables(employeeData, activityData) {
+                // Employee performance table
+                const employeeTableBody = document.getElementById('employeeTableBody');
+                let employeeHtml = '';
+
+                const employees = Array.isArray(employeeData) ? employeeData : [];
+
+                if (employees.length === 0) {
+                    employeeHtml = '<tr><td colspan="4" class="text-center text-gray-500 py-4">No employee data available</td></tr>';
+                } else {
+                    employees.forEach(emp => {
+                        const checkinRate = emp.total_visitors > 0 ? Math.round((emp.checked_in_visitors / emp.total_visitors) * 100) : 0;
+                        employeeHtml += `
+                            <tr>
+                                <td class="font-medium">${emp.name}</td>
+                                <td>${emp.total_visitors}</td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <div class="w-12 bg-gray-200 rounded-full h-2 mr-2">
+                                            <div class="bg-purple-600 h-2 rounded-full" style="width: ${checkinRate}%"></div>
+                                        </div>
+                                        <span class="text-sm">${checkinRate}%</span>
+                                    </div>
+                                </td>
+                                <td>${emp.avg_duration || 'N/A'}</td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                employeeTableBody.innerHTML = employeeHtml;
+
+                // Recent activity table
+                const activityTableBody = document.getElementById('activityTableBody');
+                let activityHtml = '';
+
+                const activities = Array.isArray(activityData) ? activityData : [];
+
+                if (activities.length === 0) {
+                    activityHtml = '<tr><td colspan="4" class="text-center text-gray-500 py-4">No recent activity</td></tr>';
+                } else {
+                    activities.forEach(activity => {
+                        const eventIcon = activity.event_type === 'check_in' ? 'fas fa-sign-in-alt text-green-600' :
+                                         activity.event_type === 'check_out' ? 'fas fa-sign-out-alt text-orange-600' :
+                                         'fas fa-user-plus text-blue-600';
+                        
+                        activityHtml += `
+                            <tr>
+                                <td class="font-medium">${activity.visitor_name}</td>
+                                <td>
+                                    <div class="flex items-center">
+                                        <i class="${eventIcon} mr-2"></i>
+                                        <span class="capitalize">${activity.event_type.replace('_', ' ')}</span>
+                                    </div>
+                                </td>
+                                <td>${this.formatTime(activity.timestamp)}</td>
+                                <td>${activity.host_name || 'N/A'}</td>
+                            </tr>
+                        `;
+                    });
+                }
+
+                activityTableBody.innerHTML = activityHtml;
+            }
+
+            formatTime(timestamp) {
+                return new Date(timestamp).toLocaleString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
+
+            updateVisitorActivityChart() {
+                // Re-fetch and update the visitor activity chart with new period
+                this.fetchVisitorTrends().then(data => {
+                    this.createVisitorActivityChart(data);
+                });
+            }
+
+            showLoading() {
+                document.getElementById('loadingState').style.display = 'block';
+                document.getElementById('analyticsContent').style.display = 'none';
+            }
+
+            hideLoading() {
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('analyticsContent').style.display = 'block';
+            }
+
+            showError(message) {
+                document.getElementById('loadingState').innerHTML = `
+                    <div class="text-center py-12">
+                        <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+                        <p class="text-red-600">${message}</p>
+                        <button onclick="location.reload()" class="mt-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                            Retry
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new AnalyticsDashboard();
+        });
+    </script>
+</body>
+</html>

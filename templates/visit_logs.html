@@ -5,94 +5,177 @@
   <title>Visit Logs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @keyframes slide-down {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Item Design System Variables */
+    :root {
+      --item-purple: #6B46C1;
+      --item-purple-light: #8B5CF6;
+      --item-purple-dark: #553C9A;
+      --item-orange: #F97316;
+      --item-orange-light: #FB923C;
+      --item-white: #FFFFFF;
+      --item-black: #000000;
+      --item-lavender: #E6E6FA;
+      --item-lilac: #C8A2C8;
+      --item-mist: #F2F2F2;
+      --item-dove: #E6E6E6;
+      --item-steel: #CCCCCC;
+      --item-slate: #808080;
+      --item-iron: #666666;
+      --item-shadow: #4D4D4D;
     }
 
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Clean animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes pulse-gentle {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.8;
-      }
-    }
-
-    .animate-slide-down {
-      animation: slide-down 0.6s ease-out;
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .animate-fade-in {
-      animation: fade-in 0.4s ease-out;
+      animation: fadeIn 0.4s ease-out;
     }
 
-    .animate-pulse-gentle {
-      animation: pulse-gentle 2s infinite;
+    .animate-slide-down {
+      animation: slideDown 0.5s ease-out;
     }
 
-    .event-badge {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    /* Typography system */
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .event-badge.checkin {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: white;
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    .font-geometric {
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: -0.01em;
     }
 
-    .event-badge.checkout {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: white;
-      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    /* Cards and containers */
+    .item-card {
+      background: var(--item-white);
+      border-radius: 12px;
+      box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.06),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--item-dove);
     }
 
-    .event-badge.registration {
-      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-      color: white;
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    /* Input styling */
+    .item-input {
+      background: var(--item-white);
+      border: 1.5px solid var(--item-dove);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      font-weight: 400;
     }
 
-    .event-badge.cancellation {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: white;
-      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    .item-input:focus {
+      outline: none;
+      border-color: var(--item-purple);
+      box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.08);
     }
 
-    .table-row {
+    /* Button styling */
+    .item-button {
+      background: var(--item-purple);
+      border-radius: 8px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
       transition: all 0.2s ease;
     }
 
-    .table-row:hover {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(16, 185, 129, 0.05));
+    .item-button:hover {
+      background: var(--item-purple-dark);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(107, 70, 193, 0.15);
     }
 
+    .item-button:active {
+      transform: translateY(0);
+    }
+
+    .item-button-secondary {
+      background: var(--item-orange);
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .item-button-secondary:hover {
+      background: var(--item-orange);
+      filter: brightness(0.9);
+      transform: translateY(-1px);
+    }
+
+    .item-button-danger {
+      background: #DC2626;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .item-button-danger:hover {
+      background: #B91C1C;
+      transform: translateY(-1px);
+    }
+
+    /* Event badges */
+    .event-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .event-badge.checkin {
+      background: #D1FAE5;
+      color: #059669;
+      border: 1px solid #A7F3D0;
+    }
+
+    .event-badge.checkout {
+      background: #FEF3C7;
+      color: #D97706;
+      border: 1px solid #FDE68A;
+    }
+
+    .event-badge.registration {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #DBEAFE;
+    }
+
+    .event-badge.cancellation {
+      background: #FEE2E2;
+      color: #DC2626;
+      border: 1px solid #FECACA;
+    }
+
+    /* Table styling */
+    .table-row {
+      transition: all 0.2s ease;
+      border-radius: 8px;
+    }
+
+    .table-row:hover {
+      background: var(--item-mist);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Notification system */
     .notification {
       position: fixed;
       top: 20px;
@@ -101,6 +184,8 @@
       transform: translateX(400px);
       opacity: 0;
       transition: all 0.3s ease;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .notification.show {
@@ -109,15 +194,16 @@
     }
 
     .notification.success {
-      background: linear-gradient(135deg, #10b981, #059669);
+      background: #10B981;
       color: white;
     }
 
     .notification.error {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
+      background: #DC2626;
       color: white;
     }
 
+    /* Search container */
     .search-container {
       position: relative;
     }
@@ -133,30 +219,51 @@
     .search-input {
       padding-left: 44px;
     }
+
+    /* Clean background */
+    .item-background {
+      background: #FAFAFA;
+    }
+
+    /* Loading spinner */
+    .loading-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--item-dove);
+      border-top: 2px solid var(--item-white);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Empty state styling */
+    .empty-state {
+      color: var(--item-slate);
+    }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-teal-100">
+<body class="min-h-screen item-background font-geometric">
   <!-- Notification System -->
-  <div id="notification" class="notification px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm">
+  <div id="notification" class="notification px-4 py-3">
     <div class="flex items-center">
       <div id="notificationIcon" class="mr-3"></div>
-      <span id="notificationText"></span>
+      <span id="notificationText" class="text-sm font-medium"></span>
     </div>
   </div>
 
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-6 py-8">
     <!-- Header Section -->
     <div class="mb-8 transform animate-slide-down">
-      <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-        <header class="relative px-8 py-6 bg-gradient-to-r from-emerald-600 to-teal-700 text-white">
-          <!-- Decorative Elements -->
-          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-          <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
-
-          <div class="relative flex items-center justify-between">
+      <div class="item-card">
+        <header class="relative px-6 py-8">
+          <div class="flex items-center justify-between">
             <div class="flex items-center">
-              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+              <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--item-purple);">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                   <polyline points="14,2 14,8 20,8"/>
                   <line x1="16" y1="13" x2="8" y2="13"/>
@@ -165,15 +272,15 @@
                 </svg>
               </div>
               <div>
-                <h1 class="text-3xl font-bold tracking-tight">Visit Logs</h1>
-                <p class="text-emerald-100 mt-1">Monitor and track all visitor activity</p>
+                <h1 class="text-2xl font-semibold text-gray-900">Visit Logs</h1>
+                <p class="text-gray-600 mt-1">Monitor and track all visitor activity</p>
               </div>
             </div>
 
             <div class="flex items-center space-x-3">
-              <div class="bg-white/20 px-4 py-2 rounded-lg">
-                <span class="text-sm font-medium">Total Logs: </span>
-                <span id="totalLogs" class="font-bold">0</span>
+              <div class="bg-gray-100 px-3 py-2 rounded-lg">
+                <span class="text-sm font-medium text-gray-600">Total Logs: </span>
+                <span id="totalLogs" class="font-semibold text-gray-900">0</span>
               </div>
             </div>
           </div>
@@ -183,30 +290,30 @@
 
     <!-- Controls Section -->
     <div class="mb-6 transform animate-fade-in">
-      <div class="bg-white/80 backdrop-blur-xl rounded-2xl shadow-lg border border-white/20 p-6">
+      <div class="item-card p-6">
         <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
           <!-- Search Bar -->
           <div class="flex-1 max-w-md">
             <label class="text-sm font-medium text-gray-700 mb-2 block">Search Logs</label>
             <div class="search-container">
               <div class="search-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
                   <circle cx="11" cy="11" r="8"/>
                   <path d="m21 21-4.35-4.35"/>
                 </svg>
               </div>
               <input type="text" id="searchInput"
                      placeholder="Search by Visitor Name, Email, Event Type, or Timestamp..."
-                     class="search-input w-full px-4 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                     class="item-input search-input w-full px-4 py-2.5 text-gray-700 placeholder-gray-500">
             </div>
           </div>
 
           <!-- Action Buttons -->
           <div class="flex items-center space-x-3">
             <button onclick="refreshData()"
-                    class="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95">
+                    class="item-button px-4 py-2.5 text-white text-sm font-medium">
               <span class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                   <path d="M3 2v6h6"/>
                   <path d="M21 12A9 9 0 0 0 6 5.3L3 8"/>
                   <path d="M21 22v-6h-6"/>
@@ -217,9 +324,9 @@
             </button>
 
             <button onclick="exportCSV()"
-                    class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95">
+                    class="item-button-secondary px-4 py-2.5 text-white text-sm font-medium">
               <span class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                   <polyline points="7,10 12,15 17,10"/>
                   <line x1="12" y1="15" x2="12" y2="3"/>
@@ -233,11 +340,11 @@
     </div>
 
     <!-- Logs Table -->
-    <div class="transform animate-fade-in" style="animation-delay: 0.2s;">
-      <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-        <div class="px-6 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
-          <h2 class="text-xl font-semibold flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+    <div class="transform animate-fade-in" style="animation-delay: 0.1s;">
+      <div class="item-card">
+        <div class="px-6 py-4 border-b flex items-center justify-between" style="border-color: var(--item-dove);">
+          <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
               <path d="M8 6h13"/>
               <path d="M8 12h13"/>
               <path d="M8 18h13"/>
@@ -246,20 +353,20 @@
               <path d="M3 18h.01"/>
             </svg>
             Activity Logs
-            <span id="filteredCount" class="ml-auto bg-white/20 px-3 py-1 rounded-full text-sm"></span>
           </h2>
+          <span id="filteredCount" class="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-sm font-medium"></span>
         </div>
 
         <div class="p-6">
           <div class="overflow-x-auto">
             <table class="w-full" id="logTable">
               <thead>
-                <tr class="border-b border-gray-200">
-                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Log ID</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Visitor</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Event Type</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Timestamp</th>
-                  <th class="text-left py-3 px-4 font-semibold text-gray-700">Actions</th>
+                <tr class="border-b" style="border-color: var(--item-dove);">
+                  <th class="text-left py-3 px-4 font-medium text-gray-700">Log ID</th>
+                  <th class="text-left py-3 px-4 font-medium text-gray-700">Visitor</th>
+                  <th class="text-left py-3 px-4 font-medium text-gray-700">Event Type</th>
+                  <th class="text-left py-3 px-4 font-medium text-gray-700">Timestamp</th>
+                  <th class="text-left py-3 px-4 font-medium text-gray-700">Actions</th>
                 </tr>
               </thead>
               <tbody id="logBody">
@@ -269,27 +376,27 @@
 
             <!-- Empty State -->
             <div id="emptyState" class="text-center py-12 hidden">
-              <div class="w-24 h-24 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500">
+              <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                   <polyline points="14,2 14,8 20,8"/>
                   <line x1="16" y1="13" x2="8" y2="13"/>
                   <line x1="16" y1="17" x2="8" y2="17"/>
                 </svg>
               </div>
-              <h3 class="text-lg font-semibold text-gray-700 mb-2">No logs found</h3>
+              <h3 class="text-lg font-medium text-gray-900 mb-2">No logs found</h3>
               <p class="text-gray-500">No visitor activity logs match your search criteria.</p>
             </div>
 
             <!-- No Results State -->
             <div id="noResultsState" class="text-center py-12 hidden">
-              <div class="w-24 h-24 bg-gradient-to-br from-orange-200 to-yellow-300 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-orange-600">
+              <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-orange-600">
                   <circle cx="11" cy="11" r="8"/>
                   <path d="m21 21-4.35-4.35"/>
                 </svg>
               </div>
-              <h3 class="text-lg font-semibold text-gray-700 mb-2">No matching results</h3>
+              <h3 class="text-lg font-medium text-gray-900 mb-2">No matching results</h3>
               <p class="text-gray-500">Try adjusting your search terms or clearing the search filter.</p>
             </div>
           </div>
@@ -307,19 +414,19 @@
       const notificationText = document.getElementById('notificationText');
       const notificationIcon = document.getElementById('notificationIcon');
 
-      notification.className = `notification ${type} px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm`;
+      notification.className = `notification ${type} px-4 py-3`;
       notificationText.textContent = message;
 
       if (type === 'success') {
         notificationIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
             <polyline points="22,4 12,14.01 9,11.01"/>
           </svg>
         `;
       } else {
         notificationIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <line x1="15" y1="9" x2="9" y2="15"/>
             <line x1="9" y1="9" x2="15" y2="15"/>
@@ -415,43 +522,44 @@
 
         data.forEach((row, index) => {
           const tr = document.createElement('tr');
-          tr.className = 'table-row border-b border-gray-100 rounded-lg';
-          tr.style.animationDelay = `${index * 0.05}s`;
+          tr.className = 'table-row border-b';
+          tr.style.animationDelay = `${index * 0.03}s`;
           tr.classList.add('animate-fade-in');
+          tr.style.borderColor = 'var(--item-dove)';
 
           const eventBadgeClass = getEventBadgeClass(row.event_type);
           const initials = getInitials(row.visitor_name);
 
           tr.innerHTML = `
-            <td class="py-4 px-4 text-gray-700 font-medium">#${row.id}</td>
-            <td class="py-4 px-4">
+            <td class="py-3 px-4 text-gray-700 font-medium">#${row.id}</td>
+            <td class="py-3 px-4">
               <div class="flex items-center">
-                <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center text-white text-sm font-bold mr-3">
+                <div class="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 text-sm font-medium mr-3">
                   ${initials}
                 </div>
                 <div class="flex flex-col">
-                  <span class="text-gray-800 font-medium">${row.visitor_name}</span>
-                  <span class="text-gray-500 text-sm">${row.visitor_email}</span>
+                  <span class="text-gray-900 font-medium text-sm">${row.visitor_name}</span>
+                  <span class="text-gray-500 text-xs">${row.visitor_email}</span>
                 </div>
               </div>
             </td>
-            <td class="py-4 px-4">
+            <td class="py-3 px-4">
               <span class="event-badge ${eventBadgeClass}">${row.event_type}</span>
             </td>
-            <td class="py-4 px-4">
+            <td class="py-3 px-4">
               <div class="flex items-center text-sm text-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gray-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-gray-400">
                   <circle cx="12" cy="12" r="10"/>
                   <polyline points="12,6 12,12 16,14"/>
                 </svg>
                 ${formatTimestamp(row.timestamp)}
               </div>
             </td>
-            <td class="py-4 px-4">
-              <button class="px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white text-sm font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
+            <td class="py-3 px-4">
+              <button class="item-button-danger px-3 py-1.5 text-white text-xs font-medium"
                       onclick="deleteLog(${row.id})">
                 <span class="flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
                     <polyline points="3,6 5,6 21,6"/>
                     <path d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"/>
                   </svg>
@@ -521,10 +629,7 @@
       refreshButton.disabled = true;
       refreshButton.innerHTML = `
         <span class="flex items-center">
-          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path d="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+          <div class="loading-spinner mr-2"></div>
           Refreshing...
         </span>
       `;

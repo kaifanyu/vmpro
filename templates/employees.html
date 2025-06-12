@@ -6,100 +6,183 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMxMGI5ODEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ij48L2NpcmNsZT48cGF0aCBkPSJtMjIgMjEtMy0zIj48L3BhdGg+PHBhdGggZD0ibTIyIDIxLTMtMyI+PC9wYXRoPjwvc3ZnPg==">
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiM2QjQ2QzEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiI+PC9wYXRoPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ij48L2NpcmNsZT48cGF0aCBkPSJtMjIgMjEtMy0zIj48L3BhdGg+PHBhdGggZD0ibTIyIDIxLTMtMyI+PC9wYXRoPjwvc3ZnPg==">
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @keyframes slide-down {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Item Design System Variables */
+    :root {
+      --item-purple: #6B46C1;
+      --item-purple-light: #8B5CF6;
+      --item-purple-dark: #553C9A;
+      --item-orange: #F97316;
+      --item-orange-light: #FB923C;
+      --item-white: #FFFFFF;
+      --item-black: #000000;
+      --item-lavender: #E6E6FA;
+      --item-lilac: #C8A2C8;
+      --item-mist: #F2F2F2;
+      --item-dove: #E6E6E6;
+      --item-steel: #CCCCCC;
+      --item-slate: #808080;
+      --item-iron: #666666;
+      --item-shadow: #4D4D4D;
     }
 
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Clean animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes pulse-gentle {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.8;
-      }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes modal-appear {
-      from {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .animate-slide-down {
-      animation: slide-down 0.6s ease-out;
+    @keyframes modalAppear {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .animate-fade-in {
-      animation: fade-in 0.4s ease-out;
+      animation: fadeIn 0.4s ease-out;
     }
 
-    .animate-pulse-gentle {
-      animation: pulse-gentle 2s infinite;
+    .animate-slide-down {
+      animation: slideDown 0.5s ease-out;
     }
 
     .animate-modal-appear {
-      animation: modal-appear 0.3s ease-out;
+      animation: modalAppear 0.2s ease-out;
     }
 
-    .role-badge {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    /* Typography system */
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .role-badge.staff {
-      background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-      color: white;
-      box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+    .font-geometric {
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: -0.01em;
     }
 
-    .role-badge.admin {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: white;
-      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+    /* Cards and containers */
+    .item-card {
+      background: var(--item-white);
+      border-radius: 12px;
+      box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.06),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--item-dove);
     }
 
-    .table-row {
+    /* Input styling */
+    .item-input {
+      background: var(--item-white);
+      border: 1.5px solid var(--item-dove);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      font-weight: 400;
+    }
+
+    .item-input:focus {
+      outline: none;
+      border-color: var(--item-purple);
+      box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.08);
+    }
+
+    /* Button styling */
+    .item-button {
+      background: var(--item-purple);
+      border-radius: 8px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
       transition: all 0.2s ease;
     }
 
-    .table-row:hover {
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(16, 185, 129, 0.05));
+    .item-button:hover {
+      background: var(--item-purple-dark);
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 4px 12px rgba(107, 70, 193, 0.15);
     }
 
+    .item-button:active {
+      transform: translateY(0);
+    }
+
+    .item-button-secondary {
+      background: var(--item-mist);
+      color: var(--item-shadow);
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .item-button-secondary:hover {
+      background: var(--item-dove);
+      transform: translateY(-1px);
+    }
+
+    .item-button-danger {
+      background: #DC2626;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .item-button-danger:hover {
+      background: #B91C1C;
+      transform: translateY(-1px);
+    }
+
+    .item-button-danger:disabled {
+      background: var(--item-steel);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Role badges */
+    .role-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .role-badge.staff {
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #DBEAFE;
+    }
+
+    .role-badge.admin {
+      background: #FEF3C7;
+      color: #D97706;
+      border: 1px solid #FDE68A;
+    }
+
+    /* Table styling */
+    .table-row {
+      transition: all 0.2s ease;
+      border-radius: 8px;
+    }
+
+    .table-row:hover {
+      background: var(--item-mist);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Notification system */
     .notification {
       position: fixed;
       top: 20px;
@@ -108,6 +191,8 @@
       transform: translateX(400px);
       opacity: 0;
       transition: all 0.3s ease;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     .notification.show {
@@ -116,27 +201,66 @@
     }
 
     .notification.success {
-      background: linear-gradient(135deg, #10b981, #059669);
+      background: #10B981;
       color: white;
     }
 
     .notification.error {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
+      background: #DC2626;
       color: white;
     }
 
+    /* Modal styling */
     .modal-overlay {
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Loading spinner */
+    .loading-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--item-dove);
+      border-top: 2px solid var(--item-purple);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Clean background */
+    .item-background {
+      background: #FAFAFA;
+    }
+
+    /* Upload area styling */
+    .upload-area {
+      border: 2px dashed var(--item-dove);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .upload-area:hover {
+      border-color: var(--item-purple);
+      background: var(--item-mist);
+    }
+
+    /* Empty state styling */
+    .empty-state {
+      color: var(--item-slate);
     }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-teal-100">
+<body class="min-h-screen item-background font-geometric">
   <!-- Notification System -->
-  <div id="notification" class="notification px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm">
+  <div id="notification" class="notification px-4 py-3">
     <div class="flex items-center">
       <div id="notificationIcon" class="mr-3"></div>
-      <span id="notificationText"></span>
+      <span id="notificationText" class="text-sm font-medium"></span>
     </div>
   </div>
 
@@ -144,10 +268,10 @@
   <div id="editModal" class="fixed inset-0 z-50 hidden">
     <div class="modal-overlay absolute inset-0" onclick="closeEditModal()"></div>
     <div class="flex items-center justify-center min-h-screen p-4">
-      <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full mx-auto animate-modal-appear relative z-10">
-        <div class="px-6 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-t-2xl">
-          <h3 class="text-xl font-semibold flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+      <div class="item-card max-w-md w-full mx-auto animate-modal-appear relative z-10">
+        <div class="px-6 py-4 border-b" style="border-color: var(--item-dove);">
+          <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
               <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
               <path d="m15 5 4 4"/>
             </svg>
@@ -160,98 +284,37 @@
 
           <!-- Full Name -->
           <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-700 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-emerald-500">
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                <circle cx="12" cy="7" r="4"></circle>
-              </svg>
-              Full Name
-            </label>
+            <label class="text-sm font-medium text-gray-700">Full Name</label>
             <input type="text" id="editName" name="name" required
-                   class="w-full px-4 py-3 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200">
+                   class="item-input w-full px-3 py-2.5 text-gray-900 placeholder-gray-500">
           </div>
-
-          <!-- Profile Photo Upload
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-700 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-pink-500">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                <circle cx="9" cy="9" r="2"/>
-                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
-              </svg>
-              Update Profile Photo
-            </label>
-            <div class="relative">
-              <input type="file" id="editProfilePhoto" name="profile_photo" accept="image/*"
-                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                     onchange="handlePhotoUpload(this, 'editPhotoPreview')">
-              <div class="w-full px-4 py-3 bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-xl border-dashed hover:border-pink-400 transition-all duration-200 cursor-pointer">
-                <div class="flex items-center justify-center space-x-3">
-                  <div id="editPhotoPreview" class="w-12 h-12 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center text-white font-bold overflow-hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
-                      <circle cx="12" cy="13" r="3"/>
-                    </svg>
-                  </div>
-                  <div class="text-center">
-                    <p class="text-sm text-gray-600">Click to update photo</p>
-                    <p class="text-xs text-gray-400">JPG, PNG up to 5MB</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-		   -->
 
           <!-- Email -->
           <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-700 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-500">
-                <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
-                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-              </svg>
-              Email Address
-            </label>
+            <label class="text-sm font-medium text-gray-700">Email Address</label>
             <input type="email" id="editEmail" name="email" required
-                   class="w-full px-4 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                   class="item-input w-full px-3 py-2.5 text-gray-900 placeholder-gray-500">
           </div>
 
           <!-- Phone -->
           <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-700 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-purple-500">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
-              Phone (Optional)
-            </label>
+            <label class="text-sm font-medium text-gray-700">Phone (Optional)</label>
             <input type="text" id="editPhone" name="phone"
-                   class="w-full px-4 py-3 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200">
+                   class="item-input w-full px-3 py-2.5 text-gray-900 placeholder-gray-500">
           </div>
 
           <!-- Password -->
           <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-700 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-orange-500">
-                <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-                <path d="m7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-              New Password (leave empty to keep current)
-            </label>
+            <label class="text-sm font-medium text-gray-700">New Password (leave empty to keep current)</label>
             <input type="password" id="editPassword" name="password"
-                   class="w-full px-4 py-3 bg-gradient-to-r from-orange-50 to-yellow-50 border border-orange-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200">
+                   class="item-input w-full px-3 py-2.5 text-gray-900 placeholder-gray-500">
           </div>
 
           <!-- Role -->
           <div class="space-y-2">
-            <label class="text-sm font-medium text-gray-700 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-indigo-500">
-                <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
-                <circle cx="12" cy="12" r="3"></circle>
-              </svg>
-              Role
-            </label>
+            <label class="text-sm font-medium text-gray-700">Role</label>
             <select id="editRole" name="role"
-                    class="w-full px-4 py-3 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200">
+                    class="item-input w-full px-3 py-2.5 text-gray-900">
               <option value="staff">Staff</option>
               <option value="admin">Admin</option>
             </select>
@@ -260,11 +323,11 @@
           <!-- Buttons -->
           <div class="flex space-x-3 pt-4">
             <button type="button" onclick="closeEditModal()"
-                    class="flex-1 px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-xl transition-all duration-200">
+                    class="item-button-secondary flex-1 px-4 py-2.5 text-sm font-medium">
               Cancel
             </button>
             <button type="submit"
-                    class="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
+                    class="item-button flex-1 px-4 py-2.5 text-white text-sm font-medium">
               Update Employee
             </button>
           </div>
@@ -273,29 +336,23 @@
     </div>
   </div>
 
-  <div class="container mx-auto px-4 py-8">
+  <div class="container mx-auto px-6 py-8">
     <!-- Header Section -->
     <div class="mb-8 transform animate-slide-down">
-      <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-        <header class="relative px-8 py-6 bg-gradient-to-r from-emerald-600 to-teal-700 text-white">
-          <!-- Decorative Elements -->
-          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-          <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
-
-          <div class="relative flex items-center">
-            <div class="flex items-center">
-              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="m22 21-3-3"></path>
-                  <path d="m22 21-3-3"></path>
-                </svg>
-              </div>
-              <div>
-                <h1 class="text-3xl font-bold tracking-tight">Employee Management</h1>
-                <p class="text-emerald-100 mt-1">Manage your team members and access controls</p>
-              </div>
+      <div class="item-card">
+        <header class="relative px-6 py-8">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--item-purple);">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="m22 21-3-3"></path>
+                <path d="m22 21-3-3"></path>
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-2xl font-semibold text-gray-900">Employee Management</h1>
+              <p class="text-gray-600 mt-1">Manage your team members and access controls</p>
             </div>
           </div>
         </header>
@@ -305,10 +362,10 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Search Bar Section -->
       <div class="lg:col-span-3 mb-6">
-        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-          <div class="px-6 py-4 bg-gradient-to-r from-purple-500 to-indigo-600 text-white">
-            <h2 class="text-xl font-semibold flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+        <div class="item-card">
+          <div class="px-6 py-4 border-b" style="border-color: var(--item-dove);">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
               </svg>
@@ -317,7 +374,7 @@
           </div>
 
           <div class="p-6">
-            <div class="flex-1 max-w-md mx-auto">
+            <div class="max-w-md mx-auto">
               <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
@@ -326,12 +383,12 @@
                   </svg>
                 </div>
                 <input type="text" id="visitorSearch" placeholder="Search visitors by name, email, or phone..."
-                       class="w-full pl-10 pr-4 py-3 bg-white/50 backdrop-blur-sm border border-white/30 rounded-xl text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200">
+                       class="item-input w-full pl-10 pr-4 py-2.5 text-gray-700 placeholder-gray-500">
               </div>
 
               <!-- Search Results -->
               <div id="searchResults" class="mt-4 hidden">
-                <div class="bg-white/70 backdrop-blur-sm rounded-xl border border-white/40 shadow-lg">
+                <div class="item-card">
                   <div class="p-4">
                     <h3 class="text-sm font-semibold text-gray-700 mb-3">Search Results</h3>
                     <div id="searchResultsList" class="space-y-2 max-h-60 overflow-y-auto">
@@ -343,7 +400,7 @@
 
               <!-- No Results Message -->
               <div id="noResults" class="mt-4 hidden">
-                <div class="bg-gray-50/70 backdrop-blur-sm rounded-xl border border-gray-200/40 p-4 text-center">
+                <div class="bg-gray-50 rounded-lg p-4 text-center">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-gray-400 mb-2">
                     <circle cx="11" cy="11" r="8"></circle>
                     <path d="m21 21-4.35-4.35"></path>
@@ -354,12 +411,11 @@
 
               <!-- Loading State -->
               <div id="searchLoading" class="mt-4 hidden">
-                <div class="bg-blue-50/70 backdrop-blur-sm rounded-xl border border-blue-200/40 p-4 text-center">
-                  <svg class="animate-spin h-5 w-5 text-blue-500 mx-auto mb-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  <p class="text-blue-600 text-sm">Searching visitors...</p>
+                <div class="bg-blue-50 rounded-lg p-4 text-center">
+                  <div class="flex items-center justify-center space-x-2">
+                    <div class="loading-spinner"></div>
+                    <span class="text-blue-600 text-sm">Searching visitors...</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -369,10 +425,10 @@
 
       <!-- Add Employee Form -->
       <div class="lg:col-span-1 transform animate-fade-in">
-        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-          <div class="px-6 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
-            <h2 class="text-xl font-semibold flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+        <div class="item-card">
+          <div class="px-6 py-4 border-b" style="border-color: var(--item-dove);">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
                 <line x1="22" y1="11" x2="16" y2="11"></line>
@@ -386,35 +442,23 @@
             <form id="employeeForm" class="space-y-4">
               <!-- Full Name -->
               <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-emerald-500">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  Full Name
-                </label>
+                <label class="text-sm font-medium text-gray-700">Full Name</label>
                 <input type="text" name="name" required
-                       class="w-full px-4 py-3 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-200">
+                       class="item-input w-full px-3 py-2.5 text-gray-900 placeholder-gray-500"
+                       placeholder="Enter full name">
               </div>
 
               <!-- Profile Photo Upload -->
               <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-pink-500">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                    <circle cx="9" cy="9" r="2"/>
-                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
-                  </svg>
-                  Profile Photo (Optional)
-                </label>
+                <label class="text-sm font-medium text-gray-700">Profile Photo (Optional)</label>
                 <div class="relative">
                   <input type="file" id="profilePhoto" name="profile_photo" accept="image/*"
                          class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                          onchange="handlePhotoUpload(this, 'photoPreview')">
-                  <div class="w-full px-4 py-3 bg-gradient-to-r from-pink-50 to-rose-50 border border-pink-200 rounded-xl border-dashed hover:border-pink-400 transition-all duration-200 cursor-pointer">
+                  <div class="upload-area w-full px-4 py-3">
                     <div class="flex items-center justify-center space-x-3">
-                      <div id="photoPreview" class="w-12 h-12 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center text-white font-bold">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <div id="photoPreview" class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
                           <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
                           <circle cx="12" cy="13" r="3"/>
                         </svg>
@@ -430,53 +474,33 @@
 
               <!-- Email -->
               <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-500">
-                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
-                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                  </svg>
-                  Email Address
-                </label>
+                <label class="text-sm font-medium text-gray-700">Email Address</label>
                 <input type="email" name="email" required
-                       class="w-full px-4 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                       class="item-input w-full px-3 py-2.5 text-gray-900 placeholder-gray-500"
+                       placeholder="Enter email address">
               </div>
 
               <!-- Phone -->
               <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-purple-500">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                  </svg>
-                  Phone (Optional)
-                </label>
+                <label class="text-sm font-medium text-gray-700">Phone (Optional)</label>
                 <input type="text" name="phone"
-                       class="w-full px-4 py-3 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200">
+                       class="item-input w-full px-3 py-2.5 text-gray-900 placeholder-gray-500"
+                       placeholder="Enter phone number">
               </div>
 
               <!-- Password -->
               <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-orange-500">
-                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-                    <path d="m7 11V7a5 5 0 0 1 10 0v4"></path>
-                  </svg>
-                  Password
-                </label>
+                <label class="text-sm font-medium text-gray-700">Password</label>
                 <input type="password" name="password" required
-                       class="w-full px-4 py-3 bg-gradient-to-r from-orange-50 to-yellow-50 border border-orange-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200">
+                       class="item-input w-full px-3 py-2.5 text-gray-900 placeholder-gray-500"
+                       placeholder="Enter password">
               </div>
 
               <!-- Role -->
               <div class="space-y-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-indigo-500">
-                    <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                  </svg>
-                  Role
-                </label>
+                <label class="text-sm font-medium text-gray-700">Role</label>
                 <select name="role"
-                        class="w-full px-4 py-3 bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200">
+                        class="item-input w-full px-3 py-2.5 text-gray-900">
                   <option value="staff">Staff</option>
                   <option value="admin">Admin</option>
                 </select>
@@ -484,9 +508,9 @@
 
               <!-- Submit Button -->
               <button type="submit"
-                      class="w-full px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 mt-6">
+                      class="item-button w-full px-4 py-2.5 text-white text-sm font-medium mt-6">
                 <span class="flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                   </svg>
@@ -499,33 +523,33 @@
       </div>
 
       <!-- Employee Table -->
-      <div class="lg:col-span-2 transform animate-fade-in" style="animation-delay: 0.2s;">
-        <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-          <div class="px-6 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
-            <h2 class="text-xl font-semibold flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+      <div class="lg:col-span-2 transform animate-fade-in" style="animation-delay: 0.1s;">
+        <div class="item-card">
+          <div class="px-6 py-4 border-b flex items-center justify-between" style="border-color: var(--item-dove);">
+            <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                 <circle cx="9" cy="7" r="4"></circle>
                 <path d="m22 21-3-3"></path>
                 <path d="m22 21-3-3"></path>
               </svg>
               Current Employees
-              <span id="employeeCount" class="ml-auto bg-white/20 px-3 py-1 rounded-full text-sm">0</span>
             </h2>
+            <span id="employeeCount" class="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-sm font-medium">0</span>
           </div>
 
           <div class="p-6">
             <div class="overflow-x-auto">
               <table class="w-full text-sm">
                 <thead>
-                  <tr class="border-b border-gray-200">
-                    <th class="text-left py-2 px-3 font-semibold text-gray-700 whitespace-nowrap">ID</th>
-                    <th class="text-left py-2 px-3 font-semibold text-gray-700 whitespace-nowrap">Photo</th>
-                    <th class="text-left py-2 px-3 font-semibold text-gray-700 whitespace-nowrap">Name</th>
-                    <th class="text-left py-2 px-3 font-semibold text-gray-700 whitespace-nowrap">Email</th>
-                    <th class="text-left py-2 px-3 font-semibold text-gray-700 whitespace-nowrap">Phone</th>
-                    <th class="text-left py-2 px-3 font-semibold text-gray-700 whitespace-nowrap">Role</th>
-                    <th class="text-left py-2 px-3 font-semibold text-gray-700 whitespace-nowrap">Actions</th>
+                  <tr class="border-b" style="border-color: var(--item-dove);">
+                    <th class="text-left py-3 px-3 font-medium text-gray-700">ID</th>
+                    <th class="text-left py-3 px-3 font-medium text-gray-700">Photo</th>
+                    <th class="text-left py-3 px-3 font-medium text-gray-700">Name</th>
+                    <th class="text-left py-3 px-3 font-medium text-gray-700">Email</th>
+                    <th class="text-left py-3 px-3 font-medium text-gray-700">Phone</th>
+                    <th class="text-left py-3 px-3 font-medium text-gray-700">Role</th>
+                    <th class="text-left py-3 px-3 font-medium text-gray-700">Actions</th>
                   </tr>
                 </thead>
                 <tbody id="employeeTableBody">
@@ -535,15 +559,15 @@
 
               <!-- Empty State -->
               <div id="emptyState" class="text-center py-12 hidden">
-                <div class="w-24 h-24 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
                     <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
                     <circle cx="9" cy="7" r="4"></circle>
                     <path d="m22 21-3-3"></path>
                     <path d="m22 21-3-3"></path>
                   </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-700 mb-2">No employees found</h3>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No employees found</h3>
                 <p class="text-gray-500">Add your first employee using the form on the left.</p>
               </div>
             </div>
@@ -664,21 +688,21 @@
 
         visitors.forEach(visitor => {
           const resultItem = document.createElement('div');
-          resultItem.className = 'p-3 bg-white/60 rounded-lg border border-white/60 hover:bg-white/80 cursor-pointer transition-all duration-200 transform hover:scale-[1.02]';
+          resultItem.className = 'p-3 bg-gray-50 rounded-lg border hover:bg-white cursor-pointer transition-all duration-200';
           resultItem.onclick = () => viewVisitorRegistration(visitor.id);
 
           resultItem.innerHTML = `
             <div class="flex items-center justify-between">
               <div class="flex-1">
                 <div class="flex items-center mb-1">
-                  <div class="w-6 h-6 bg-gradient-to-br from-purple-400 to-indigo-500 rounded-full flex items-center justify-center text-white text-xs font-bold mr-2">
+                  <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 text-xs font-medium mr-2">
                     ${visitor.name.charAt(0).toUpperCase()}
                   </div>
                   <h4 class="font-medium text-gray-900 text-sm">${visitor.name}</h4>
                 </div>
                 <p class="text-xs text-gray-600">${visitor.email}</p>
                 ${visitor.phone ? `<p class="text-xs text-gray-500">${visitor.phone}</p>` : ''}
-                ${visitor.visit_date ? `<p class="text-xs text-emerald-600">Visit: ${formatDate(visitor.visit_date)}</p>` : ''}
+                ${visitor.visit_date ? `<p class="text-xs text-blue-600">Visit: ${formatDate(visitor.visit_date)}</p>` : ''}
               </div>
               <div class="ml-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
@@ -758,19 +782,19 @@
       const notificationText = document.getElementById('notificationText');
       const notificationIcon = document.getElementById('notificationIcon');
 
-      notification.className = `notification ${type} px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm`;
+      notification.className = `notification ${type} px-4 py-3`;
       notificationText.textContent = message;
 
       if (type === 'success') {
         notificationIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
             <polyline points="22,4 12,14.01 9,11.01"></polyline>
           </svg>
         `;
       } else {
         notificationIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="15" y1="9" x2="9" y2="15"></line>
             <line x1="9" y1="9" x2="15" y2="15"></line>
@@ -822,50 +846,39 @@
 
           data.forEach((emp, index) => {
             const row = document.createElement('tr');
-            row.className = 'table-row border-b border-gray-100 rounded-lg';
-            row.style.animationDelay = `${index * 0.1}s`;
+            row.className = 'table-row border-b';
+            row.style.animationDelay = `${index * 0.05}s`;
             row.classList.add('animate-fade-in');
+            row.style.borderColor = 'var(--item-dove)';
             row.innerHTML = `
-              <td class="py-3 px-3 text-gray-700 font-medium whitespace-nowrap">#${emp.id}</td>
-              <td class="py-3 px-3 whitespace-nowrap">
+              <td class="py-3 px-3 text-gray-700 font-medium">#${emp.id}</td>
+              <td class="py-3 px-3">
                 <div class="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
                   ${emp.profile_photo ?
                     `<img src="${emp.profile_photo}" alt="${emp.name}" class="w-full h-full object-cover rounded-full">` :
-                    `<div class="w-full h-full bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center text-white text-xs font-bold">${emp.name.charAt(0).toUpperCase()}</div>`
+                    `<div class="w-full h-full bg-gray-100 rounded-full flex items-center justify-center text-gray-600 text-xs font-medium">${emp.name.charAt(0).toUpperCase()}</div>`
                   }
                 </div>
               </td>
-              <td class="py-3 px-3 whitespace-nowrap">
+              <td class="py-3 px-3">
                 <span class="font-medium text-gray-900 text-sm">${emp.name}</span>
               </td>
-              <td class="py-3 px-3 text-gray-700 text-sm whitespace-nowrap">${emp.email}</td>
-              <td class="py-3 px-3 text-gray-500 text-sm whitespace-nowrap">${emp.phone || '<span class="italic">Not provided</span>'}</td>
-              <td class="py-3 px-3 whitespace-nowrap">
+              <td class="py-3 px-3 text-gray-700 text-sm">${emp.email}</td>
+              <td class="py-3 px-3 text-gray-500 text-sm">${emp.phone || '<span class="italic text-gray-400">Not provided</span>'}</td>
+              <td class="py-3 px-3">
                 <span class="role-badge ${emp.role}">${emp.role}</span>
               </td>
-              <td class="py-3 px-3 whitespace-nowrap">
+              <td class="py-3 px-3">
                 ${currentUserRole === 'admin' ? `
-                <div class="flex space-x-1">
-                  <button class="px-2 py-1 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white text-xs font-medium rounded-md shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
+                <div class="flex space-x-2">
+                  <button class="item-button-secondary px-2 py-1 text-xs"
                           onclick="openEditModal(${JSON.stringify(emp).replace(/"/g, '&quot;')})">
-                    <span class="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
-                        <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
-                        <path d="m15 5 4 4"/>
-                      </svg>
-                      Edit
-                    </span>
+                    Edit
                   </button>
-                  <button class="px-2 py-1 bg-gradient-to-r ${emp.role === 'admin' ? 'from-gray-400 to-gray-500 cursor-not-allowed' : 'from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600'} text-white text-xs font-medium rounded-md shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105 active:scale-95"
+                  <button class="item-button-danger px-2 py-1 text-xs text-white ${emp.role === 'admin' ? 'item-button-danger:disabled' : ''}"
                           onclick="deleteEmployee(${emp.id}, '${emp.role}')"
                           ${emp.role === 'admin' ? 'disabled title="Cannot delete admin users"' : ''}>
-                    <span class="flex items-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
-                        <polyline points="3,6 5,6 21,6"></polyline>
-                        <path d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"></path>
-                      </svg>
-                      Delete
-                    </span>
+                    Delete
                   </button>
                 </div>
                 ` : '<span class="text-gray-400 text-xs italic">Admin access required</span>'}
@@ -892,10 +905,7 @@
       submitButton.disabled = true;
       submitButton.innerHTML = `
         <span class="flex items-center justify-center">
-          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+          <div class="loading-spinner mr-2"></div>
           Adding Employee...
         </span>
       `;
@@ -917,26 +927,26 @@
         const result = await res.json();
 
         if (res.ok) {
-          showNotification('✅ Employee added successfully!', 'success');
+          showNotification('Employee added successfully!', 'success');
           e.target.reset();
           document.getElementById('photoPreview').innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
               <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/>
               <circle cx="12" cy="13" r="3"/>
             </svg>
           `;
           loadEmployees();
         } else {
-          showNotification('❌ Error: ' + (result.error || 'Unknown error occurred'), 'error');
+          showNotification('Error: ' + (result.error || 'Unknown error occurred'), 'error');
         }
       } catch (error) {
         console.error('Error creating employee:', error);
-        showNotification('❌ Network error occurred', 'error');
+        showNotification('Network error occurred', 'error');
       } finally {
         submitButton.disabled = false;
         submitButton.innerHTML = `
           <span class="flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
             </svg>
@@ -957,15 +967,12 @@
 
       submitButton.disabled = true;
       submitButton.innerHTML = `
-        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-        </svg>
+        <div class="loading-spinner mr-2"></div>
         Updating...
       `;
 
       try {
-        if (photoFile) {
+        if (photoFile && photoFile.files[0]) {
           try {
             const photoUrl = await uploadPhoto(photoFile.files[0]);
             formData.append('profile_photo_url', photoUrl);
@@ -981,15 +988,15 @@
         const result = await res.json();
 
         if (res.ok) {
-          showNotification('✅ Employee updated successfully!', 'success');
+          showNotification('Employee updated successfully!', 'success');
           closeEditModal();
           loadEmployees();
         } else {
-          showNotification('❌ Error: ' + (result.error || 'Unknown error occurred'), 'error');
+          showNotification('Error: ' + (result.error || 'Unknown error occurred'), 'error');
         }
       } catch (error) {
         console.error('Error updating employee:', error);
-        showNotification('❌ Network error occurred', 'error');
+        showNotification('Network error occurred', 'error');
       } finally {
         submitButton.disabled = false;
         submitButton.innerHTML = 'Update Employee';

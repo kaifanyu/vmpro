@@ -5,121 +5,162 @@
   <title>Visitor Details</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    @keyframes slide-down {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Item Design System Variables */
+    :root {
+      --item-purple: #6B46C1;
+      --item-purple-light: #8B5CF6;
+      --item-purple-dark: #553C9A;
+      --item-orange: #F97316;
+      --item-orange-light: #FB923C;
+      --item-white: #FFFFFF;
+      --item-black: #000000;
+      --item-lavender: #E6E6FA;
+      --item-lilac: #C8A2C8;
+      --item-mist: #F2F2F2;
+      --item-dove: #E6E6E6;
+      --item-steel: #CCCCCC;
+      --item-slate: #808080;
+      --item-iron: #666666;
+      --item-shadow: #4D4D4D;
     }
 
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Clean animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes pulse-gentle {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.8;
-      }
-    }
-
-    .animate-slide-down {
-      animation: slide-down 0.6s ease-out;
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .animate-fade-in {
-      animation: fade-in 0.4s ease-out;
+      animation: fadeIn 0.4s ease-out;
     }
 
-    .animate-pulse-gentle {
-      animation: pulse-gentle 2s infinite;
+    .animate-slide-down {
+      animation: slideDown 0.5s ease-out;
     }
 
+    /* Typography system */
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .font-geometric {
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: -0.01em;
+    }
+
+    /* Cards and containers */
+    .item-card {
+      background: var(--item-white);
+      border-radius: 12px;
+      box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.06),
+        0 1px 2px rgba(0, 0, 0, 0.08);
+      border: 1px solid var(--item-dove);
+    }
+
+    /* Status badges */
     .status-badge {
       display: inline-block;
-      padding: 8px 16px;
-      border-radius: 25px;
-      font-size: 14px;
-      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.03em;
     }
 
     .status-badge.pending {
-      background: linear-gradient(135deg, #f59e0b, #d97706);
-      color: white;
-      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+      background: #FEF3C7;
+      color: #D97706;
+      border: 1px solid #FDE68A;
     }
 
     .status-badge.checked-in {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: white;
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+      background: #D1FAE5;
+      color: #059669;
+      border: 1px solid #A7F3D0;
     }
 
     .status-badge.checked-out {
-      background: linear-gradient(135deg, #6b7280, #4b5563);
-      color: white;
-      box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3);
+      background: #E0E7FF;
+      color: #4338CA;
+      border: 1px solid #C7D2FE;
     }
 
     .status-badge.cancelled {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: white;
-      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+      background: #FEE2E2;
+      color: #DC2626;
+      border: 1px solid #FECACA;
     }
 
-    .notification {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      transform: translateX(400px);
-      opacity: 0;
-      transition: all 0.3s ease;
+    /* Button styling */
+    .item-button {
+      background: var(--item-purple);
+      border-radius: 8px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      transition: all 0.2s ease;
     }
 
-    .notification.show {
-      transform: translateX(0);
-      opacity: 1;
+    .item-button:hover {
+      background: var(--item-purple-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(107, 70, 193, 0.15);
     }
 
-    .notification.success {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: white;
+    .item-button:active {
+      transform: translateY(0);
     }
 
-    .notification.error {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: white;
+    .item-button-success {
+      background: #10B981;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
     }
 
+    .item-button-success:hover {
+      background: #059669;
+      transform: translateY(-1px);
+    }
+
+    .item-button-danger {
+      background: #DC2626;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .item-button-danger:hover {
+      background: #B91C1C;
+      transform: translateY(-1px);
+    }
+
+    /* Field containers */
     .field-container {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
-      border: 1px solid rgba(203, 213, 225, 0.3);
-      backdrop-filter: blur(10px);
+      background: var(--item-mist);
+      border: 1px solid var(--item-dove);
+      border-radius: 8px;
     }
 
+    /* Photo containers */
     .photo-container {
       max-width: 100%;
       max-height: 300px;
-      border-radius: 12px;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       cursor: pointer;
       transition: transform 0.2s;
     }
@@ -132,8 +173,8 @@
       max-width: 200px;
       width: 100%;
       height: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       cursor: pointer;
       transition: transform 0.2s;
     }
@@ -142,13 +183,14 @@
       transform: scale(1.05);
     }
 
+    /* Modal styling */
     .modal {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.6);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -156,6 +198,7 @@
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
+      backdrop-filter: blur(2px);
     }
 
     .modal.show {
@@ -166,7 +209,7 @@
     .modal-content {
       max-width: 90%;
       max-height: 90%;
-      border-radius: 12px;
+      border-radius: 8px;
       overflow: hidden;
       position: relative;
     }
@@ -185,21 +228,92 @@
       color: white;
       border: none;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
     }
+
+    /* Notification system */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      transform: translateX(400px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .notification.success {
+      background: #10B981;
+      color: white;
+    }
+
+    .notification.error {
+      background: #DC2626;
+      color: white;
+    }
+
+    /* Clean background */
+    .item-background {
+      background: #FAFAFA;
+    }
+
+    /* Action sections */
+    .action-section {
+      background: var(--item-white);
+      border: 1px solid var(--item-dove);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .action-section.checkin {
+      border-color: #3B82F6;
+      background: #EFF6FF;
+    }
+
+    .action-section.checkout {
+      border-color: #10B981;
+      background: #ECFDF5;
+    }
+
+    .action-section.cancel {
+      border-color: #DC2626;
+      background: #FEF2F2;
+    }
+
+    /* Loading spinner */
+    .loading-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--item-dove);
+      border-top: 2px solid var(--item-white);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-teal-100">
+<body class="min-h-screen item-background font-geometric">
   <!-- Notification System -->
-  <div id="notification" class="notification px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm">
+  <div id="notification" class="notification px-4 py-3">
     <div class="flex items-center">
       <div id="notificationIcon" class="mr-3"></div>
-      <span id="notificationText"></span>
+      <span id="notificationText" class="text-sm font-medium"></span>
     </div>
   </div>
 
@@ -207,7 +321,7 @@
   <div id="imageModal" class="modal" onclick="closeModal()">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
@@ -216,28 +330,22 @@
     </div>
   </div>
 
-  <div class="container mx-auto px-4 py-8 max-w-2xl">
+  <div class="container mx-auto px-6 py-8 max-w-3xl">
     <!-- Header Section -->
     <div class="mb-8 transform animate-slide-down">
-      <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-        <header class="relative px-8 py-6 bg-gradient-to-r from-emerald-600 to-teal-700 text-white">
-          <!-- Decorative Elements -->
-          <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-          <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
-
-          <div class="relative flex items-center justify-center">
-            <div class="flex items-center">
-              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M2 2l20 20"></path>
-                </svg>
-              </div>
-              <div>
-                <h1 class="text-3xl font-bold tracking-tight">Visitor Registration</h1>
-                <p class="text-emerald-100 mt-1">Registration details and check-in portal</p>
-              </div>
+      <div class="item-card">
+        <header class="relative px-6 py-8">
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--item-purple);">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M2 2l20 20"></path>
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-2xl font-semibold text-gray-900">Visitor Registration</h1>
+              <p class="text-gray-600 mt-1">Registration details and check-in portal</p>
             </div>
           </div>
         </header>
@@ -246,10 +354,10 @@
 
     <!-- Visitor Details Card -->
     <div class="transform animate-fade-in">
-      <div class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 overflow-hidden">
-        <div class="px-6 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
-          <h2 class="text-xl font-semibold flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+      <div class="item-card">
+        <div class="px-6 py-4 border-b" style="border-color: var(--item-dove);">
+          <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14,2 14,8 20,8"></polyline>
               <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -259,11 +367,11 @@
           </h2>
         </div>
 
-        <div class="p-8 space-y-6">
+        <div class="p-6 space-y-6">
           <!-- Personal Information Section -->
-          <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-inner border border-gray-100">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-emerald-600">
+          <div class="space-y-4">
+            <h3 class="text-base font-semibold text-gray-900 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                 <circle cx="12" cy="7" r="4"></circle>
               </svg>
@@ -272,58 +380,35 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <!-- Full Name -->
-              <div class="field-container rounded-xl p-4">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-emerald-500">
-                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  Full Name
-                </label>
+              <div class="field-container p-4">
+                <label class="text-sm font-medium text-gray-600 mb-1 block">Full Name</label>
                 <span class="text-gray-900 font-medium">{{ visitor.name }}</span>
               </div>
 
               <!-- Email -->
-              <div class="field-container rounded-xl p-4">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-500">
-                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
-                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                  </svg>
-                  Email
-                </label>
+              <div class="field-container p-4">
+                <label class="text-sm font-medium text-gray-600 mb-1 block">Email</label>
                 <span class="text-gray-900">{{ visitor.email }}</span>
               </div>
 
               <!-- Phone -->
-              <div class="field-container rounded-xl p-4">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-purple-500">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                  </svg>
-                  Phone
-                </label>
+              <div class="field-container p-4">
+                <label class="text-sm font-medium text-gray-600 mb-1 block">Phone</label>
                 <span class="text-gray-900">{{ visitor.phone or 'N/A' }}</span>
               </div>
 
               <!-- Status -->
-              <div class="field-container rounded-xl p-4">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-orange-500">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12,6 12,12 16,14"></polyline>
-                  </svg>
-                  Status
-                </label>
+              <div class="field-container p-4">
+                <label class="text-sm font-medium text-gray-600 mb-1 block">Status</label>
                 <span class="status-badge {{ visitor.status|lower }}">{{ visitor.status }}</span>
               </div>
             </div>
           </div>
 
           <!-- Visit Details Section -->
-          <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-inner border border-gray-100">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-orange-600">
+          <div class="space-y-4">
+            <h3 class="text-base font-semibold text-gray-900 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-orange);">
                 <path d="M8 2v4"></path>
                 <path d="M16 2v4"></path>
                 <rect width="18" height="18" x="3" y="4" rx="2"></rect>
@@ -334,48 +419,29 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <!-- Visit Time -->
-              <div class="field-container rounded-xl p-4">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-orange-500">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12,6 12,12 16,14"></polyline>
-                  </svg>
-                  Visit Time
-                </label>
+              <div class="field-container p-4">
+                <label class="text-sm font-medium text-gray-600 mb-1 block">Visit Time</label>
                 <span class="text-gray-900">{{ visitor.visit_date }}</span>
               </div>
 
               <!-- Estimated Time -->
-              <div class="field-container rounded-xl p-4">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-indigo-500">
-                    <clock cx="12" cy="12" r="10"></clock>
-                    <polyline points="12,6 12,12 16,14"></polyline>
-                  </svg>
-                  Estimated Duration
-                </label>
+              <div class="field-container p-4">
+                <label class="text-sm font-medium text-gray-600 mb-1 block">Estimated Duration</label>
                 <span class="text-gray-900">{{ visitor.estimate_time if visitor.estimate_time else 'N/A' }}</span>
               </div>
 
               <!-- Host Employee -->
-              <div class="field-container rounded-xl p-4 md:col-span-2">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-teal-500">
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="9" cy="7" r="4"></circle>
-                    <path d="m22 21-3-3"></path>
-                  </svg>
-                  Host Employee
-                </label>
+              <div class="field-container p-4 md:col-span-2">
+                <label class="text-sm font-medium text-gray-600 mb-1 block">Host Employee</label>
                 <span class="text-gray-900 font-medium">{{ host_name }}</span>
               </div>
             </div>
           </div>
 
           <!-- Documents & QR Code Section -->
-          <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-inner border border-gray-100">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-purple-600">
+          <div class="space-y-4">
+            <h3 class="text-base font-semibold text-gray-900 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                 <polyline points="14,2 14,8 20,8"></polyline>
                 <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -386,38 +452,23 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- Photo -->
-              <div class="field-container rounded-xl p-4">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-green-500">
-                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                    <circle cx="9" cy="9" r="2"></circle>
-                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                  </svg>
-                  Photo
-                </label>
+              <div class="field-container p-4">
+                <label class="text-sm font-medium text-gray-600 mb-2 block">Photo</label>
                 {% if visitor.photo_url %}
                   <div class="photo-container" onclick="openImageModal('{{ visitor.photo_url }}')">
                     <img src="{{ visitor.photo_url }}" class="w-full h-auto">
                   </div>
                 {% else %}
-                  <span class="text-gray-500">No photo available</span>
+                  <span class="text-gray-500 text-sm">No photo available</span>
                 {% endif %}
               </div>
 
               <!-- Document -->
-              <div class="field-container rounded-xl p-4">
-                <label class="text-sm font-medium text-gray-700 flex items-center mb-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-amber-500">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14,2 14,8 20,8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                  </svg>
-                  Document
-                </label>
+              <div class="field-container p-4">
+                <label class="text-sm font-medium text-gray-600 mb-2 block">Document</label>
                 {% if visitor.document_url %}
                   <a href="{{ visitor.document_url }}" target="_blank"
-                     class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white text-sm font-medium rounded-lg transition-all duration-200">
+                     class="item-button inline-flex items-center px-4 py-2 text-white text-sm font-medium">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                       <polyline points="15,3 21,3 21,9"></polyline>
@@ -426,41 +477,25 @@
                     View Document
                   </a>
                 {% else %}
-                  <span class="text-gray-500">No document available</span>
+                  <span class="text-gray-500 text-sm">No document available</span>
                 {% endif %}
               </div>
 
               <!-- QR Code -->
-              <div class="field-container rounded-xl p-4 md:col-span-2 text-center">
-                <label class="text-sm font-medium text-gray-700 flex items-center justify-center mb-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 text-blue-500">
-                    <rect width="5" height="5" x="3" y="3" rx="1"></rect>
-                    <rect width="5" height="5" x="16" y="3" rx="1"></rect>
-                    <rect width="5" height="5" x="3" y="16" rx="1"></rect>
-                    <path d="M21 16h-3a2 2 0 0 0-2 2v3"></path>
-                    <path d="M21 21v.01"></path>
-                    <path d="M12 7v3a2 2 0 0 1-2 2H7"></path>
-                    <path d="M3 12h.01"></path>
-                    <path d="M12 3h.01"></path>
-                    <path d="M12 16v.01"></path>
-                    <path d="M16 12h1"></path>
-                    <path d="M21 12v.01"></path>
-                    <path d="M12 21v-1"></path>
-                  </svg>
-                  QR Code for Check-in
-                </label>
+              <div class="field-container p-4 md:col-span-2 text-center">
+                <label class="text-sm font-medium text-gray-600 mb-4 block">QR Code for Check-in</label>
                 {% if visitor.qr_token %}
-                  <div class="bg-white p-4 rounded-lg shadow-inner inline-block">
+                  <div class="bg-white p-4 rounded-lg shadow-sm inline-block">
                     <img src="/static/qr/{{ visitor.qr_token }}.png"
                          class="qr-code mx-auto"
                          onclick="openImageModal('/static/qr/{{ visitor.qr_token }}.png')"
                          alt="QR Code for {{ visitor.name }}"
                          onerror="this.parentElement.innerHTML='<span class=&quot;text-red-500 p-4&quot;>QR Code not found</span>'">
-                    <p class="text-xs text-gray-600 mt-2">Click to enlarge</p>
+                    <p class="text-xs text-gray-500 mt-2">Click to enlarge</p>
                   </div>
                 {% else %}
-                  <div class="bg-gray-100 p-8 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-gray-400 mb-2">
+                  <div class="bg-gray-50 p-8 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-gray-400 mb-2">
                       <rect width="5" height="5" x="3" y="3" rx="1"></rect>
                       <rect width="5" height="5" x="16" y="3" rx="1"></rect>
                       <rect width="5" height="5" x="3" y="16" rx="1"></rect>
@@ -486,15 +521,15 @@
           <div class="space-y-4">
             <!-- Check-in Section -->
             {% if visitor.status == 'pending' %}
-            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200">
+            <div class="action-section checkin">
               <div class="text-center mb-4">
                 <h4 class="text-lg font-semibold text-blue-900 mb-2">Already arrived?</h4>
                 <p class="text-blue-700 text-sm">Click the button below to check in</p>
               </div>
               <button id="checkinBtn" onclick="submitCheckin()"
-                      class="w-full px-6 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 text-lg">
+                      class="item-button w-full px-6 py-3 text-white font-medium text-base">
                 <span class="flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
                     <polyline points="22,4 12,14.01 9,11.01"/>
                   </svg>
@@ -507,15 +542,15 @@
 
             <!-- Check-out Section -->
             {% if visitor.status == 'checked_in' or 1==1%}
-            <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200">
+            <div class="action-section checkout">
               <div class="text-center mb-4">
                 <h4 class="text-lg font-semibold text-green-900 mb-2">Ready to leave?</h4>
                 <p class="text-green-700 text-sm">Click the button below to check out</p>
               </div>
               <button id="checkoutBtn" onclick="submitCheckout()"
-                      class="w-full px-6 py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 text-lg">
+                      class="item-button-success w-full px-6 py-3 text-white font-medium text-base">
                 <span class="flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
                     <polyline points="16,17 21,12 16,7"/>
                     <line x1="21" y1="12" x2="9" y2="12"/>
@@ -528,15 +563,15 @@
             {% endif %}
 
             <!-- Cancel Section -->
-            <div class="bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-6 border border-red-200">
+            <div class="action-section cancel">
               <div class="text-center mb-4">
                 <h4 class="text-lg font-semibold text-red-900 mb-2">Need to cancel?</h4>
                 <p class="text-red-700 text-sm">This action cannot be undone</p>
               </div>
               <button id="cancelBtn"
-                      class="w-full px-6 py-4 bg-gradient-to-r from-red-500 to-pink-600 hover:from-red-600 hover:to-pink-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 active:scale-95 text-lg">
+                      class="item-button-danger w-full px-6 py-3 text-white font-medium text-base">
                 <span class="flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                     <circle cx="12" cy="12" r="10"/>
                     <line x1="15" y1="9" x2="9" y2="15"/>
                     <line x1="9" y1="9" x2="15" y2="15"/>
@@ -560,19 +595,19 @@
       const notificationText = document.getElementById('notificationText');
       const notificationIcon = document.getElementById('notificationIcon');
 
-      notification.className = `notification ${type} px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm`;
+      notification.className = `notification ${type} px-4 py-3`;
       notificationText.textContent = message;
 
       if (type === 'success') {
         notificationIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
             <polyline points="22,4 12,14.01 9,11.01"/>
           </svg>
         `;
       } else {
         notificationIcon.innerHTML = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
             <line x1="15" y1="9" x2="9" y2="15"/>
             <line x1="9" y1="9" x2="15" y2="15"/>
@@ -611,10 +646,7 @@
       button.disabled = true;
       button.innerHTML = `
         <span class="flex items-center justify-center">
-          <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+          <div class="loading-spinner mr-2"></div>
           Cancelling...
         </span>
       `;
@@ -696,10 +728,7 @@
       button.disabled = true;
       button.innerHTML = `
         <span class="flex items-center justify-center">
-          <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+          <div class="loading-spinner mr-2"></div>
           Checking in...
         </span>
       `;
@@ -746,7 +775,7 @@
           statusBadge.textContent = 'CHECKED-IN';
 
           // Hide check-in section and show check-out section
-          const checkinSection = button.closest('.bg-gradient-to-br');
+          const checkinSection = button.closest('.action-section');
           if (checkinSection) {
             checkinSection.style.display = 'none';
           }
@@ -791,10 +820,7 @@
       button.disabled = true;
       button.innerHTML = `
         <span class="flex items-center justify-center">
-          <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-          </svg>
+          <div class="loading-spinner mr-2"></div>
           Checking out...
         </span>
       `;
