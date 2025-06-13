@@ -40,6 +40,10 @@ import json
 import re
 import pytz
 
+
+# from ItemEmailTemplates import *
+
+
 secrets.token_hex(32)
 
 
@@ -48,8 +52,8 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 
 import logging
 LOG_FOLDER = 'logs/'
-# BASE_URL = "http://192.168.162.183:8080"
-BASE_URL = "http://192.168.56.1:8080"
+BASE_URL = "http://192.168.162.183:8080"
+# BASE_URL = "http://192.168.56.1:8080"
 #BASE_URL = "http://192.168.166.78:8080"
 
 os.makedirs(LOG_FOLDER, exist_ok=True)
@@ -67,8 +71,8 @@ logger = logging.getLogger(__name__)
 CORS(app)  # allow cross-origin from React dev server
 
 app.config['SECRET_KEY'] = 'dev-secret'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://devops:kai%402025@192.168.162.183/vmpro'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://para:para@192.168.56.1/vmpro'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://devops:kai%402025@192.168.162.183/vmpro'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://para:para@192.168.56.1/vmpro'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
@@ -189,6 +193,7 @@ def chat():
                 elif isinstance(raw_default, str):
                     default_flag = raw_default.strip().lower() == "true"
 
+                # if they don't know who they are here for, query the default employee per this location
                 if default_flag:
                     location_entry = Location.query.get(current_location)
 
@@ -205,6 +210,7 @@ def chat():
                             visitor_data["employee_email"] = default_emp.email
                             visitor_data["host_employee"] = default_emp.id
 
+                # if they do provide employee email, query and find the host_employee id
                 else:
                     provided_email = visitor_data.get("employee_email", "").strip()
                     if not provided_email:
@@ -216,7 +222,12 @@ def chat():
                             has_error = True
                             error_message = f"No employee found with email {provided_email}"
                         else:
+                            visitor_data["employee_name"] = employee.name
+                            visitor_data["employee_email"] = employee.email
                             visitor_data["host_employee"] = employee.id
+
+                # either way append location, passing everything back so frontend success screen can display information
+                visitor_data["location_id"] = current_location
 
         except Exception as e:
             has_error = True
@@ -261,7 +272,7 @@ def visitor_checkin():
             )
             db.session.add(checkin_log)
             db.session.commit()
-            logger.info(f"✅ Check-in logged for visitor ID={visitor_data.get('id')}")
+            logger.info(f" Check-in logged for visitor ID={visitor_data.get('id')}")
         except Exception as log_err:
             logger.error(f"Failed to log check-in: {log_err}")
             db.session.rollback()
@@ -272,6 +283,9 @@ def visitor_checkin():
         estimate_time = request.form.get('estimate_time', visitor_data['estimate_time'])
         location_name = visitor_data.get('location_name', 'Unknown')
 
+
+        link = f"{request.host_url}visitor/view/{qr_token}?t=v"
+
         # Compose email content
         email_html = f"""
             <h3>Visitor Arrived</h3>
@@ -280,6 +294,8 @@ def visitor_checkin():
             <p><strong>Visit Time:</strong> {visit_date}</p>
             <p><strong>Estimated Time:</strong> {estimate_time}</p>
             <p><strong>Location:</strong> {location_name}</p>
+            Remember to complete this meeting by checking out the guest when finished.
+            <p><a href="{link}">{link}</a></p>        
             <hr>
         """
 
@@ -292,7 +308,7 @@ def visitor_checkin():
 
         # Send SMS
         to_number = format_us_number(host_data['phone'])
-        message = f"Hi {host_data['name']}, visitor {name} has arrived at {visit_date}."
+        message = f"Hi {host_data['name']}, visitor {name} has arrived at {visit_date}. You can view and check out the guest at: {link}"
         SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
             to_number=to_number,
             message_body=message
@@ -303,7 +319,7 @@ def visitor_checkin():
             try:
                 Notification.log("employee", host_data['id'], "sms", "sent", message)
                 Notification.log("employee", host_data['id'], "email", "sent", email_html)
-                logger.info("✅ Notifications logged via background queue.")
+                logger.info(" Notifications logged via background queue.")
             except Exception as e:
                 logger.error(f"Background notification logging error: {e}")
 
@@ -318,7 +334,7 @@ def visitor_checkin():
                     {"qr_token": qr_token}
                 )
                 db.session.commit()
-                logger.info("✅ host_notified updated via background queue.")
+                logger.info(" host_notified updated via background queue.")
             except Exception as e:
                 logger.error(f"Background host_notified update error: {e}")
                 db.session.rollback()
@@ -894,7 +910,7 @@ def visitor_checkout():
             )
             db.session.add(checkout_log)
             db.session.commit()
-            logger.info(f"✅ Check-out logged for visitor ID={visitor_data.get('id')}")
+            logger.info(f" Check-out logged for visitor ID={visitor_data.get('id')}")
         except Exception as log_err:
             logger.error(f"Failed to log check-out: {log_err}")
             db.session.rollback()
@@ -1715,7 +1731,6 @@ def get_visit_duration_analytics():
         }), 200
 
 # Add this new route to your Flask app (replace the existing peak-days route)
-
 @app.route('/api/analytics/visitor-trends', methods=['GET'])
 def get_visitor_trends():
     """Get visitor trends over time with check-in/check-out data"""
@@ -2042,51 +2057,6 @@ def calculate_trend(current, previous):
         'direction': direction
     }
 
-# Additional route for advanced analytics (heatmap data, etc.)
-@app.route('/api/analytics/heatmap', methods=['GET'])
-def get_heatmap_data():
-    """Get heatmap data for visitor patterns by day/hour"""
-    try:
-        start_date = request.args.get('start', (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d'))
-        end_date = request.args.get('end', datetime.now().strftime('%Y-%m-%d'))
-        
-        start_dt = datetime.strptime(start_date, '%Y-%m-%d')
-        end_dt = datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
-        
-        # Get check-ins by day of week and hour
-        heatmap_data = db.session.query(
-            func.dayofweek(VisitLog.timestamp).label('day_of_week'),
-            func.hour(VisitLog.timestamp).label('hour'),
-            func.count(VisitLog.id).label('count')
-        ).filter(
-            VisitLog.event_type == 'check_in',
-            VisitLog.timestamp >= start_dt,
-            VisitLog.timestamp < end_dt
-        ).group_by(
-            func.dayofweek(VisitLog.timestamp),
-            func.hour(VisitLog.timestamp)
-        ).all()
-        
-        # Initialize heatmap matrix (7 days x 24 hours)
-        heatmap = {}
-        days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-        
-        for day_idx, day in enumerate(days):
-            heatmap[day] = {}
-            for hour in range(24):
-                heatmap[day][hour] = 0
-        
-        # Fill in actual data
-        for data in heatmap_data:
-            if data.day_of_week and data.hour is not None:
-                day_name = days[data.day_of_week - 1]  # MySQL dayofweek returns 1-7
-                heatmap[day_name][data.hour] = data.count
-        
-        return jsonify(heatmap)
-        
-    except Exception as e:
-        logger.error(f"Error in heatmap data: {e}")
-        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/analytics/peak-times', methods=['GET'])
 def get_peak_times():

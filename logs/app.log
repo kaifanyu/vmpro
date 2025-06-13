@@ -12635,3 +12635,1293 @@ HAVING count(visitors.id) > %(count_4)s) AS anon_1]
 
 [2025-06-11 20:32:14,632] INFO in app: [Matched Visitors]     0 visitor(s) found.
 
+[2025-06-13 12:23:00,545] INFO in app: Warming cache...
+[2025-06-13 12:23:05,229] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:23:05,236] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 12:23:06,152] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.103:8080
+[2025-06-13 12:23:06,152] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-06-13 12:23:06,158] INFO in _internal:  * Restarting with stat
+[2025-06-13 12:23:10,093] INFO in app: Warming cache...
+[2025-06-13 12:23:10,103] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:23:10,104] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 12:23:10,111] WARNING in _internal:  * Debugger is active!
+[2025-06-13 12:23:10,115] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 12:23:30,398] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:30] "[32mGET / HTTP/1.1[0m" 302 -
+[2025-06-13 12:23:30,422] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:30] "GET /login HTTP/1.1" 200 -
+[2025-06-13 12:23:34,208] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:34] "[32mPOST /login HTTP/1.1[0m" 302 -
+[2025-06-13 12:23:34,212] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:34] "[32mGET / HTTP/1.1[0m" 302 -
+[2025-06-13 12:23:34,237] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:34] "GET /index HTTP/1.1" 200 -
+[2025-06-13 12:23:34,262] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:34] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:23:34,286] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:34] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:23:34,319] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:34] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-06-13 12:23:34,350] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:34] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:23:34,509] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:34] "GET /static/profiles/profile_20250611_140950_F7ruCAAbAAAMJgz.png HTTP/1.1" 200 -
+[2025-06-13 12:23:36,849] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:36] "GET /account HTTP/1.1" 200 -
+[2025-06-13 12:23:36,862] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:36] "[33mGET /static/images/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:23:36,914] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:36] "[33mGET /static/images/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:23:36,959] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:36] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:23:36,976] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:36] "[36mGET /static/profiles/profile_20250611_140950_F7ruCAAbAAAMJgz.png HTTP/1.1[0m" 304 -
+[2025-06-13 12:23:40,370] INFO in app: Saving file to: C:\Users\Kai\Documents\Repo\vmpro\static\profiles\profile_20250613_122340_596694.jpg
+[2025-06-13 12:23:40,370] INFO in app: Directory exists: True
+[2025-06-13 12:23:40,370] INFO in app: Directory writable: True
+[2025-06-13 12:23:40,371] INFO in app: File saved successfully: static/profiles\profile_20250613_122340_596694.jpg
+[2025-06-13 12:23:40,371] INFO in app: Returning photo URL: /static/profiles/profile_20250613_122340_596694.jpg
+[2025-06-13 12:23:40,372] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:40] "POST /api/upload/photo HTTP/1.1" 200 -
+[2025-06-13 12:23:40,393] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:40] "GET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1" 200 -
+[2025-06-13 12:23:43,484] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:43] "POST /account HTTP/1.1" 200 -
+[2025-06-13 12:23:43,491] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:43] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:23:43,496] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:43] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 12:23:46,217] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:46] "GET /pages/locations.html HTTP/1.1" 200 -
+[2025-06-13 12:23:46,288] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:46] "GET /api/location/list HTTP/1.1" 200 -
+[2025-06-13 12:23:47,297] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:47] "GET /pages/employees.html HTTP/1.1" 200 -
+[2025-06-13 12:23:47,371] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:47] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:23:47,374] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:47] "GET /api/employee/list HTTP/1.1" 200 -
+[2025-06-13 12:23:47,379] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:47] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 12:23:47,382] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:47] "[36mGET /static/profiles/profile_20250611_164928_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 12:23:48,238] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:48] "GET /pages/visit_logs.html HTTP/1.1" 200 -
+[2025-06-13 12:23:48,324] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:23:48] "GET /api/visit_logs HTTP/1.1" 200 -
+[2025-06-13 12:24:05,247] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:24:10,112] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:24:11,865] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:11] "GET /index HTTP/1.1" 200 -
+[2025-06-13 12:24:11,889] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:11] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:24:11,913] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:11] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-06-13 12:24:11,915] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:11] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:24:11,981] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:11] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:24:11,991] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:11] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 12:24:12,950] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:12] "GET /pages/visit_logs.html HTTP/1.1" 200 -
+[2025-06-13 12:24:13,029] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:13] "GET /api/visit_logs HTTP/1.1" 200 -
+[2025-06-13 12:24:22,999] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:22] "GET /index HTTP/1.1" 200 -
+[2025-06-13 12:24:23,015] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:23] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:24:23,042] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:23] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-06-13 12:24:23,046] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:23] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:24:23,095] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:23] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:24:23,109] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:23] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 12:24:24,715] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:24] "GET /pages/visit_logs.html HTTP/1.1" 200 -
+[2025-06-13 12:24:24,790] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:24] "GET /api/visit_logs HTTP/1.1" 200 -
+[2025-06-13 12:24:33,514] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:33] "GET /pages/notifications.html HTTP/1.1" 200 -
+[2025-06-13 12:24:33,599] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:33] "GET /api/notifications HTTP/1.1" 200 -
+[2025-06-13 12:24:38,082] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:38] "[36mGET /pages/visit_logs.html HTTP/1.1[0m" 304 -
+[2025-06-13 12:24:38,159] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:38] "GET /api/visit_logs HTTP/1.1" 200 -
+[2025-06-13 12:24:38,845] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:38] "GET /account HTTP/1.1" 200 -
+[2025-06-13 12:24:38,856] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:38] "[33mGET /static/images/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:24:38,888] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:38] "[33mGET /static/images/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:24:38,929] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:38] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:24:38,938] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:38] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 12:24:42,747] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:42] "GET /pages/locations.html HTTP/1.1" 200 -
+[2025-06-13 12:24:42,907] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:42] "GET /api/location/list HTTP/1.1" 200 -
+[2025-06-13 12:24:48,344] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:48] "[33mGET /guest HTTP/1.1[0m" 404 -
+[2025-06-13 12:24:56,775] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:24:56] "[33mGET /guestcheckin HTTP/1.1[0m" 404 -
+[2025-06-13 12:25:02,385] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:25:02] "[33mGET /camera HTTP/1.1[0m" 404 -
+[2025-06-13 12:25:05,265] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:25:05,623] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:25:05] "[33mGET /camera.tsx HTTP/1.1[0m" 404 -
+[2025-06-13 12:25:10,115] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:25:14,704] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:25:14] "[33mGET /react_app/camera.tsx HTTP/1.1[0m" 404 -
+[2025-06-13 12:25:17,208] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:25:17] "[33mGET /react_app/camera HTTP/1.1[0m" 404 -
+[2025-06-13 12:26:05,270] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:26:10,126] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:27:05,285] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:27:10,140] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:28:05,292] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:28:10,143] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:29:05,305] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:29:10,159] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:29:19,617] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 12:29:19,784] INFO in _internal:  * Restarting with stat
+[2025-06-13 12:29:24,027] INFO in app: Warming cache...
+[2025-06-13 12:29:24,038] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:29:24,042] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 12:29:24,050] WARNING in _internal:  * Debugger is active!
+[2025-06-13 12:29:24,054] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 12:29:24,474] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:24] "[33mGET /react_app/camera.tsx HTTP/1.1[0m" 404 -
+[2025-06-13 12:29:24,475] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:24] "[33mGET /camera.tsx HTTP/1.1[0m" 404 -
+[2025-06-13 12:29:37,366] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 12:29:37,494] INFO in _internal:  * Restarting with stat
+[2025-06-13 12:29:41,442] INFO in app: Warming cache...
+[2025-06-13 12:29:41,451] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:29:41,453] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 12:29:41,460] WARNING in _internal:  * Debugger is active!
+[2025-06-13 12:29:41,464] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 12:29:41,875] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:41] "[33mGET /camera HTTP/1.1[0m" 404 -
+[2025-06-13 12:29:41,876] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:41] "[33mGET /guestcheckin HTTP/1.1[0m" 404 -
+[2025-06-13 12:29:41,878] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:41] "[32mGET / HTTP/1.1[0m" 302 -
+[2025-06-13 12:29:41,885] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:41] "GET /index HTTP/1.1" 200 -
+[2025-06-13 12:29:41,906] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:41] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:29:41,935] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:41] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:29:41,989] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:41] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-06-13 12:29:41,995] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:41] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:29:42,031] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:42] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 12:29:43,839] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /analytics HTTP/1.1" 200 -
+[2025-06-13 12:29:43,948] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /api/analytics/hourly-distribution?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:29:43,950] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /api/analytics/core-stats?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:29:43,950] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /api/analytics/locations?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:29:43,954] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /api/analytics/visit-duration?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:29:43,963] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /api/analytics/recent-activity?limit=10 HTTP/1.1" 200 -
+[2025-06-13 12:29:43,964] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /api/analytics/alerts?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:29:43,964] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /api/analytics/employees?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:29:43,967] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:29:43] "GET /api/analytics/visitor-trends?start=2025-05-13&end=2025-06-13&period=daily HTTP/1.1" 200 -
+[2025-06-13 12:30:05,320] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:30:17,351] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 12:30:17,526] INFO in _internal:  * Restarting with stat
+[2025-06-13 12:30:21,483] INFO in app: Warming cache...
+[2025-06-13 12:30:21,492] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:30:21,495] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 12:30:21,503] WARNING in _internal:  * Debugger is active!
+[2025-06-13 12:30:21,508] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 12:30:21,910] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:21] "GET /index HTTP/1.1" 200 -
+[2025-06-13 12:30:21,928] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:21] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:30:21,954] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:21] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 12:30:22,000] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 12:30:22,005] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-06-13 12:30:22,018] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 12:30:22,807] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /analytics HTTP/1.1" 200 -
+[2025-06-13 12:30:22,889] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "[33mGET /api/analytics/visitor-trends?start=2025-05-13&end=2025-06-13&period=daily HTTP/1.1[0m" 404 -
+[2025-06-13 12:30:22,907] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /api/analytics/core-stats?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:22,913] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /api/analytics/hourly-distribution?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:22,914] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /api/analytics/locations?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:22,918] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /api/analytics/recent-activity?limit=10 HTTP/1.1" 200 -
+[2025-06-13 12:30:22,918] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /api/analytics/alerts?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:22,919] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /api/analytics/employees?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:22,920] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:22] "GET /api/analytics/visit-duration?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:23,863] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "GET /analytics HTTP/1.1" 200 -
+[2025-06-13 12:30:23,939] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "[33mGET /api/analytics/visitor-trends?start=2025-05-13&end=2025-06-13&period=daily HTTP/1.1[0m" 404 -
+[2025-06-13 12:30:23,948] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "GET /api/analytics/locations?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:23,948] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "GET /api/analytics/core-stats?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:23,949] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "GET /api/analytics/hourly-distribution?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:23,956] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "GET /api/analytics/recent-activity?limit=10 HTTP/1.1" 200 -
+[2025-06-13 12:30:23,958] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "GET /api/analytics/visit-duration?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:23,959] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "GET /api/analytics/alerts?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:23,959] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:23] "GET /api/analytics/employees?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:25,125] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 12:30:25,252] INFO in _internal:  * Restarting with stat
+[2025-06-13 12:30:29,235] INFO in app: Warming cache...
+[2025-06-13 12:30:29,243] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:30:29,246] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 12:30:29,254] WARNING in _internal:  * Debugger is active!
+[2025-06-13 12:30:29,259] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 12:30:29,657] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /analytics HTTP/1.1" 200 -
+[2025-06-13 12:30:29,750] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /api/analytics/hourly-distribution?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:29,750] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /api/analytics/core-stats?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:29,756] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /api/analytics/locations?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:29,766] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /api/analytics/recent-activity?limit=10 HTTP/1.1" 200 -
+[2025-06-13 12:30:29,767] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /api/analytics/visit-duration?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:29,768] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /api/analytics/alerts?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:29,771] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /api/analytics/employees?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 12:30:29,771] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:30:29] "GET /api/analytics/visitor-trends?start=2025-05-13&end=2025-06-13&period=daily HTTP/1.1" 200 -
+[2025-06-13 12:31:05,336] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:31:29,253] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:32:05,341] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:32:08,628] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:32:08] "[33mGET /app/camera HTTP/1.1[0m" 404 -
+[2025-06-13 12:32:14,549] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:32:14] "[33mGET /app/guest-checkin HTTP/1.1[0m" 404 -
+[2025-06-13 12:32:29,263] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:33:05,354] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:33:29,266] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:34:05,369] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:34:29,277] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:34:55,747] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:34:55] "GET /app/guest-checkin HTTP/1.1" 200 -
+[2025-06-13 12:34:55,772] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:34:55] "GET /app/assets/index-DpIf_-Mu.css HTTP/1.1" 200 -
+[2025-06-13 12:34:55,811] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:34:55] "GET /app/assets/index-DVw2ceYd.js HTTP/1.1" 200 -
+[2025-06-13 12:34:55,844] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:34:55] "GET /app/favicon.ico HTTP/1.1" 200 -
+[2025-06-13 12:35:05,376] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:35:29,283] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:36:05,388] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:36:29,294] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:37:05,395] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:37:29,308] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:38:05,407] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:38:29,313] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:39:05,416] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:39:29,331] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:40:05,425] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:40:29,335] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:41:05,435] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:41:29,345] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:41:47,024] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:41:47] "GET /app/guest-checkin HTTP/1.1" 200 -
+[2025-06-13 12:41:47,053] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:41:47] "GET /app/assets/index-DVw2ceYd.js HTTP/1.1" 200 -
+[2025-06-13 12:41:47,054] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:41:47] "GET /app/assets/index-DpIf_-Mu.css HTTP/1.1" 200 -
+[2025-06-13 12:41:47,072] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 12:41:47] "GET /app/favicon.ico HTTP/1.1" 200 -
+[2025-06-13 12:42:05,453] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:42:29,355] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:43:05,470] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:43:29,372] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:44:05,487] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:44:29,383] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:45:05,499] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:45:29,386] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:46:05,510] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:46:29,390] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:47:05,525] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:47:29,400] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:48:05,533] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:48:29,406] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:49:05,550] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:49:29,411] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:50:05,562] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:50:29,421] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:51:05,574] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:51:29,426] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:52:05,589] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:52:29,431] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:53:05,601] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:53:29,447] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:53:58,949] INFO in SimpleMemoryCache: Cache cleaned 1 expired entries
+[2025-06-13 12:54:05,612] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:54:29,459] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:55:05,625] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:55:29,466] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:56:05,637] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:56:29,473] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:57:05,651] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:57:29,479] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:58:05,664] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:58:29,487] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:59:05,678] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 12:59:29,490] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:00:05,693] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:00:29,505] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:01:05,707] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:01:29,250] INFO in SimpleMemoryCache: Cache cleaned 1 expired entries
+[2025-06-13 13:01:29,516] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:02:05,720] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:02:29,529] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:03:05,726] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:03:29,542] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:04:05,740] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:04:29,552] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:05:05,747] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:05:29,558] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:06:05,764] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:06:29,567] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:07:05,770] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:07:29,580] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:08:05,788] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:08:29,585] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:09:05,797] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:09:29,600] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:10:05,812] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:10:29,604] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:11:05,829] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:11:29,615] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:12:05,831] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:12:29,626] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:13:05,844] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:13:29,630] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:14:05,847] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:14:29,633] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:15:05,859] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:15:29,637] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:16:05,872] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:16:29,640] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:17:05,883] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:17:29,652] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:18:05,887] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:18:29,666] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:19:05,891] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:19:29,673] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:20:05,899] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:20:29,684] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:21:05,910] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:21:29,694] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:22:05,924] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:22:29,698] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:23:05,932] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:23:29,710] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:24:05,947] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:24:29,722] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:25:05,959] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:25:29,738] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:26:05,963] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:26:29,746] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:27:05,977] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:27:29,762] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:28:05,989] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:28:29,772] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:28:48,767] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 13:28:48] "[32mGET / HTTP/1.1[0m" 302 -
+[2025-06-13 13:28:48,790] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 13:28:48] "GET /index HTTP/1.1" 200 -
+[2025-06-13 13:28:48,840] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 13:28:48] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 13:28:48,840] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 13:28:48] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-06-13 13:28:48,974] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 13:28:48] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 13:28:49,028] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 13:28:49] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 13:28:49,039] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 13:28:49] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 13:29:05,996] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:29:29,789] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:30:05,998] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:30:29,799] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:31:06,014] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:31:29,801] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:32:06,020] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:32:29,804] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:33:06,035] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:33:29,813] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:34:06,041] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:34:29,820] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:35:06,055] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:35:29,831] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:36:06,061] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:36:29,841] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:37:06,071] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:37:29,857] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:38:06,081] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:38:29,870] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:39:06,090] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:39:13,859] INFO in _internal: 192.168.56.1 - - [13/Jun/2025 13:39:13] "[31m[1mGET /chat HTTP/1.1[0m" 405 -
+[2025-06-13 13:39:13,903] INFO in _internal: 192.168.56.1 - - [13/Jun/2025 13:39:13] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-06-13 13:39:29,885] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:40:06,028] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:40:06] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 13:40:06,098] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:40:08,389] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:40:08,405] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:40:08] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:40:12,268] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:40:12] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 13:40:13,573] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:40:13,584] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:40:13] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:40:17,489] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:40:17,492] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:40:17] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:40:21,972] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:40:21] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 13:40:24,202] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:40:24,210] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:40:24] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:40:29,898] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:41:06,108] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:41:29,902] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:42:06,115] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:42:29,914] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:43:06,133] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:43:29,932] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:44:06,143] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:44:29,940] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:44:31,677] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:44:31] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 13:44:33,045] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:44:33] "[35m[1mPOST /api/visitor/checkin HTTP/1.1[0m" 500 -
+[2025-06-13 13:45:06,153] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:45:14,346] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:45:14] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 13:45:15,226] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:45:15,232] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:45:15] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:45:19,583] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:45:19,584] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:45:19] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:45:20,691] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:45:20] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 13:45:23,268] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:45:23,269] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:45:23] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:45:26,387] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:45:26,389] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:45:26] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:45:29,958] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:45:31,481] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:45:31] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 13:45:32,873] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:45:32] "[35m[1mPOST /api/visitor/checkin HTTP/1.1[0m" 500 -
+[2025-06-13 13:46:06,164] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:46:29,971] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:47:06,180] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:47:29,982] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:48:06,185] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:48:29,986] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:48:43,731] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:48:43] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 13:48:44,721] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:48:44,722] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:48:44] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:48:49,310] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:48:49,311] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:48:49] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:48:49,667] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:48:49] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 13:48:50,647] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:48:50,651] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:48:50] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:48:56,107] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:48:56] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 13:48:57,659] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 13:48:57,665] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:48:57] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 13:49:02,838] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:49:02] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 13:49:04,211] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 13:49:04] "[35m[1mPOST /api/visitor/checkin HTTP/1.1[0m" 500 -
+[2025-06-13 13:49:06,194] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:49:29,996] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:50:06,200] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:50:30,013] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:51:06,205] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:51:30,028] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:52:06,215] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:52:30,034] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:53:06,226] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:53:30,040] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:54:06,236] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:54:30,049] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:55:06,239] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:55:30,055] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:56:06,253] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:56:14,791] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:56:14,961] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:56:25,314] INFO in app: Warming cache...
+[2025-06-13 13:56:25,324] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:56:25,326] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:56:25,361] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:56:25,365] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:56:34,426] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:56:34,539] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:56:38,472] INFO in app: Warming cache...
+[2025-06-13 13:56:38,481] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:56:38,482] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:56:38,490] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:56:38,494] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:56:47,581] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:56:47,711] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:56:51,706] INFO in app: Warming cache...
+[2025-06-13 13:56:51,714] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:56:51,730] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:56:51,738] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:56:51,742] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:56:56,645] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:56:56,766] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:57:00,696] INFO in app: Warming cache...
+[2025-06-13 13:57:00,704] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:57:00,722] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:57:00,730] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:57:00,734] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:57:06,268] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:57:31,216] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:57:31,358] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:57:35,346] INFO in app: Warming cache...
+[2025-06-13 13:57:35,356] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:57:35,358] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:57:35,364] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:57:35,368] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:57:57,250] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:57:57,360] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:58:01,326] INFO in app: Warming cache...
+[2025-06-13 13:58:01,335] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:58:01,337] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:58:01,344] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:58:01,348] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:58:04,836] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:58:04,974] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:58:06,274] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:58:08,944] INFO in app: Warming cache...
+[2025-06-13 13:58:08,956] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:58:08,956] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:58:08,967] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:58:08,971] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:58:11,137] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:58:11,246] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:58:15,178] INFO in app: Warming cache...
+[2025-06-13 13:58:15,189] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:58:15,190] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:58:15,198] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:58:15,201] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:58:18,607] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:58:18,716] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:58:22,663] INFO in app: Warming cache...
+[2025-06-13 13:58:22,674] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:58:22,676] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:58:22,683] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:58:22,687] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 13:59:06,283] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:59:22,687] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:59:29,873] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 13:59:29,987] INFO in _internal:  * Restarting with stat
+[2025-06-13 13:59:33,914] INFO in app: Warming cache...
+[2025-06-13 13:59:33,923] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 13:59:33,924] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 13:59:33,931] WARNING in _internal:  * Debugger is active!
+[2025-06-13 13:59:33,935] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:00:06,286] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:00:33,940] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:01:06,304] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:01:33,945] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:02:06,319] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:02:33,960] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:03:06,328] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:03:33,966] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:03:48,454] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:03:48] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:03:50,208] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:03:50,210] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:03:50] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:03:52,729] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:03:52,730] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:03:52] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:03:53,511] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:03:53] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:03:55,307] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:03:55,308] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:03:55] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:04:00,242] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:04:00,254] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:04:00] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:04:06,326] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:04:06] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:04:06,331] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:04:07,670] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:04:07] "[35m[1mPOST /api/visitor/checkin HTTP/1.1[0m" 500 -
+[2025-06-13 14:04:33,983] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:05:06,335] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:05:15,552] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:15] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:05:16,813] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:16] "[35m[1mPOST /api/visitor/checkin HTTP/1.1[0m" 500 -
+[2025-06-13 14:05:20,618] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:20] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:05:21,398] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:05:21,399] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:21] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:05:25,037] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:05:25,078] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:25] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:05:26,610] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:26] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:05:27,623] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:05:27,627] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:27] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:05:32,445] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:05:32,447] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:32] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:05:34,000] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:05:37,236] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:37] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:05:38,465] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:05:38] "[35m[1mPOST /api/visitor/checkin HTTP/1.1[0m" 500 -
+[2025-06-13 14:06:06,346] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:06:34,016] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:07:06,357] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:07:34,026] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:08:06,372] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:08:34,030] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:09:06,388] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:09:34,034] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:10:06,403] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:10:34,043] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:10:39,456] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:10:39] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:10:40,841] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:10:40] "[35m[1mPOST /api/visitor/checkin HTTP/1.1[0m" 500 -
+[2025-06-13 14:11:06,420] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:11:38,535] INFO in app: Warming cache...
+[2025-06-13 14:11:38,544] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:11:38,545] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:11:39,414] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.103:8080
+[2025-06-13 14:11:39,414] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-06-13 14:11:39,415] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:11:43,281] INFO in app: Warming cache...
+[2025-06-13 14:11:43,290] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:11:43,291] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:11:43,298] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:11:43,302] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:11:45,268] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:11:45] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:11:48,734] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:11:48] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:11:48,734] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:11:48,752] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:12:38,555] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:12:43,064] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:12:43,190] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:12:47,094] INFO in app: Warming cache...
+[2025-06-13 14:12:47,104] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:12:47,111] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:12:47,113] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:12:47,114] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:13:38,567] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:13:47,115] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:14:36,973] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:14:36] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:14:37,887] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:14:37,889] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:14:37] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:14:38,573] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:14:46,389] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:14:46] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:14:47,121] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:14:47,389] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:14:47,392] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:14:47] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:14:51,804] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:14:51] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:14:53,510] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:14:53,515] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:14:53] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:14:57,754] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:14:57,759] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:14:57] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:14:59,453] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:14:59] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:15:01,551] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:15:01,557] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:15:01] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:15:09,835] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:15:09] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:15:09,852] INFO in app:  Check-in logged for visitor ID=60
+[2025-06-13 14:15:11,488] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:15:11] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:15:11,488] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:15:11,494] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:15:11,494] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:15:11,496] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:15:27,452] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:27] "GET /index HTTP/1.1" 200 -
+[2025-06-13 14:15:27,499] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:27] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 14:15:27,528] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:27] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 14:15:27,563] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:27] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-06-13 14:15:27,576] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:27] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 14:15:27,604] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:27] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 14:15:28,910] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:28] "GET /analytics HTTP/1.1" 200 -
+[2025-06-13 14:15:29,107] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:29] "GET /api/analytics/core-stats?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:29,107] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:29] "GET /api/analytics/hourly-distribution?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:29,108] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:29] "GET /api/analytics/locations?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:29,119] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:29] "GET /api/analytics/recent-activity?limit=10 HTTP/1.1" 200 -
+[2025-06-13 14:15:29,120] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:29] "GET /api/analytics/employees?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:29,121] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:29] "GET /api/analytics/alerts?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:29,121] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:29] "GET /api/analytics/visit-duration?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:29,122] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:29] "GET /api/analytics/visitor-trends?start=2025-05-13&end=2025-06-13&period=daily HTTP/1.1" 200 -
+[2025-06-13 14:15:38,586] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:15:47,137] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:15:47,659] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:47] "GET /index HTTP/1.1" 200 -
+[2025-06-13 14:15:47,677] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:47] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 14:15:47,700] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:47] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-06-13 14:15:47,701] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:47] "[33mGET /static/default-avatar.png HTTP/1.1[0m" 404 -
+[2025-06-13 14:15:47,761] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:47] "GET /api/user/session HTTP/1.1" 200 -
+[2025-06-13 14:15:47,765] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:47] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-06-13 14:15:47,774] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:47] "[36mGET /static/profiles/profile_20250613_122340_596694.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 14:15:49,078] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /analytics HTTP/1.1" 200 -
+[2025-06-13 14:15:49,161] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /api/analytics/locations?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:49,161] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /api/analytics/hourly-distribution?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:49,161] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /api/analytics/core-stats?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:49,172] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /api/analytics/recent-activity?limit=10 HTTP/1.1" 200 -
+[2025-06-13 14:15:49,174] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /api/analytics/visitor-trends?start=2025-05-13&end=2025-06-13&period=daily HTTP/1.1" 200 -
+[2025-06-13 14:15:49,174] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /api/analytics/alerts?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:49,175] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /api/analytics/visit-duration?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:49,176] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:49] "GET /api/analytics/employees?start=2025-05-13&end=2025-06-13 HTTP/1.1" 200 -
+[2025-06-13 14:15:50,273] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:50] "GET /pages/visit_logs.html HTTP/1.1" 200 -
+[2025-06-13 14:15:50,346] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:50] "GET /api/visit_logs HTTP/1.1" 200 -
+[2025-06-13 14:15:57,407] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:57] "GET /pages/notifications.html HTTP/1.1" 200 -
+[2025-06-13 14:15:57,551] INFO in _internal: 127.0.0.1 - - [13/Jun/2025 14:15:57] "GET /api/notifications HTTP/1.1" 200 -
+[2025-06-13 14:16:38,603] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:16:47,141] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:17:38,606] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:17:47,153] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:18:38,621] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:18:44,211] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:18:44,355] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:18:48,473] INFO in app: Warming cache...
+[2025-06-13 14:18:48,481] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:18:48,484] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:18:48,491] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:18:48,494] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:18:50,565] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:18:50,696] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:18:54,594] INFO in app: Warming cache...
+[2025-06-13 14:18:54,602] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:18:54,616] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:18:54,623] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:18:54,626] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:19:02,271] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:19:02,380] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:19:06,285] INFO in app: Warming cache...
+[2025-06-13 14:19:06,294] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:19:06,296] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:19:06,303] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:19:06,307] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:19:11,232] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:19:11,327] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:19:15,243] INFO in app: Warming cache...
+[2025-06-13 14:19:15,253] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:19:15,260] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:19:15,264] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:19:15,273] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:19:17,431] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:19:17,541] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:19:21,500] INFO in app: Warming cache...
+[2025-06-13 14:19:21,510] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:19:21,511] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:19:21,518] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:19:21,522] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:19:29,223] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:19:29,318] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:19:33,256] INFO in app: Warming cache...
+[2025-06-13 14:19:33,265] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:19:33,267] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:19:33,275] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:19:33,278] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:19:33,899] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:19:34,009] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:19:37,945] INFO in app: Warming cache...
+[2025-06-13 14:19:37,955] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:19:37,956] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:19:37,963] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:19:37,967] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:19:38,633] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:20:26,529] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:20:26,660] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:20:30,642] INFO in app: Warming cache...
+[2025-06-13 14:20:30,652] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:20:30,653] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:20:30,661] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:20:30,665] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:20:31,455] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:20:31,560] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:20:35,558] INFO in app: Warming cache...
+[2025-06-13 14:20:35,567] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:20:35,571] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:20:35,580] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:20:35,583] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:20:37,382] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:20:37] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:20:38,637] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:20:38,661] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:20:38,664] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:20:38] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:20:41,762] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:20:41,764] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:20:41] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:20:44,719] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:20:44] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:20:45,848] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:20:45,849] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:20:45] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:20:49,833] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:20:49,836] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:20:49] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:20:54,426] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:20:54] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:20:54,441] INFO in app:  Check-in logged for visitor ID=61
+[2025-06-13 14:20:58,048] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:20:58] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:20:58,048] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:20:58,054] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:20:58,054] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:20:58,056] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:21:11,220] INFO in _internal: 192.168.1.116 - - [13/Jun/2025 14:21:11] "GET /visitor/view/477668871d1c4711b895750e78e984c9?t=v HTTP/1.1" 200 -
+[2025-06-13 14:21:11,311] INFO in _internal: 192.168.1.116 - - [13/Jun/2025 14:21:11] "GET /static/uploads/photo_9dd2553c211440d48d7a4c1e249a6424_visitor-photo.jpg HTTP/1.1" 200 -
+[2025-06-13 14:21:11,311] INFO in _internal: 192.168.1.116 - - [13/Jun/2025 14:21:11] "GET /static/qr/477668871d1c4711b895750e78e984c9.png HTTP/1.1" 200 -
+[2025-06-13 14:21:11,522] INFO in _internal: 192.168.1.116 - - [13/Jun/2025 14:21:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+[2025-06-13 14:21:16,860] INFO in app:  Check-out logged for visitor ID=61
+[2025-06-13 14:21:18,455] INFO in app: Visitor 477668871d1c4711b895750e78e984c9 checked out successfully
+[2025-06-13 14:21:18,455] INFO in SimpleMemoryCache: [Writer Thread] Executing log_checkout_notifications with qsize=0 args=(), kwargs={}
+[2025-06-13 14:21:18,456] INFO in _internal: 192.168.1.116 - - [13/Jun/2025 14:21:18] "POST /api/visitor/checkout HTTP/1.1" 200 -
+[2025-06-13 14:21:18,459] INFO in app: Checkout notifications logged successfully
+[2025-06-13 14:21:23,900] INFO in _internal: 192.168.1.116 - - [13/Jun/2025 14:21:23] "GET /visitor/view/477668871d1c4711b895750e78e984c9?t=v HTTP/1.1" 200 -
+[2025-06-13 14:21:24,048] INFO in _internal: 192.168.1.116 - - [13/Jun/2025 14:21:24] "[36mGET /static/qr/477668871d1c4711b895750e78e984c9.png HTTP/1.1[0m" 304 -
+[2025-06-13 14:21:24,048] INFO in _internal: 192.168.1.116 - - [13/Jun/2025 14:21:24] "[36mGET /static/uploads/photo_9dd2553c211440d48d7a4c1e249a6424_visitor-photo.jpg HTTP/1.1[0m" 304 -
+[2025-06-13 14:21:35,579] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:21:38,654] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:22:35,587] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:22:38,663] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:23:35,596] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:23:38,677] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:24:35,609] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:24:38,685] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:25:35,621] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:25:38,689] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:26:35,624] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:26:38,695] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:27:01,037] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\ItemEmailTemplates.py', reloading
+[2025-06-13 14:27:01,181] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:27:05,432] INFO in app: Warming cache...
+[2025-06-13 14:27:05,443] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:27:05,444] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:27:05,452] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:27:05,456] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:27:28,620] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:27:28,717] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:29:17,555] INFO in app: Warming cache...
+[2025-06-13 14:29:17,563] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:29:17,583] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:29:18,448] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.103:8080
+[2025-06-13 14:29:18,448] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-06-13 14:29:18,449] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:29:22,379] INFO in app: Warming cache...
+[2025-06-13 14:29:22,391] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:29:22,393] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:29:22,400] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:29:22,404] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:29:37,111] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:29:37] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:29:38,422] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:29:38,424] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:29:38] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:29:42,705] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:29:42,705] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:29:42] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:29:45,046] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:29:45] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:29:46,402] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:29:46,405] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:29:46] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:29:50,435] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:29:50,439] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:29:50] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:29:54,878] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:29:54] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:29:54,892] INFO in app:  Check-in logged for visitor ID=62
+[2025-06-13 14:29:58,487] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:29:58] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:29:58,487] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:29:58,498] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:29:58,498] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:29:58,501] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:30:17,569] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:30:22,409] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:31:17,576] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:31:22,420] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:32:00,539] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:32:00,687] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:32:04,660] INFO in app: Warming cache...
+[2025-06-13 14:32:04,669] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:32:04,671] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:32:04,680] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:32:04,684] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:32:08,301] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:32:08,437] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:32:12,386] INFO in app: Warming cache...
+[2025-06-13 14:32:12,396] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:32:12,417] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:32:12,425] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:32:12,429] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:32:17,240] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:32:17,344] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:32:17,581] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:32:21,243] INFO in app: Warming cache...
+[2025-06-13 14:32:21,251] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:32:21,253] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:32:21,260] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:32:21,263] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:32:26,155] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:32:26,268] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:32:30,177] INFO in app: Warming cache...
+[2025-06-13 14:32:30,184] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:32:30,186] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:32:30,193] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:32:30,198] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:33:12,643] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:33:12] "OPTIONS /chat HTTP/1.1" 200 -
+[2025-06-13 14:33:15,221] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 14:33:15,225] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:33:15] "POST /chat HTTP/1.1" 200 -
+[2025-06-13 14:33:17,584] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:33:19,584] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:33:19] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:33:19,601] INFO in app:  Check-in logged for visitor ID=63
+[2025-06-13 14:33:21,302] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:33:21] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:33:21,302] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:33:21,314] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:33:21,314] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:33:21,319] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:33:30,201] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:34:17,600] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:34:30,213] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:35:17,607] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:35:30,219] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:36:17,554] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\SendMail.py', reloading
+[2025-06-13 14:36:17,626] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:36:17,729] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:36:21,743] INFO in app: Warming cache...
+[2025-06-13 14:36:21,754] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:36:21,758] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:36:21,766] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:36:21,771] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:36:29,582] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\SendMail.py', reloading
+[2025-06-13 14:36:29,692] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:36:36,914] INFO in app: Warming cache...
+[2025-06-13 14:36:36,923] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:36:36,925] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:36:37,793] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.103:8080
+[2025-06-13 14:36:37,793] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-06-13 14:36:37,794] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:36:41,668] INFO in app: Warming cache...
+[2025-06-13 14:36:41,677] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:36:41,680] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:36:41,689] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:36:41,693] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:37:36,929] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:37:41,693] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:38:36,934] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:38:41,699] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:39:36,948] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:39:41,711] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:40:36,957] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:40:41,727] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:40:58,656] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:40:58] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:40:58,671] INFO in app:  Check-in logged for visitor ID=64
+[2025-06-13 14:41:02,317] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:41:02] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:41:02,317] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:41:02,328] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:41:02,328] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:41:02,330] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:41:22,942] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\SendMail.py', reloading
+[2025-06-13 14:41:23,075] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:41:27,000] INFO in app: Warming cache...
+[2025-06-13 14:41:27,010] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:41:27,014] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:41:27,023] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:41:27,029] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:41:29,225] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:41:29] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:41:29,240] INFO in app:  Check-in logged for visitor ID=65
+[2025-06-13 14:41:30,878] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:41:30] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:41:30,878] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:41:30,889] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:41:30,890] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:41:30,892] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:41:36,962] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:41:47,661] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:41:47,789] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:41:55,397] INFO in app: Warming cache...
+[2025-06-13 14:41:55,406] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:41:55,409] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:41:56,276] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.103:8080
+[2025-06-13 14:41:56,276] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-06-13 14:41:56,277] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:42:00,186] INFO in app: Warming cache...
+[2025-06-13 14:42:00,195] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:42:00,197] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:42:00,205] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:42:00,208] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:42:00,691] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:42:00] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:42:00,707] INFO in app:  Check-in logged for visitor ID=66
+[2025-06-13 14:42:02,409] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:42:02] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:42:02,409] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:42:02,416] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:42:02,416] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:42:02,418] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:42:55,415] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:43:00,205] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:43:32,793] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:43:32,961] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:43:42,420] INFO in app: Warming cache...
+[2025-06-13 14:43:42,429] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:43:42,432] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:43:43,301] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.103:8080
+[2025-06-13 14:43:43,301] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-06-13 14:43:43,302] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:43:47,182] INFO in app: Warming cache...
+[2025-06-13 14:43:47,193] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:43:47,195] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:43:47,205] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:43:47,209] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:43:47,690] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:43:47] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:43:47,710] INFO in app:  Check-in logged for visitor ID=67
+[2025-06-13 14:43:49,351] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:43:49] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:43:49,351] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:43:49,357] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:43:49,358] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:43:49,360] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:44:13,578] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:44:13,725] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:44:17,699] INFO in app: Warming cache...
+[2025-06-13 14:44:17,708] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:44:17,710] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:44:17,718] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:44:17,721] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:44:33,990] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\ItemEmailTemplates.py', reloading
+[2025-06-13 14:44:34,113] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:44:38,074] INFO in app: Warming cache...
+[2025-06-13 14:44:38,084] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:44:38,086] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:44:38,093] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:44:38,097] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:44:42,436] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:44:57,166] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:44:57,311] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:45:05,254] INFO in app: Warming cache...
+[2025-06-13 14:45:05,264] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:45:05,282] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:45:06,137] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://192.168.1.103:8080
+[2025-06-13 14:45:06,137] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-06-13 14:45:06,138] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:45:10,043] INFO in app: Warming cache...
+[2025-06-13 14:45:10,052] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:45:10,053] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:45:10,060] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:45:10,064] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:45:17,658] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:45:17] "POST /api/visitor/create HTTP/1.1" 200 -
+[2025-06-13 14:45:17,675] INFO in app:  Check-in logged for visitor ID=68
+[2025-06-13 14:45:19,391] INFO in _internal: 192.168.1.103 - - [13/Jun/2025 14:45:19] "POST /api/visitor/checkin HTTP/1.1" 200 -
+[2025-06-13 14:45:19,391] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 14:45:19,398] INFO in app:  Notifications logged via background queue.
+[2025-06-13 14:45:19,398] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 14:45:19,401] INFO in app:  host_notified updated via background queue.
+[2025-06-13 14:46:05,296] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:46:10,057] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:46:52,212] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\SendMail.py', reloading
+[2025-06-13 14:46:52,328] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:46:56,248] INFO in app: Warming cache...
+[2025-06-13 14:46:56,256] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:46:56,270] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:46:56,276] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:46:56,280] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:47:05,308] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:47:15,310] INFO in _internal:  * Detected change in 'C:\\Users\\Kai\\Documents\\Repo\\vmpro\\app.py', reloading
+[2025-06-13 14:47:15,411] INFO in _internal:  * Restarting with stat
+[2025-06-13 14:47:19,365] INFO in app: Warming cache...
+[2025-06-13 14:47:19,373] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 14:47:19,387] INFO in app: Cache warmed with 0 upcoming visitors
+[2025-06-13 14:47:19,394] WARNING in _internal:  * Debugger is active!
+[2025-06-13 14:47:19,398] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-06-13 14:48:05,318] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
