@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Bot, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import itemLogo from '../assets/item.svg';  // adjust path relative to GuestCheckIn.tsx
+
 
 // Define types for better TypeScript support
 interface Message {
@@ -158,7 +160,7 @@ const GuestCheckIn = () => {
         <header className="relative px-8 py-8 text-white" style={{ backgroundColor: '#000000' }}>
           <div className="flex items-center justify-center space-x-4">
             <div className="p-3">
-              <img src="src/assets/item.svg" alt="Item Logo" width={58} height={58} className="text-white" />
+              <img src={itemLogo} alt="Item Logo" width={58} height={58} className="text-white" />
             </div>
             <div className="text-center">
               <h1 className="text-3xl font-bold tracking-tight">Guest Check-In</h1>

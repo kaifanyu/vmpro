@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Camera, Upload, RotateCcw, Check, X } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import itemLogo from '../assets/item.svg';  // adjust path relative to GuestCheckIn.tsx
 
 const CameraPage = () => {
   const [stream, setStream] = useState<MediaStream | null>(null);
@@ -140,7 +141,8 @@ const CameraPage = () => {
 
       if (!createRes.ok) throw new Error('Visitor creation failed');
       const { token: qrToken } = await createRes.json();  //receive qrToken
-        
+      
+      console.log("it was okay: qr tokeN: ", qrToken)
 
       // with qrToken we can now process via visitor/checkin
       const checkinForm = new FormData();
@@ -149,7 +151,7 @@ const CameraPage = () => {
       checkinForm.append('email', visitorInfo.email);
       checkinForm.append('visit_date', pstString);
       checkinForm.append('estimate_time', visitorInfo.estimate_time);
-      checkinForm.append('host_employee', visitorInfo.host_employee.toString());
+      checkinForm.append('host_employee_id', visitorInfo.host_employee.toString());
       checkinForm.append('location_id', visitorInfo.location_id);
       checkinForm.append('qr_token', qrToken);
 
@@ -203,7 +205,7 @@ const CameraPage = () => {
         <header className="relative px-6 py-8 bg-white border-b border-gray-100">
           <div className="text-center">
             <div className="inline-flex items-center justify-center">
-              <img src="src/assets/item.svg" alt="Item Logo" width={58} height={58} className="text-white" />
+              <img src={itemLogo} alt="Item Logo" width={58} height={58} className="text-white" />
             </div>
             <h1 className="text-3xl font-bold text-black mb-2">Visitor Photo</h1>
             <p className="text-gray-600 mb-4">Take or upload a photo to complete your check-in</p>

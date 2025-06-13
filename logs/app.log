@@ -13925,3 +13925,207 @@ HAVING count(visitors.id) > %(count_4)s) AS anon_1]
 [2025-06-13 14:47:19,398] INFO in _internal:  * Debugger PIN: 122-568-405
 [2025-06-13 14:48:05,318] INFO in app: [Matched Visitors]     0 visitor(s) found.
 
+[2025-06-13 15:51:31,743] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 15:51:31,752] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:51:49,121] WARNING in task: Task queue depth is 1
+[2025-06-13 15:51:51,496] WARNING in task: Task queue depth is 1
+[2025-06-13 15:51:51,499] WARNING in task: Task queue depth is 2
+[2025-06-13 15:52:31,815] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:53:31,822] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:54:31,874] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:55:31,941] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:56:32,008] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:57:32,075] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:58:32,088] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:59:32,155] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 15:59:43,583] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 15:59:43,592] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:00:43,659] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:01:43,727] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:02:43,783] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:03:43,798] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:04:43,814] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:05:09,052] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 16:05:09,062] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:06:09,129] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:06:32,188] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 16:06:32,197] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:06:36,862] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:06:40,881] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:06:44,595] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:06:50,300] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:06:57,712] INFO in app:  Check-in logged for visitor ID=60
+[2025-06-13 16:06:58,006] ERROR in app: ❌ Cached check-in error: Invalid US phone number: 
+[2025-06-13 16:07:32,264] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:07:35,788] INFO in app:  Check-out logged for visitor ID=60
+[2025-06-13 16:07:36,025] ERROR in app: Checkout notification error: Invalid US phone number: 
+[2025-06-13 16:07:36,025] INFO in app: Visitor 60885474634d43fb82394adb8ac74bcd checked out successfully
+[2025-06-13 16:08:32,332] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:09:32,400] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:10:32,466] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:11:32,532] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:12:21,238] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 16:12:21,247] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:12:22,230] INFO in app: hots data: 
+[2025-06-13 16:12:22,235] INFO in app:  Check-in logged for visitor ID=61
+[2025-06-13 16:12:22,494] ERROR in app: ❌ Cached check-in error: Invalid US phone number: 
+[2025-06-13 16:13:21,313] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:14:21,381] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:14:47,388] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 16:14:47,397] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:15:47,416] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:15:57,351] INFO in app: HERE NOW: visitr checkin
+[2025-06-13 16:15:57,373] INFO in app: hots data: 
+[2025-06-13 16:15:57,378] INFO in app:  Check-in logged for visitor ID=62
+[2025-06-13 16:15:57,611] ERROR in app: ❌ Cached check-in error: Invalid US phone number: 
+[2025-06-13 16:16:47,484] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:17:47,501] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:18:47,568] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:19:47,603] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:20:47,670] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:21:47,738] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:22:47,806] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:23:47,873] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:24:47,940] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:25:48,008] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:26:48,076] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:27:48,144] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:28:48,210] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:29:48,278] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:30:48,345] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:31:48,155] INFO in SimpleMemoryCache: Cache cleaned 1 expired entries
+[2025-06-13 16:31:48,413] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:32:48,481] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:33:48,513] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:34:48,580] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:35:48,647] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:36:50,581] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 16:36:50,590] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+    [2025-06-13 16:37:19,270] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:37:21,387] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:37:22,991] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:37:26,100] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:37:31,369] INFO in app: HERE NOW: visitr checkin
+[2025-06-13 16:37:31,372] INFO in app: I'm here
+[2025-06-13 16:37:31,390] INFO in app: hots data: 
+[2025-06-13 16:37:31,395] INFO in app:  Check-in logged for visitor ID=63
+[2025-06-13 16:37:31,718] ERROR in app: ❌ Cached check-in error: Invalid US phone number: 
+[2025-06-13 16:37:50,605] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:38:50,672] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:39:50,739] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:40:50,806] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:41:50,815] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:41:56,390] INFO in wasyncore: Serving on http://0.0.0.0:8080 
+[2025-06-13 16:41:56,399] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:42:01,089] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:42:04,722] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:42:06,997] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:42:10,294] INFO in _client: HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+[2025-06-13 16:42:15,835] INFO in app: HERE NOW: visitr checkin
+[2025-06-13 16:42:15,838] INFO in app: I'm here
+[2025-06-13 16:42:15,855] INFO in app: hots data: 
+[2025-06-13 16:42:15,860] INFO in app:  Check-in logged for visitor ID=64
+[2025-06-13 16:42:16,247] ERROR in app: ❌ Cached check-in error: Invalid US phone number: 
+[2025-06-13 16:42:56,465] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:43:17,033] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 16:43:17,042] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:43:17,340] INFO in app: HERE NOW: visitr checkin
+[2025-06-13 16:43:17,344] INFO in app: 📥 Incoming form data:
+[2025-06-13 16:43:17,344] INFO in app:   name: jack
+[2025-06-13 16:43:17,344] INFO in app:   phone: 7073289672
+[2025-06-13 16:43:17,344] INFO in app:   email: 
+[2025-06-13 16:43:17,344] INFO in app:   visit_date: 2025-06-13T16:43:15
+[2025-06-13 16:43:17,344] INFO in app:   estimate_time: 02:00:00
+[2025-06-13 16:43:17,344] INFO in app:   host_employee_id: 6
+[2025-06-13 16:43:17,344] INFO in app:   location_id: 3
+[2025-06-13 16:43:17,345] INFO in app:   qr_token: d9d18af6b4ba4df785981442aa11a0cd
+[2025-06-13 16:43:17,362] INFO in app: hots data: 
+[2025-06-13 16:43:17,367] INFO in app:  Check-in logged for visitor ID=65
+[2025-06-13 16:43:17,607] ERROR in app: ❌ Cached check-in error: Invalid US phone number: 
+[2025-06-13 16:44:17,109] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:45:17,120] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:45:17,256] INFO in app: HERE NOW: visitr checkin
+[2025-06-13 16:45:17,259] INFO in app: 📥 Incoming form data:
+[2025-06-13 16:45:17,259] INFO in app:   name: jack
+[2025-06-13 16:45:17,259] INFO in app:   phone: 7073289672
+[2025-06-13 16:45:17,259] INFO in app:   email: 
+[2025-06-13 16:45:17,260] INFO in app:   visit_date: 2025-06-13T16:44:30
+[2025-06-13 16:45:17,260] INFO in app:   estimate_time: 02:00:00
+[2025-06-13 16:45:17,260] INFO in app:   host_employee_id: 6
+[2025-06-13 16:45:17,260] INFO in app:   location_id: 3
+[2025-06-13 16:45:17,260] INFO in app:   qr_token: d1fe5d455db54b4cb23c0b72a6cf0be9
+[2025-06-13 16:45:17,268] INFO in app: hots data: 
+[2025-06-13 16:45:17,273] INFO in app:  Check-in logged for visitor ID=66
+[2025-06-13 16:45:19,758] INFO in SimpleMemoryCache: [Writer Thread] Executing log_notifications with qsize=1 args=(), kwargs={}
+[2025-06-13 16:45:19,769] INFO in app:  Notifications logged via background queue.
+[2025-06-13 16:45:19,770] INFO in SimpleMemoryCache: [Writer Thread] Executing update_host_notified with qsize=0 args=(), kwargs={}
+[2025-06-13 16:45:19,773] INFO in app:  host_notified updated via background queue.
+[2025-06-13 16:46:17,188] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:46:48,424] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 16:46:48,433] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:47:48,500] INFO in app: [Matched Visitors]     0 visitor(s) found.
+
+[2025-06-13 16:48:11,975] INFO in wasyncore: Serving on http://0.0.0.0:8080
+[2025-06-13 16:48:11,984] INFO in app: [Matched Visitors]     0 visitor(s) found.
+

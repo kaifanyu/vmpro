@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle, Mail, User, Calendar, Sparkles } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
+import itemLogo from '../assets/item.svg';  // adjust path relative to GuestCheckIn.tsx
 
 const CheckInSuccess = () => {
   const [showNotification, setShowNotification] = useState(false);
@@ -89,7 +90,7 @@ const CheckInSuccess = () => {
           <header className="relative px-6 sm:px-8 py-8 bg-white border-b border-gray-100">
             <div className="text-center">
               <div className="inline-flex items-center justify-center">
-                <img src="src/assets/item.svg" alt="Item Logo" width={58} height={58} className="text-white" />
+                <img src={itemLogo} alt="Item Logo" width={58} height={58} className="text-white" />
               </div>
               <h1 className="text-3xl font-bold text-black mb-2">Welcome to Our Office</h1>
               <p className="text-gray-600">Your check-in has been completed successfully</p>

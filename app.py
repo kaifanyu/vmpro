@@ -258,7 +258,7 @@ def visitor_checkin():
         if not host_data:
             logger.warning(f"Host with ID={visitor_data.get('host_employee_id')} not found.")
             return jsonify({"error": "Host employee not found"}), 404
-        print("hots data: ", host_data)
+
         # Update status using write-behind (immediate cache update, background DB update)
         
         cached_service.update_visitor_status(qr_token, 'checked_in', True)
@@ -346,6 +346,7 @@ def visitor_checkin():
     except Exception as notify_err:
         logger.error(f"❌ Cached check-in error: {notify_err}")
         return jsonify({"error": str(notify_err)}), 500
+
 
 def validate_time_str(input_str, default="02:00:00"):
     try:
