@@ -3,7 +3,8 @@ Flask
 Flask-SQLAlchemy
 Flask-Admin
 pymysql
-pyzbar
 qrcode[pil]
 cryptography
 rapidfuzz
+openai
+requests

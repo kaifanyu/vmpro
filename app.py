@@ -32,7 +32,6 @@ from functools import wraps
 
 from openai import OpenAI
 import os
-from pyzbar.pyzbar import decode
 from PIL import Image
 from io import BytesIO
 from flask_cors import CORS
@@ -52,9 +51,8 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 
 import logging
 LOG_FOLDER = 'logs/'
-BASE_URL = "http://192.168.162.183:8080"
-# BASE_URL = "http://192.168.56.1:8080"
-#BASE_URL = "http://192.168.166.78:8080"
+BASE_URL = "https://vms.unisco.com"
+
 
 os.makedirs(LOG_FOLDER, exist_ok=True)
 log_path = os.path.join(LOG_FOLDER, "app.log")
@@ -71,8 +69,10 @@ logger = logging.getLogger(__name__)
 CORS(app)  # allow cross-origin from React dev server
 
 app.config['SECRET_KEY'] = 'dev-secret'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://devops:kai%402025@192.168.162.183/vmpro'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://para:para@192.168.56.1/vmpro'
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    'mysql+pymysql://user_vms:jypxB6bqyzDCymqj@172.21.3.147:6033/vms'
+    '?charset=utf8mb4&connect_timeout=10'
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
