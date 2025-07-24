@@ -132,19 +132,21 @@ const CameraPage = () => {
           console.log(`${key}: ${value}`);
         }
       }
+      
       console.log('-------------------------');
-      // sends api call to create visitor
-      const createRes = await fetch('http://192.168.162.183:8080/api/visitor/create', {
+
+      // Create visitor
+      const createRes = await fetch('/api/visitor/create', {
         method: 'POST',
         body: formData,
       });
 
       if (!createRes.ok) throw new Error('Visitor creation failed');
-      const { token: qrToken } = await createRes.json();  //receive qrToken
-      
-      console.log("it was okay: qr tokeN: ", qrToken)
 
-      // with qrToken we can now process via visitor/checkin
+      const { token: qrToken } = await createRes.json();
+      console.log("it was okay: qr token: ", qrToken);
+
+      // Check in visitor
       const checkinForm = new FormData();
       checkinForm.append('name', visitorInfo.name);
       checkinForm.append('phone', visitorInfo.phone);
@@ -155,21 +157,15 @@ const CameraPage = () => {
       checkinForm.append('location_id', visitorInfo.location_id);
       checkinForm.append('qr_token', qrToken);
 
-      const checkinRes = await fetch('http://192.168.162.183:8080/api/visitor/checkin', {
+      const checkinRes = await fetch('/api/visitor/checkin', {
         method: 'POST',
         body: checkinForm,
       });
 
       if (!checkinRes.ok) throw new Error('Check-in failed');
 
-      // pass into sucess name only
       navigate('/success', { state: { name: visitorInfo.name } });
-    } catch (err) {
-      alert(`Check-in failed: ${err}`);
-    } finally {
-      setIsUploading(false);
-    }
-  };
+
 
 
   return (

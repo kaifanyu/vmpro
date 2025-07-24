@@ -91,11 +91,12 @@ const GuestCheckIn = () => {
 
     try {
       // Simulated API call - replace with your actual endpoint
-      const res = await fetch('http://192.168.162.183:8080/chat', {
+      const res = await fetch('/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: newMsgs }),
       });
+
 
       const data: APIResponse = await res.json();
 
