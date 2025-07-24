@@ -132,7 +132,7 @@ const CameraPage = () => {
           console.log(`${key}: ${value}`);
         }
       }
-      
+
       console.log('-------------------------');
 
       // Create visitor
@@ -166,7 +166,12 @@ const CameraPage = () => {
 
       navigate('/success', { state: { name: visitorInfo.name } });
 
-
+        } catch (err) {
+      alert(`Check-in failed: ${err}`);
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
