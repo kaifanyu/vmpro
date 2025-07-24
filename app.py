@@ -2,49 +2,41 @@
 sudo apt install libzbar-dev
 pip install -r requirements.txt
 '''
-
-import threading
-from datetime import datetime, timedelta
+# === Standard Library ===
+import os
+import re
+import json
+import uuid
 import time
+import pytz
+import secrets
+import threading
+from io import BytesIO
+from datetime import datetime, timedelta, date
+from functools import wraps
+
+# === Third-Party Packages ===
 import qrcode
-from flask import Flask, request, render_template, redirect, url_for, session, flash, jsonify, send_from_directory
-from werkzeug.security import check_password_hash
+from PIL import Image
+from flask import (
+    Flask, request, render_template, redirect, url_for,
+    session, flash, jsonify, send_from_directory
+)
+from flask_cors import CORS
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from rapidfuzz import fuzz, process
-from datetime import datetime, date
+from openai import OpenAI
 
-
+# === Local Modules ===
 from SendMail import SendMail
 from SendSMSViaAPI import SendSMSViaAPI
-
-
 from models import db, Employee, Visitor, VisitLog, Notification, Location
 
 
-import os
-import uuid
-import secrets
-
-from functools import wraps
-
-from openai import OpenAI
-import os
-from PIL import Image
-from io import BytesIO
-from flask_cors import CORS
-import json
-import re
-import pytz
-
-
-# from ItemEmailTemplates import *
-
-
 secrets.token_hex(32)
-
 
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
@@ -86,7 +78,7 @@ from CheckInAssistant import CheckInAssistant
 app_cache = SimpleMemoryCache(app=app, max_size=50000)  # Limit to 5000 entries
 cached_service = CachedDataService(app_cache)
 
-current_location = 3
+current_location = 1
 
 def warm_cache():
     """Pre-populate cache with frequently used data"""
@@ -306,13 +298,23 @@ def visitor_checkin():
             body=f"<p>{email_html}</p>"
         )
 
-        # Send SMS
-        to_number = format_us_number(host_data['phone'])
+        # Send SMS (only if phone number is valid)
+        raw_phone = host_data.get('phone')
+        to_number = format_us_number(raw_phone) if raw_phone else None
+
         message = f"Hi {host_data['name']}, visitor {name} has arrived at {visit_date}. You can view and check out the guest at: {link}"
-        SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
-            to_number=to_number,
-            message_body=message
-        )
+
+        if to_number:
+            try:
+                SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
+                    to_number=to_number,
+                    message_body=message
+                )
+                logger.info(f"SMS sent to {to_number}")
+            except Exception as sms_err:
+                logger.error(f"Failed to send SMS to {to_number}: {sms_err}")
+        else:
+            logger.warning(f"⚠️ No phone number found for host '{host_data['name']}' (ID: {host_data['id']}). SMS not sent.")
 
         # Queue notification logging for background processing
         def log_notifications():
@@ -948,14 +950,24 @@ def visitor_checkout():
                     body=checkout_email_html
                 )
 
-                # Send SMS notification
-                to_number = format_us_number(host_data['phone'])
+                # Send SMS (only if phone number is valid)
+                raw_phone = host_data.get('phone')
+                to_number = format_us_number(raw_phone) if raw_phone else None
+
                 checkout_message = f"Hi {host_data['name']}, visitor {visitor_data['name']} has checked out after {duration_str}. Thank you!"
 
-                SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
-                    to_number=to_number,
-                    message_body=checkout_message
-                )
+                if to_number:
+                    try:
+                        SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
+                            to_number=to_number,
+                            message_body=checkout_message
+                        )
+                        logger.info(f"SMS sent to {to_number}")
+                    except Exception as sms_err:
+                        logger.error(f"Failed to send SMS to {to_number}: {sms_err}")
+                else:
+                    logger.warning(f"⚠️ No phone number found for host '{host_data['name']}' (ID: {host_data['id']}). SMS not sent.")
+
 
                 # Queue notification logging for background processing
                 def log_checkout_notifications():
@@ -1127,16 +1139,23 @@ def monitor_upcoming_visits():
                             body=f"<p>{email_html}</p>"
                         )
 
-                        to_number = format_us_number(host_data['phone'])
+                        # Send SMS (only if phone number is valid)
+                        raw_phone = host_data.get('phone')
+                        to_number = format_us_number(raw_phone) if raw_phone else None
 
                         message = f"Hi {host_data['name']}, Visitor {v.name} is scheduled to arrive at {v.visit_date.strftime('%Y-%m-%d %H:%M')}. You can view or cancel your reservation at: {link}"
-                        #logger.info(f"[Message Preview]      {message}")
-                        #logger.info(f"[Sending To]           Phone: {host_data['phone']}, Email: {host_data['email']}")
 
-                        SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
-                            to_number=to_number,
-                            message_body=message
-                        )
+                        if to_number:
+                            try:
+                                SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
+                                    to_number=to_number,
+                                    message_body=message
+                                )
+                                logger.info(f"SMS sent to {to_number}")
+                            except Exception as sms_err:
+                                logger.error(f"Failed to send SMS to {to_number}: {sms_err}")
+                        else:
+                            logger.warning(f"⚠️ No phone number found for host '{host_data['name']}' (ID: {host_data['id']}). SMS not sent.")
 
                         # Queue notification logging
                         def log_monitor_notifications():
@@ -1229,17 +1248,23 @@ def monitor_upcoming_visits():
                         )
 
                         # Checkout notification SMS
-                        to_number = format_us_number(host_data['phone'])
+                        raw_phone = host_data.get('phone')
+                        to_number = format_us_number(raw_phone) if raw_phone else None
+
                         checkout_message = f"Hi {host_data['name']}, visitor {v['name']} has been here for {duration_str} (estimated: {v['estimate_time']}). Please ensure they have checked out. Details: {link}"
 
-                        logger.info(f"[Checkout Message]     {checkout_message}")
-                        logger.info(f"[Sending To]           Phone: {host_data['phone']}, Email: {host_data['email']}")
-
-                        SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
-                            to_number=to_number,
-                            message_body=checkout_message
-                        )
-
+                        if to_number:
+                            try:
+                                SendSMSViaAPI("https://kk2j6nl1s0.execute-api.us-west-2.amazonaws.com/prd/vm/sms").send(
+                                    to_number=to_number,
+                                    message_body=message
+                                )
+                                logger.info(f"SMS sent to {to_number}")
+                            except Exception as sms_err:
+                                logger.error(f"Failed to send SMS to {to_number}: {sms_err}")
+                        else:
+                            logger.warning(f"⚠️ No phone number found for host '{host_data['name']}' (ID: {host_data['id']}). SMS not sent.")
+                            
                         # Queue checkout notification logging
                         def log_checkout_notifications():
                             try:

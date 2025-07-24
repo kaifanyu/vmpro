@@ -14129,3 +14129,25 @@ HAVING count(visitors.id) > %(count_4)s) AS anon_1]
 [2025-06-13 16:48:11,975] INFO in wasyncore: Serving on http://0.0.0.0:8080
 [2025-06-13 16:48:11,984] INFO in app: [Matched Visitors]     0 visitor(s) found.
 
+[2025-07-24 01:02:17,799] INFO in app: Warming cache...
+[2025-07-24 01:02:27,815] ERROR in app: Visit monitor error: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on '172.21.3.147' (timed out)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-07-24 01:02:27,819] ERROR in app: Cache warming error: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on '172.21.3.147' (timed out)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-07-24 01:02:28,909] INFO in _internal: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.0.178:8080
+[2025-07-24 01:02:28,910] INFO in _internal: [33mPress CTRL+C to quit[0m
+[2025-07-24 01:02:28,916] INFO in _internal:  * Restarting with stat
+[2025-07-24 01:02:32,867] INFO in app: Warming cache...
+[2025-07-24 01:02:42,880] ERROR in app: Visit monitor error: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on '172.21.3.147' (timed out)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-07-24 01:02:42,880] ERROR in app: Cache warming error: (pymysql.err.OperationalError) (2003, "Can't connect to MySQL server on '172.21.3.147' (timed out)")
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+[2025-07-24 01:02:42,887] WARNING in _internal:  * Debugger is active!
+[2025-07-24 01:02:42,891] INFO in _internal:  * Debugger PIN: 122-568-405
+[2025-07-24 01:02:44,183] INFO in _internal: 127.0.0.1 - - [24/Jul/2025 01:02:44] "[32mGET / HTTP/1.1[0m" 302 -
+[2025-07-24 01:02:44,214] INFO in _internal: 127.0.0.1 - - [24/Jul/2025 01:02:44] "GET /login HTTP/1.1" 200 -
+[2025-07-24 01:02:44,307] INFO in _internal: 127.0.0.1 - - [24/Jul/2025 01:02:44] "GET /static/images/item.svg HTTP/1.1" 200 -
+[2025-07-24 01:02:44,622] INFO in _internal: 127.0.0.1 - - [24/Jul/2025 01:02:44] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
