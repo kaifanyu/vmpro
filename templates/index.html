@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Visitor Management</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -37,12 +38,21 @@
       to { opacity: 1; transform: translateX(0); }
     }
 
+    @keyframes slideInMobile {
+      from { opacity: 0; transform: translateX(-100%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
     .animate-fade-in {
       animation: fadeIn 0.4s ease-out;
     }
 
     .animate-slide-in {
       animation: slideIn 0.5s ease-out;
+    }
+
+    .animate-slide-in-mobile {
+      animation: slideInMobile 0.3s ease-out;
     }
 
     /* Typography system */
@@ -59,11 +69,48 @@
       letter-spacing: -0.01em;
     }
 
-    /* Clean sidebar styling */
+    /* Sidebar styling */
     .item-sidebar {
       background: var(--item-white);
       border-right: 1px solid var(--item-dove);
       box-shadow: 0 0 24px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease;
+    }
+
+    /* Mobile sidebar overlay */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Mobile sidebar positioning */
+    @media (max-width: 768px) {
+      .item-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        z-index: 50;
+        transform: translateX(-100%);
+      }
+
+      .item-sidebar.active {
+        transform: translateX(0);
+      }
     }
 
     /* Navigation items */
@@ -117,7 +164,6 @@
     .item-logo {
       width: 40px;
       height: 40px;
-      /* background: var(--item-purple); */
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -125,11 +171,33 @@
       position: relative;
     }
 
-
     .item-logo img {
       width: 40px;
       height: 40px;
       object-fit: contain;
+    }
+
+    /* Mobile hamburger menu */
+    .mobile-menu-btn {
+      display: none;
+      background: var(--item-white);
+      border: 1px solid var(--item-dove);
+      border-radius: 8px;
+      padding: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .mobile-menu-btn:hover {
+      background: var(--item-mist);
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     /* User profile styling */
@@ -154,6 +222,23 @@
         transform: translateY(-1px);
     }
 
+    /* Mobile user profile adjustments */
+    @media (max-width: 640px) {
+      .user-profile {
+        top: 10px;
+        right: 10px;
+        padding: 6px 8px;
+      }
+      
+      .user-name {
+        display: none;
+      }
+      
+      .user-role {
+        display: none;
+      }
+    }
+
     .user-avatar {
         width: 32px;
         height: 32px;
@@ -161,6 +246,14 @@
         margin-right: 8px;
         object-fit: cover;
         border: 2px solid var(--item-mist);
+    }
+
+    @media (max-width: 640px) {
+      .user-avatar {
+        margin-right: 0;
+        width: 28px;
+        height: 28px;
+      }
     }
 
     .user-info {
@@ -200,6 +293,14 @@
       border-color: var(--item-purple);
     }
 
+    /* Mobile welcome cards */
+    @media (max-width: 768px) {
+      .welcome-cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+
     /* Section headers */
     .section-header {
       color: var(--item-shadow);
@@ -234,8 +335,16 @@
     }
 
     .welcome-logo {
-      width: 96px; /* w-24 = 96px */
-      height: 96px; /* h-24 = 96px */
+      width: 96px;
+      height: 96px;
+    }
+
+    /* Mobile welcome logo */
+    @media (max-width: 480px) {
+      .welcome-logo {
+        width: 64px;
+        height: 64px;
+      }
     }
 
     /* Search dropdown styling */
@@ -252,6 +361,13 @@
       border-radius: 8px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       margin-top: 4px;
+    }
+
+    /* Mobile search adjustments */
+    @media (max-width: 640px) {
+      .search-dropdown {
+        max-height: 300px;
+      }
     }
 
     /* Remove margin/padding reset */
@@ -273,12 +389,102 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    /* Responsive content padding */
+    @media (max-width: 768px) {
+      .main-content-padding {
+        padding: 1rem;
+      }
+      
+      .header-padding {
+        padding: 1rem;
+      }
+    }
+
+    /* Mobile header adjustments */
+    @media (max-width: 640px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+      }
+      
+      .search-container {
+        order: 2;
+      }
+      
+      .menu-container {
+        order: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    /* Touch improvements for mobile */
+    @media (max-width: 768px) {
+      .nav-item {
+        padding: 12px 16px !important;
+        margin-bottom: 4px;
+      }
+      
+      .welcome-card {
+        padding: 1.5rem !important;
+      }
+    }
+
+    /* Responsive text sizing */
+    @media (max-width: 480px) {
+      .welcome-title {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+      
+      .welcome-description {
+        font-size: 1rem;
+        line-height: 1.5rem;
+      }
+    }
+
+    /* Close button for mobile sidebar */
+    .sidebar-close-btn {
+      display: none;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--item-mist);
+      border: none;
+      border-radius: 6px;
+      padding: 8px;
+      cursor: pointer;
+      color: var(--item-slate);
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-close-btn:hover {
+      background: var(--item-dove);
+      color: var(--item-shadow);
+    }
+
+    @media (max-width: 768px) {
+      .sidebar-close-btn {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body class="flex min-h-screen item-background font-geometric">
 
+  <!-- Mobile Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <!-- Sidebar -->
-  <div class="w-80 item-sidebar relative z-10 animate-slide-in">
+  <div class="w-80 md:w-80 item-sidebar relative z-10 animate-slide-in" id="sidebar">
+    <!-- Close button for mobile -->
+    <button class="sidebar-close-btn" id="sidebarCloseBtn">
+      <i class="fas fa-times"></i>
+    </button>
+
     <div class="p-6 h-full flex flex-col justify-between">
       <!-- Header -->
       <div>
@@ -372,10 +578,17 @@
   <div class="flex-1 flex flex-col animate-fade-in item-content">
     <!-- Top Bar -->
     <header class="item-card shadow-sm border-b-0 relative z-10 rounded-none">
-      <div class="px-6 py-4">
-        <div class="flex items-center justify-between">
+      <div class="header-padding px-6 py-4">
+        <div class="header-content flex items-center justify-between">
+          <!-- Mobile Menu and Search Container -->
+          <div class="menu-container flex items-center space-x-4 md:hidden">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+              <i class="fas fa-bars text-gray-600"></i>
+            </button>
+          </div>
+
           <!-- Search Bar -->
-          <div class="flex-1 max-w-md relative">
+          <div class="search-container flex-1 max-w-md relative">
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <i class="fas fa-search text-gray-400 text-sm"></i>
@@ -423,13 +636,12 @@
                   <div class="user-role" id="userRole">...</div>
               </div>
           </div>
-
         </div>
       </div>
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 p-6">
+    <main class="flex-1 main-content-padding p-6">
       <div class="item-card h-full overflow-hidden">
         <div class="h-full relative">
           <!-- Loading State -->
@@ -443,17 +655,17 @@
           </div>
 
           <!-- Default Welcome Screen -->
-          <div id="welcomeScreen" class="h-full flex items-center justify-center p-8">
+          <div id="welcomeScreen" class="h-full flex items-center justify-center p-4 md:p-8">
             <div class="text-center max-w-2xl">
                 
-                <div class="w-24 h-24 flex items-center justify-center mb-8 mx-auto">
+                <div class="w-16 h-16 md:w-24 md:h-24 flex items-center justify-center mb-6 md:mb-8 mx-auto">
                   <img src="/static/images/item.svg" alt="Item Logo" class="w-full h-full object-contain">
                 </div>
-              <h1 class="text-3xl font-semibold text-gray-900 mb-4">Welcome to Visitor Management</h1>
-              <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+              <h1 class="welcome-title text-2xl md:text-3xl font-semibold text-gray-900 mb-3 md:mb-4">Welcome to Visitor Management</h1>
+              <p class="welcome-description text-base md:text-lg text-gray-600 mb-6 md:mb-8 leading-relaxed px-4">
                 Streamline your visitor registration and management process with our comprehensive dashboard.
               </p>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+              <div class="welcome-cards-grid grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12">
                 <div class="welcome-card bg-white p-6 cursor-pointer" data-target="register-visitor">
                   <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                     <i class="fas fa-user-plus text-blue-600"></i>
@@ -494,6 +706,11 @@
         this.contentFrame = document.getElementById('contentFrame');
         this.welcomeScreen = document.getElementById('welcomeScreen');
         this.loadingState = document.getElementById('loadingState');
+        this.sidebar = document.getElementById('sidebar');
+        this.sidebarOverlay = document.getElementById('sidebarOverlay');
+        this.mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        this.sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+        
         this.routes = {
           'register-visitor': '/pages/register-visitor.html',
           'view-registrations': '/pages/view-registrations.html',
@@ -510,6 +727,53 @@
         this.initAnimations();
         this.initWelcomeCards();
         this.initSearch();
+        this.initMobileMenu();
+      }
+
+      initMobileMenu() {
+        // Mobile menu button click
+        this.mobileMenuBtn.addEventListener('click', () => {
+          this.openSidebar();
+        });
+
+        // Sidebar close button click
+        this.sidebarCloseBtn.addEventListener('click', () => {
+          this.closeSidebar();
+        });
+
+        // Overlay click to close sidebar
+        this.sidebarOverlay.addEventListener('click', () => {
+          this.closeSidebar();
+        });
+
+        // Close sidebar on window resize to desktop
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 768) {
+            this.closeSidebar();
+          }
+        });
+
+        // Close sidebar when navigation item is clicked on mobile
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            if (window.innerWidth < 768) {
+              this.closeSidebar();
+            }
+          });
+        });
+      }
+
+      openSidebar() {
+        this.sidebar.classList.add('active');
+        this.sidebarOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      }
+
+      closeSidebar() {
+        this.sidebar.classList.remove('active');
+        this.sidebarOverlay.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
       }
 
       initNav() {
@@ -790,6 +1054,7 @@
         this.contentFrame.classList.add('hidden');
       }
     }
+    
     function hideAdminOnlyItems() {
         const adminSections = [
             '[data-target="locations"]',
@@ -814,6 +1079,7 @@
             }
         });
     }
+    
     async function loadUserProfile() {
         try {
             const response = await fetch('/api/user/session');
@@ -842,7 +1108,6 @@
             showProfileError();
         }
     }
-
 
      // Function to show error state
     function showProfileError() {
@@ -917,7 +1182,7 @@
         }, 100);
     }
 
-         // Initialize the app
+    // Initialize the app
     document.addEventListener('DOMContentLoaded', () => {
         new VisitorApp();
         loadUserProfile();

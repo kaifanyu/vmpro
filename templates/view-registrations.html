@@ -181,6 +181,89 @@
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
+    /* Mobile table styling */
+    @media (max-width: 768px) {
+      .desktop-table {
+        display: none;
+      }
+      
+      .mobile-cards {
+        display: block;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .desktop-table {
+        display: table;
+      }
+      
+      .mobile-cards {
+        display: none;
+      }
+    }
+
+    /* Mobile card styling */
+    .visitor-card {
+      background: var(--item-white);
+      border-radius: 12px;
+      border: 1px solid var(--item-dove);
+      margin-bottom: 1rem;
+      padding: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    .visitor-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .visitor-card-header {
+      display: flex;
+      justify-content: between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .visitor-card-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .visitor-card-field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .visitor-card-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--item-slate);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.25rem;
+    }
+
+    .visitor-card-value {
+      font-size: 0.875rem;
+      color: var(--item-shadow);
+      word-break: break-word;
+    }
+
+    .visitor-card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--item-dove);
+      padding-top: 0.75rem;
+    }
+
+    .visitor-card-media {
+      display: flex;
+      gap: 0.5rem;
+    }
+
     /* Notification system */
     .notification {
       position: fixed;
@@ -207,6 +290,20 @@
     .notification.error {
       background: #DC2626;
       color: white;
+    }
+
+    /* Mobile notification adjustments */
+    @media (max-width: 640px) {
+      .notification {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        transform: translateY(-100px);
+      }
+      
+      .notification.show {
+        transform: translateY(0);
+      }
     }
 
     /* Search container */
@@ -241,6 +338,14 @@
       transform: scale(1.1);
     }
 
+    /* Mobile preview images */
+    @media (max-width: 480px) {
+      .preview {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
     /* Modal styling */
     .modal {
       position: fixed;
@@ -257,6 +362,7 @@
       visibility: hidden;
       transition: all 0.3s ease;
       backdrop-filter: blur(2px);
+      padding: 1rem;
     }
 
     .modal.show {
@@ -276,6 +382,8 @@
       width: 100%;
       height: auto;
       display: block;
+      max-height: 80vh;
+      object-fit: contain;
     }
 
     .modal-close {
@@ -292,6 +400,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: scale(1.1);
     }
 
     /* Clean background */
@@ -318,6 +432,73 @@
     .empty-state {
       color: var(--item-slate);
     }
+
+    /* Responsive header */
+    @media (max-width: 640px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      
+      .header-stats {
+        order: -1;
+      }
+    }
+
+    /* Responsive controls */
+    @media (max-width: 768px) {
+      .controls-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .controls-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+      
+      .controls-buttons button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+
+    /* Touch improvements */
+    @media (max-width: 768px) {
+      .item-button,
+      .item-button-secondary,
+      .item-button-danger {
+        min-height: 44px;
+        padding: 12px 16px;
+        font-size: 14px;
+      }
+      
+      .status-badge {
+        font-size: 10px;
+        padding: 3px 6px;
+      }
+    }
+
+    /* Responsive table columns - hide less important columns on smaller screens */
+    @media (max-width: 1024px) {
+      .hide-lg {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hide-md {
+        display: none;
+      }
+    }
+
+    /* Full-width mobile search */
+    @media (max-width: 640px) {
+      .search-container {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen item-background font-geometric">
@@ -342,15 +523,15 @@
     </div>
   </div>
 
-  <div class="container mx-auto px-6 py-8">
+  <div class="container mx-auto px-4 md:px-6 py-4 md:py-8">
     <!-- Header Section -->
-    <div class="mb-8 transform animate-slide-down">
+    <div class="mb-6 md:mb-8 transform animate-slide-down">
       <div class="item-card">
-        <header class="relative px-6 py-8">
-          <div class="flex items-center justify-between">
+        <header class="relative px-4 md:px-6 py-6 md:py-8">
+          <div class="header-content flex items-center justify-between">
             <div class="flex items-center">
-              <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--item-purple);">
+              <div class="w-10 h-10 md:w-12 md:h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-3 md:mr-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--item-purple);" class="md:w-6 md:h-6">
                   <path d="M8 6h13"/>
                   <path d="M8 12h13"/>
                   <path d="M8 18h13"/>
@@ -360,14 +541,14 @@
                 </svg>
               </div>
               <div>
-                <h1 class="text-2xl font-semibold text-gray-900">Visitor Records</h1>
-                <p class="text-gray-600 mt-1">Comprehensive visitor management and tracking</p>
+                <h1 class="text-xl md:text-2xl font-semibold text-gray-900">Visitor Records</h1>
+                <p class="text-gray-600 mt-1 text-sm md:text-base">Comprehensive visitor management and tracking</p>
               </div>
             </div>
 
-            <div class="flex items-center space-x-4">
+            <div class="header-stats flex items-center">
               <div class="bg-gray-100 px-3 py-2 rounded-lg">
-                <span class="text-sm font-medium text-gray-600">Total Visitors: </span>
+                <span class="text-xs md:text-sm font-medium text-gray-600">Total: </span>
                 <span id="totalVisitors" class="font-semibold text-gray-900">0</span>
               </div>
             </div>
@@ -377,11 +558,11 @@
     </div>
 
     <!-- Controls Section -->
-    <div class="mb-6 transform animate-fade-in">
-      <div class="item-card p-6">
-        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+    <div class="mb-4 md:mb-6 transform animate-fade-in">
+      <div class="item-card p-4 md:p-6">
+        <div class="controls-content flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
           <!-- Search Bar -->
-          <div class="flex-1 max-w-md">
+          <div class="flex-1 max-w-full lg:max-w-md">
             <label class="text-sm font-medium text-gray-700 mb-2 block">Search Visitors</label>
             <div class="search-container">
               <div class="search-icon">
@@ -397,10 +578,10 @@
           </div>
 
           <!-- Action Buttons -->
-          <div class="flex items-center space-x-3">
+          <div class="controls-buttons flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
             <button onclick="refreshData()"
                     class="item-button px-4 py-2.5 text-white text-sm font-medium">
-              <span class="flex items-center">
+              <span class="flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                   <path d="M3 2v6h6"/>
                   <path d="M21 12A9 9 0 0 0 6 5.3L3 8"/>
@@ -413,7 +594,7 @@
 
             <button onclick="exportCSV()" id="exportBtn"
                     class="item-button-secondary px-4 py-2.5 text-white text-sm font-medium">
-              <span class="flex items-center">
+              <span class="flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                   <polyline points="7,10 12,15 17,10"/>
@@ -427,36 +608,37 @@
       </div>
     </div>
 
-    <!-- Visitor Records Table -->
+    <!-- Visitor Records -->
     <div class="transform animate-fade-in" style="animation-delay: 0.1s;">
       <div class="item-card">
-        <div class="px-6 py-4 border-b flex items-center justify-between" style="border-color: var(--item-dove);">
-          <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2" style="color: var(--item-purple);">
+        <div class="px-4 md:px-6 py-4 border-b flex items-center justify-between" style="border-color: var(--item-dove);">
+          <h2 class="text-base md:text-lg font-semibold text-gray-900 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 md:w-[18px] md:h-[18px]" style="color: var(--item-purple);">
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
               <circle cx="9" cy="7" r="4"/>
               <path d="m22 21-3-3"/>
             </svg>
             All Visitor Records
           </h2>
-          <span id="filteredCount" class="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-sm font-medium"></span>
+          <span id="filteredCount" class="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-xs md:text-sm font-medium"></span>
         </div>
 
-        <div class="p-6">
-          <div class="overflow-x-auto">
+        <div class="p-4 md:p-6">
+          <!-- Desktop Table -->
+          <div class="desktop-table overflow-x-auto">
             <table class="w-full" id="visitorTable">
               <thead>
                 <tr class="border-b" style="border-color: var(--item-dove);">
                   <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Name</th>
-                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Email</th>
-                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Phone</th>
+                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm hide-md">Email</th>
+                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm hide-lg">Phone</th>
                   <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Visit Time</th>
                   <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Host</th>
                   <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Status</th>
-                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">QR Code</th>
-                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Photo</th>
-                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Document</th>
-                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Location</th>
+                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm hide-lg">QR Code</th>
+                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm hide-lg">Photo</th>
+                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm hide-lg">Document</th>
+                  <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm hide-md">Location</th>
                   <th class="text-left py-3 px-3 font-medium text-gray-700 text-sm">Actions</th>
                 </tr>
               </thead>
@@ -464,31 +646,36 @@
                 <!-- Dynamic content will be inserted here -->
               </tbody>
             </table>
+          </div>
 
-            <!-- Empty State -->
-            <div id="emptyState" class="text-center py-12 hidden">
-              <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
-                  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-                  <circle cx="9" cy="7" r="4"/>
-                  <path d="m22 21-3-3"/>
-                </svg>
-              </div>
-              <h3 class="text-lg font-medium text-gray-900 mb-2">No visitors found</h3>
-              <p class="text-gray-500">No visitor records are available at this time.</p>
-            </div>
+          <!-- Mobile Cards -->
+          <div class="mobile-cards" id="mobileCards">
+            <!-- Dynamic mobile cards will be inserted here -->
+          </div>
 
-            <!-- No Results State -->
-            <div id="noResultsState" class="text-center py-12 hidden">
-              <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-orange-600">
-                  <circle cx="11" cy="11" r="8"/>
-                  <path d="m21 21-4.35-4.35"/>
-                </svg>
-              </div>
-              <h3 class="text-lg font-medium text-gray-900 mb-2">No matching results</h3>
-              <p class="text-gray-500">Try adjusting your search terms.</p>
+          <!-- Empty State -->
+          <div id="emptyState" class="text-center py-12 hidden">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="m22 21-3-3"/>
+              </svg>
             </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No visitors found</h3>
+            <p class="text-gray-500">No visitor records are available at this time.</p>
+          </div>
+
+          <!-- No Results State -->
+          <div id="noResultsState" class="text-center py-12 hidden">
+            <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-orange-600">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.35-4.35"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No matching results</h3>
+            <p class="text-gray-500">Try adjusting your search terms.</p>
           </div>
         </div>
       </div>
@@ -531,32 +718,26 @@
       }, 4000);
     }
 
-    // Get status badge class - FIXED VERSION
+    // Get status badge class
     function getStatusBadgeClass(status) {
       const statusLower = status.toLowerCase().replace(/[^a-z]/g, '');
       
-      // Check for check-in variations (green)
       if (statusLower.includes('checkedin') || statusLower.includes('checkin') || statusLower.includes('active') || statusLower.includes('arrived')) {
         return 'checked-in';
       }
-      // Check for check-out variations (purple/indigo)
       else if (statusLower.includes('checkedout') || statusLower.includes('checkout') || statusLower.includes('departed')) {
         return 'checked-out';
       }
-      // Check for pending variations (orange)
       else if (statusLower.includes('pending') || statusLower.includes('scheduled') || statusLower.includes('waiting')) {
         return 'pending';
       }
-      // Check for cancelled variations (red)
       else if (statusLower.includes('cancelled') || statusLower.includes('canceled') || statusLower.includes('rejected') || statusLower.includes('denied')) {
         return 'cancelled';
       }
-      // Check for completed variations (blue)
       else if (statusLower.includes('completed') || statusLower.includes('finished') || statusLower.includes('done')) {
         return 'completed';
       }
       
-      // Default to pending
       return 'pending';
     }
 
@@ -566,11 +747,13 @@
       const modalImage = document.getElementById('modalImage');
       modalImage.src = src;
       modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
       const modal = document.getElementById('imageModal');
       modal.classList.remove('show');
+      document.body.style.overflow = '';
     }
 
     // Load visitors from API
@@ -591,13 +774,99 @@
       document.getElementById('totalVisitors').textContent = data.length;
     }
 
+    // Render mobile card
+    function renderMobileCard(visitor, index) {
+      const statusBadgeClass = getStatusBadgeClass(visitor.status);
+      
+      return `
+        <div class="visitor-card animate-fade-in" style="animation-delay: ${index * 0.03}s;">
+          <div class="visitor-card-header">
+            <div class="flex-1">
+              <h3 class="font-semibold text-gray-900 text-base mb-1">${visitor.name}</h3>
+              <span class="status-badge ${statusBadgeClass}">${visitor.status}</span>
+            </div>
+          </div>
+          
+          <div class="visitor-card-body">
+            ${visitor.email ? `
+              <div class="visitor-card-field">
+                <div class="visitor-card-label">Email</div>
+                <div class="visitor-card-value">${visitor.email}</div>
+              </div>
+            ` : ''}
+            
+            ${visitor.phone ? `
+              <div class="visitor-card-field">
+                <div class="visitor-card-label">Phone</div>
+                <div class="visitor-card-value">${visitor.phone}</div>
+              </div>
+            ` : ''}
+            
+            <div class="visitor-card-field">
+              <div class="visitor-card-label">Visit Time</div>
+              <div class="visitor-card-value">${visitor.visit_date}</div>
+            </div>
+            
+            ${visitor.host_employee ? `
+              <div class="visitor-card-field">
+                <div class="visitor-card-label">Host</div>
+                <div class="visitor-card-value">${visitor.host_employee}</div>
+              </div>
+            ` : ''}
+            
+            ${visitor.location ? `
+              <div class="visitor-card-field">
+                <div class="visitor-card-label">Location</div>
+                <div class="visitor-card-value">${visitor.location}</div>
+              </div>
+            ` : ''}
+          </div>
+          
+          <div class="visitor-card-actions">
+            <div class="visitor-card-media">
+              ${visitor.token ? `
+                <a href="/static/qr/${visitor.token}.png" download>
+                  <img src="/static/qr/${visitor.token}.png" class="preview" onclick="openImageModal('/static/qr/${visitor.token}.png')" alt="QR Code" title="QR Code">
+                </a>
+              ` : ''}
+              
+              ${visitor.photo_url ? `
+                <a href="${visitor.photo_url}" download>
+                  <img src="${visitor.photo_url}" class="preview" onclick="openImageModal('${visitor.photo_url}')" alt="Photo" title="Photo">
+                </a>
+              ` : ''}
+              
+              ${visitor.document_url ? `
+                <a href="${visitor.document_url}" download>
+                  <img src="${visitor.document_url}" class="preview" onclick="openImageModal('${visitor.document_url}')" alt="Document" title="Document">
+                </a>
+              ` : ''}
+            </div>
+            
+            <button class="item-button-danger px-3 py-2 text-white text-xs font-medium"
+                    onclick="deleteVisitor(${visitor.id})">
+              <span class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-1">
+                  <polyline points="3,6 5,6 21,6"/>
+                  <path d="m19,6v14a2,2 0 0,1-2,2H7a2,2 0 0,1-2-2V6m3,0V4a2,2 0 0,1,2-2h4a2,2 0 0,1,2,2v2"/>
+                </svg>
+                Delete
+              </span>
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
     // Render table with data
     function renderTable(data) {
       const tbody = document.getElementById('visitorTableBody');
+      const mobileCards = document.getElementById('mobileCards');
       const emptyState = document.getElementById('emptyState');
       const noResultsState = document.getElementById('noResultsState');
 
       tbody.innerHTML = '';
+      mobileCards.innerHTML = '';
 
       if (data.length === 0) {
         if (visitors.length === 0) {
@@ -612,6 +881,7 @@
         noResultsState.classList.add('hidden');
 
         data.forEach((visitor, index) => {
+          // Desktop table row
           const tr = document.createElement('tr');
           tr.className = 'table-row border-b';
           tr.style.animationDelay = `${index * 0.03}s`;
@@ -622,35 +892,35 @@
 
           tr.innerHTML = `
             <td class="py-3 px-3 font-medium text-gray-900 text-sm">${visitor.name}</td>
-            <td class="py-3 px-3 text-gray-700 text-sm">${visitor.email || ''}</td>
-            <td class="py-3 px-3 text-gray-700 text-sm">${visitor.phone || ''}</td>
+            <td class="py-3 px-3 text-gray-700 text-sm hide-md">${visitor.email || ''}</td>
+            <td class="py-3 px-3 text-gray-700 text-sm hide-lg">${visitor.phone || ''}</td>
             <td class="py-3 px-3 text-gray-700 text-sm">${visitor.visit_date}</td>
             <td class="py-3 px-3 text-gray-700 text-sm">${visitor.host_employee || ''}</td>
             <td class="py-3 px-3">
               <span class="status-badge ${statusBadgeClass}">${visitor.status}</span>
             </td>
-            <td class="py-3 px-3">
+            <td class="py-3 px-3 hide-lg">
               ${visitor.token ? `
                 <a href="/static/qr/${visitor.token}.png" download>
                   <img src="/static/qr/${visitor.token}.png" class="preview" onclick="openImageModal('/static/qr/${visitor.token}.png')" alt="QR Code">
                 </a>
               ` : ''}
             </td>
-            <td class="py-3 px-3">
+            <td class="py-3 px-3 hide-lg">
               ${visitor.photo_url ? `
                 <a href="${visitor.photo_url}" download>
                   <img src="${visitor.photo_url}" class="preview" onclick="openImageModal('${visitor.photo_url}')" alt="Photo">
                 </a>
               ` : ''}
             </td>
-            <td class="py-3 px-3">
+            <td class="py-3 px-3 hide-lg">
               ${visitor.document_url ? `
                 <a href="${visitor.document_url}" download>
                   <img src="${visitor.document_url}" class="preview" onclick="openImageModal('${visitor.document_url}')" alt="Document">
                 </a>
               ` : ''}
             </td>
-            <td class="py-3 px-3 text-gray-700 text-sm">${visitor.location || ''}</td>
+            <td class="py-3 px-3 text-gray-700 text-sm hide-md">${visitor.location || ''}</td>
             <td class="py-3 px-3">
               <button class="item-button-danger px-3 py-1.5 text-white text-xs font-medium"
                       onclick="deleteVisitor(${visitor.id})">
@@ -666,6 +936,9 @@
           `;
 
           tbody.appendChild(tr);
+
+          // Mobile card
+          mobileCards.innerHTML += renderMobileCard(visitor, index);
         });
       }
 
@@ -686,7 +959,7 @@
 
         if (res.ok) {
           showNotification('Visitor deleted successfully', 'success');
-          await loadVisitors(); // Refresh the data
+          await loadVisitors();
         } else {
           showNotification('Failed to delete visitor', 'error');
         }
@@ -696,7 +969,7 @@
       }
     }
 
-    // Search functionality (same as original)
+    // Search functionality
     document.getElementById('searchInput').addEventListener('input', function() {
       const keyword = this.value.trim().toLowerCase();
       const filtered = visitors.filter(v =>
@@ -713,7 +986,7 @@
 
       refreshButton.disabled = true;
       refreshButton.innerHTML = `
-        <span class="flex items-center">
+        <span class="flex items-center justify-center">
           <div class="loading-spinner mr-2"></div>
           Refreshing...
         </span>
@@ -730,7 +1003,7 @@
       }
     }
 
-    // Export CSV function (same as original)
+    // Export CSV function
     function exportCSV() {
       try {
         const headers = ['Name', 'Email', 'Phone', 'Visit Time', 'Host', 'Status', 'QR Token', 'Photo URL', 'Document URL', 'Location'];
@@ -775,26 +1048,26 @@
 
     // Prevent modal close when clicking image
     document.getElementById('modalImage').addEventListener('click', function(e) {
-		e.stopPropagation();
+      e.stopPropagation();
     });
 	
-	window.addEventListener('message', function(event) {
-		if (event.data.type === 'PERFORM_SEARCH') {
-			const searchTerm = event.data.searchTerm;
-			performVisitorSearch(searchTerm);
-		}
-	});
+    // Listen for search messages from parent window
+    window.addEventListener('message', function(event) {
+      if (event.data.type === 'PERFORM_SEARCH') {
+        const searchTerm = event.data.searchTerm;
+        performVisitorSearch(searchTerm);
+      }
+    });
 	
-	
-	function performVisitorSearch(searchTerm) {
-	  const searchInput = document.getElementById('searchInput');
-	  if (searchInput) {
-		searchInput.value = searchTerm;
-		
-		const inputEvent = new Event('input', { bubbles: true });
-		searchInput.dispatchEvent(inputEvent);
-	  }
-	}
+    function performVisitorSearch(searchTerm) {
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput) {
+        searchInput.value = searchTerm;
+        
+        const inputEvent = new Event('input', { bubbles: true });
+        searchInput.dispatchEvent(inputEvent);
+      }
+    }
   </script>
 </body>
 </html>
