@@ -790,7 +790,30 @@
         this.contentFrame.classList.add('hidden');
       }
     }
+    function hideAdminOnlyItems() {
+        const adminSections = [
+            '[data-target="locations"]',
+            '[data-target="employees"]',
+            '[data-target="analytics"]',
+            '[data-target="visit_logs"]',
+            '[data-target="notifications"]'
+        ];
 
+        adminSections.forEach(selector => {
+            const el = document.querySelector(selector);
+            if (el) {
+                el.parentElement.style.display = 'none'; // hide the entire nav-item container
+            }
+        });
+
+        // Optional: Also hide section headers if they are now empty
+        const navGroups = document.querySelectorAll('.nav-group');
+        navGroups.forEach(group => {
+            if (group.querySelectorAll('.nav-link:not([style*="display: none"])').length === 0) {
+                group.style.display = 'none';
+            }
+        });
+    }
     async function loadUserProfile() {
         try {
             const response = await fetch('/api/user/session');
@@ -804,8 +827,14 @@
                 }
 
                 document.getElementById('userProfile').style.display = 'flex';
+
+                // 🔐 Hide admin-only sections if user is not an admin
+                if (userData.role !== 'admin') {
+                    hideAdminOnlyItems();
+                }
+
             } else {
-                // User not logged in, redirect to login
+                // Not logged in
                 window.location.href = '/login';
             }
         } catch (error) {
@@ -813,6 +842,7 @@
             showProfileError();
         }
     }
+
 
      // Function to show error state
     function showProfileError() {
