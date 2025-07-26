@@ -572,6 +572,9 @@ def create_employee():
 
 @app.route('/api/employee/list', methods=['GET'])
 def list_employees():
+    if session.get('user_role') != 'admin':
+        return jsonify({'error': 'Only admin users can view all employees'}), 403
+
     """List employees with caching"""
     try:
         employees = cached_service.get_all_employees()
@@ -754,6 +757,9 @@ def list_locations():
 
 @app.route('/api/location/create', methods=['POST'])
 def create_location():
+    if session.get('user_role') != 'admin':
+        return jsonify({'error': 'Only admin users can create locations'}), 403
+
     from models import Location
     name = request.form['name']
     address = request.form.get('address')
@@ -770,6 +776,9 @@ def create_location():
 
 @app.route('/api/location/delete/<int:location_id>', methods=['DELETE'])
 def delete_location(location_id):
+    if session.get('user_role') != 'admin':
+        return jsonify({'error': 'Only admin users can delete locations'}), 403
+    
     from models import Location
     loc = Location.query.get(location_id)
     if not loc:
