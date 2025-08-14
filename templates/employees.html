@@ -369,7 +369,7 @@
                 <circle cx="11" cy="11" r="8"></circle>
                 <path d="m21 21-4.35-4.35"></path>
               </svg>
-              Search Visitors
+              Search Employees
             </h2>
           </div>
 
@@ -382,7 +382,7 @@
                     <path d="m21 21-4.35-4.35"></path>
                   </svg>
                 </div>
-                <input type="text" id="visitorSearch" placeholder="Search visitors by name, email, or phone..."
+                <input type="text" id="employeeSearch" placeholder="Search employees by name, email, or phone..."
                        class="item-input w-full pl-10 pr-4 py-2.5 text-gray-700 placeholder-gray-500">
               </div>
 
@@ -637,8 +637,8 @@
     let searchTimeout = null;
 
     // Visitor search functionality
-    function initializeVisitorSearch() {
-      const searchInput = document.getElementById('visitorSearch');
+    function initializeEmployeeSearch() {
+      const searchInput = document.getElementById('employeeSearch');
       const searchResults = document.getElementById('searchResults');
       const searchResultsList = document.getElementById('searchResultsList');
       const noResults = document.getElementById('noResults');
@@ -662,61 +662,29 @@
         searchLoading.classList.remove('hidden');
 
         searchTimeout = setTimeout(() => {
-          searchVisitors(query);
+          searchEmployees(query);
         }, 500);
       });
     }
 
-    async function searchVisitors(query) {
+    async function searchEmployees(query) {
       const searchResults = document.getElementById('searchResults');
       const searchResultsList = document.getElementById('searchResultsList');
       const noResults = document.getElementById('noResults');
       const searchLoading = document.getElementById('searchLoading');
 
       try {
-        const response = await fetch(`/api/visitors/search?q=${encodeURIComponent(query)}`);
-        const visitors = await response.json();
+        const response = await fetch(`/api/employee/search?q=${encodeURIComponent(query)}`);
+        const employees = await response.json();
 
         searchLoading.classList.add('hidden');
 
-        if (visitors.length === 0) {
+        if (employees.length === 0) {
           noResults.classList.remove('hidden');
           return;
         }
 
-        searchResultsList.innerHTML = '';
-
-        visitors.forEach(visitor => {
-          const resultItem = document.createElement('div');
-          resultItem.className = 'p-3 bg-gray-50 rounded-lg border hover:bg-white cursor-pointer transition-all duration-200';
-          resultItem.onclick = () => viewVisitorRegistration(visitor.id);
-
-          resultItem.innerHTML = `
-            <div class="flex items-center justify-between">
-              <div class="flex-1">
-                <div class="flex items-center mb-1">
-                  <div class="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center text-gray-600 text-xs font-medium mr-2">
-                    ${visitor.name.charAt(0).toUpperCase()}
-                  </div>
-                  <h4 class="font-medium text-gray-900 text-sm">${visitor.name}</h4>
-                </div>
-                <p class="text-xs text-gray-600">${visitor.email}</p>
-                ${visitor.phone ? `<p class="text-xs text-gray-500">${visitor.phone}</p>` : ''}
-                ${visitor.visit_date ? `<p class="text-xs text-blue-600">Visit: ${formatDate(visitor.visit_date)}</p>` : ''}
-              </div>
-              <div class="ml-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400">
-                  <path d="m9 18 6-6-6-6"/>
-                </svg>
-              </div>
-            </div>
-          `;
-
-          searchResultsList.appendChild(resultItem);
-        });
-
-        searchResults.classList.remove('hidden');
-
+		bindEmployees(employees);
       } catch (error) {
         console.error('Error searching visitors:', error);
         searchLoading.classList.add('hidden');
@@ -826,12 +794,9 @@
 		document.getElementById('editModal').classList.add('hidden');
 		document.body.style.overflow = 'auto';
     }
-
-    // Load employees function
-    async function loadEmployees() {
+	
+	function bindEmployees(data){
       try {
-        const res = await fetch('/api/employee/list');
-        const data = await res.json();
         const tbody = document.getElementById('employeeTableBody');
         const emptyState = document.getElementById('emptyState');
         const employeeCount = document.getElementById('employeeCount');
@@ -892,6 +857,13 @@
         console.error('Error loading employees:', error);
         showNotification('Failed to load employees', 'error');
       }
+	}
+
+    // Load employees function
+    async function loadEmployees() {
+        const res = await fetch('/api/employee/list');
+        const data = await res.json();
+		bindEmployees(data);
     }
 
     // Form submission for adding new employee
@@ -1051,7 +1023,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       checkUserPermissions();
       loadEmployees();
-      initializeVisitorSearch();
+      initializeEmployeeSearch();
     });
   </script>
 </body>

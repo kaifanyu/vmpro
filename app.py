@@ -437,16 +437,23 @@ def list_visitors():
     """List visitors with selective caching for performance"""
     cache_key = "visitors:today_and_future"
 
-    # Optional: use cache
-    # cached_visitors = app_cache.get(cache_key)
-    # if cached_visitors:
-    #     return jsonify(cached_visitors)
-
-    # Get start of today (00:00:00)
+    if 'user_id' not in session:
+        return jsonify({'error': 'Not logged in'}), 401
+    user_id=session.get('user_id')
+    # Get user details from cache first
+    user_data = cached_service.get_employee_by_id(user_id)
+    if not user_data:
+        return jsonify({'error': 'User not found'}), 404
+    user_role = user_data.get('role', 'staff')
+    
     today_start = datetime.combine(date.today(), datetime.min.time())
 
     # Fetch all visits (or filter for today/future)
-    visits = Visitor.query.order_by(Visitor.visit_date.desc()).all()
+    if user_role == 'admin':
+        visits = Visitor.query.order_by(Visitor.visit_date.desc()).all()
+    else:
+        visits = Visitor.query.filter(Visitor.host_employee == user_id) \
+                              .order_by(Visitor.visit_date.desc()).all()
 
     # Preload location/employee data to avoid repeated calls
     all_locations = cached_service.get_all_locations()
@@ -583,6 +590,36 @@ def list_employees():
         logger.error(f"Error listing employees: {e}")
         return jsonify({'error': str(e)}), 500
 
+
+@app.route('/api/employee/search', methods=['GET'])
+def handle_search_employees():
+    try:
+        query = request.args.get('q', '').strip()
+        print(query)
+        if len(query) < 2:
+            return jsonify([])
+
+        employees = Employee.query.filter(
+            db.or_(
+                Employee.name.ilike(f'%{query}%'),
+                Employee.email.ilike(f'%{query}%')
+            )
+        ).limit(10).all()
+        
+        result = [{
+            "id": e.id,
+            "name": e.name,
+            "email": e.email,
+            "phone": e.phone,
+            "role": e.role,
+            "profile_photo": e.profile_photo
+        } for e in employees]
+        
+        return jsonify(result)
+
+    except Exception as e:
+        logger.error(f"Error searching employees: {str(e)}")
+        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/employee/update/<int:emp_id>', methods=['PUT'])
 def update_employee(emp_id):
