@@ -6,7 +6,7 @@ const LandingPage = () => {
   const navigate = useNavigate();
 
   const handleVisitorClick = () => {
-    navigate('/visitor-checkin');
+    navigate('/guest-checkin');
   };
 
   const handleEmployeeClick = () => {
