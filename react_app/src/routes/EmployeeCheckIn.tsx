@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, MapPin, Unlock, Lock, CheckCircle, AlertTriangle, Loader } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import itemLogo from '../assets/item.svg';
@@ -53,7 +53,7 @@ const EmployeeCheckIn = () => {
   };
 
   // Geocode company address (in production, you'd cache this)
-  const geocodeAddress = async (address: string): Promise<{lat: number, lng: number}> => {
+  const geocodeAddress = async (): Promise<{lat: number, lng: number}> => {
     // In a real app, you'd use Google Maps Geocoding API or similar
     // For demo purposes, returning San Francisco coordinates
     return { lat: 37.7749, lng: -122.4194 };
@@ -76,7 +76,7 @@ const EmployeeCheckIn = () => {
       const userLng = position.coords.longitude;
 
       // Get company coordinates
-      const companyCoords = await geocodeAddress(COMPANY_ADDRESS);
+      const companyCoords = await geocodeAddress();
       
       // Calculate distance
       const distance = calculateDistance(userLat, userLng, companyCoords.lat, companyCoords.lng);
