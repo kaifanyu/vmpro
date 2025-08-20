@@ -1,8 +1,8 @@
 // src/auth/ProtectedRoute.tsx
-import { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useEffect, useState, ReactNode } from 'react';
+import { useLocation } from 'react-router-dom';
 
-export default function ProtectedRoute({ children }: { children: JSX.Element }) {
+export default function ProtectedRoute({ children }: { children: ReactNode  }) {
   const location = useLocation();
   const [status, setStatus] = useState<'checking'|'ok'|'nope'>('checking');
 
