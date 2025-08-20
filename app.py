@@ -66,6 +66,16 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
     '?charset=utf8mb4&connect_timeout=10'
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# Harden cookies + set lifetime (30 minutes)
+app.config.update(
+    SESSION_COOKIE_HTTPONLY=True,
+    SESSION_COOKIE_SAMESITE='Lax',
+    # Use True in production behind HTTPS; if testing on HTTP locally, set to False
+    SESSION_COOKIE_SECURE=True,
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=1),
+)
+
 db.init_app(app)
 
 
@@ -124,6 +134,66 @@ QR_FOLDER = 'static/qr'
 os.makedirs(QR_FOLDER, exist_ok=True)
 PST = pytz.timezone('America/Los_Angeles')
 
+def _is_api_or_json_request():
+    # Treat /api/* as API; also respect JSON requests/accept headers
+    if request.path.startswith('/api/'):
+        return True
+    if request.is_json:
+        return True
+    # If client prefers JSON over HTML
+    try:
+        return request.accept_mimetypes['application/json'] >= request.accept_mimetypes['text/html']
+    except Exception:
+        return False
+
+@app.before_request
+def enforce_session_timeout():
+    # Allow unauthenticated/static/login routes to pass through
+    path = request.path
+    exempt_prefixes = (
+        '/static/',           # assets including /static/profiles and /static/uploads
+        '/app/assets/',       # React build assets
+    )
+    exempt_exact = {
+        '/login',
+        '/logout',
+        '/app/',              # React SPA entry
+        '/index',             # shows login redirect anyway
+    }
+    exempt_startswith = (
+        '/app/',              # any SPA deep link
+        '/visitor/view/',     # public visitor link (email/SMS)
+        '/pages/',            # static html pages you serve
+    )
+
+    if path in exempt_exact or any(path.startswith(p) for p in exempt_prefixes + exempt_startswith):
+        return  # don’t enforce for exempt endpoints
+
+    # If no session, let existing per-route checks handle it (many of your routes already check)
+    if 'user_id' not in session:
+        return
+
+    # Enforce idle timeout
+    last = session.get('last_activity')
+    now_ts = time.time()
+    timeout_secs = int(app.permanent_session_lifetime.total_seconds())
+
+    if last and (now_ts - float(last) > timeout_secs):
+        # Session expired → clear and bounce appropriately
+        session.clear()
+        if _is_api_or_json_request():
+            return jsonify({'error': 'Session expired. Please log in again.'}), 401
+        else:
+            try:
+                flash('Your session expired. Please log in again.', 'warning')
+            except Exception:
+                pass
+            return redirect(url_for('login'))
+
+    # Otherwise, refresh last activity
+    session['last_activity'] = now_ts
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -136,9 +206,14 @@ def login():
         ).first()
 
         if user and check_password_hash(user.password_hash, password):
+            session.clear()                 # reset any prior session
+            session.permanent = True        # use PERMANENT_SESSION_LIFETIME
+
             session['user_id'] = user.id
             session['user_name'] = user.name
             session['user_role'] = user.role
+
+            session['last_activity'] = time.time()  # track activity timestamp
             return redirect(url_for('dashboard'))
         else:
             flash('Invalid username/email or password', 'danger')
@@ -1515,11 +1590,16 @@ def test_cache_write():
 
 
 
+@app.after_request
+def add_no_store(resp):
+    if resp.mimetype == 'text/html':
+        resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+        resp.headers['Pragma'] = 'no-cache'
+    return resp
 
 
 
 
-# Add these routes to your app.py file
 
 from datetime import datetime, timedelta, date
 from sqlalchemy import func, text, and_, or_, case
