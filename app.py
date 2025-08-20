@@ -73,7 +73,7 @@ app.config.update(
     SESSION_COOKIE_SAMESITE='Lax',
     # Use True in production behind HTTPS; if testing on HTTP locally, set to False
     SESSION_COOKIE_SECURE=True,
-    PERMANENT_SESSION_LIFETIME=timedelta(minutes=1),
+    PERMANENT_SESSION_LIFETIME=timedelta(minutes=30),
 )
 
 db.init_app(app)
