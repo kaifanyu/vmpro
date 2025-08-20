@@ -1468,6 +1468,7 @@ def serve_react_static(filename):
     return send_from_directory(os.path.join(app.root_path, "react_app/dist/assets"), filename)
 
 
+@app.route("/app")
 @app.route("/app/")
 @app.route("/app/<path:path>")
 def serve_react(path=""):
