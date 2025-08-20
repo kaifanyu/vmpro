@@ -1,10 +1,10 @@
-// src/auth/ProtectedRoute.tsx
-import { useEffect, useState, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 
-export default function ProtectedRoute({ children }: { children: ReactNode  }) {
+export default function ProtectedRoute({ children }: { children: ReactNode }) {
   const location = useLocation();
-  const [status, setStatus] = useState<'checking'|'ok'|'nope'>('checking');
+  const [status, setStatus] = useState<'checking' | 'ok' | 'nope'>('checking');
 
   useEffect(() => {
     (async () => {
@@ -12,7 +12,6 @@ export default function ProtectedRoute({ children }: { children: ReactNode  }) {
         const res = await fetch('/api/user/session', { credentials: 'include' });
         setStatus(res.ok ? 'ok' : 'nope');
         if (res.status === 401) {
-          // send to Flask login with ?next=<current React URL>
           const nextUrl = `/app${location.pathname}${location.search}`;
           window.location.href = `/login?next=${encodeURIComponent(nextUrl)}`;
         }
