@@ -193,32 +193,43 @@ def enforce_session_timeout():
     # Otherwise, refresh last activity
     session['last_activity'] = now_ts
 
+from urllib.parse import urlparse, urljoin
 
+def _is_safe_next_url(target):
+    # Only allow same-host relative URLs (prevents open redirects)
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return (test_url.scheme in ('http', 'https')
+            and ref_url.netloc == test_url.netloc
+            and test_url.path.startswith('/'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    next_url = request.args.get('next') or request.form.get('next')  # keep next across GET/POST
     if request.method == 'POST':
         identifier = request.form['identifier']
         password = request.form['password']
-
         user = Employee.query.filter(
             (Employee.name == identifier) | (Employee.email == identifier)
         ).first()
 
         if user and check_password_hash(user.password_hash, password):
-            session.clear()                 # reset any prior session
-            session.permanent = True        # use PERMANENT_SESSION_LIFETIME
-
+            session.clear()
+            session.permanent = True
             session['user_id'] = user.id
             session['user_name'] = user.name
             session['user_role'] = user.role
-
-            session['last_activity'] = time.time()  # track activity timestamp
+            session['last_activity'] = time.time()
+            # Redirect back into React if provided
+            if next_url and _is_safe_next_url(next_url):
+                return redirect(next_url)
             return redirect(url_for('dashboard'))
         else:
             flash('Invalid username/email or password', 'danger')
 
-    return render_template('login.html')
+    # pass next to the template so you can keep it in a hidden field
+    return render_template('login.html', next=next_url)
+
 
 @app.route("/chat", methods=["POST"])
 def chat():

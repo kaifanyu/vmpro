@@ -4,13 +4,21 @@ import CheckInSuccess from './routes/CheckInSuccess';
 import CameraPage from './routes/Camera';
 import LandingPage from './routes/Landing';
 import EmployeeCheckIn from './routes/EmployeeCheckIn';
+import ProtectedRoute from './auth/ProtectedRoute';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage/>} />
       <Route path="/guest-checkin" element={<GuestCheckIn />} />
-      <Route path="/employee-checkin" element={<EmployeeCheckIn />} />
+      <Route
+        path="/employee-checkin"
+        element={
+          <ProtectedRoute>
+            <EmployeeCheckIn />
+          </ProtectedRoute> 
+        }
+      />
       <Route path="/success" element={<CheckInSuccess />} />
       <Route path="/camera" element={<CameraPage />} />
     </Routes>
