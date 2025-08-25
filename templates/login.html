@@ -177,7 +177,8 @@
         {% endwith %}
 
         <!-- Login Form -->
-        <form method="POST" class="space-y-6">
+        
+        <form id="loginForm" method="POST" class="space-y-6">
           <input type="hidden" name="next" value="{{ next or request.args.get('next','') }}">
 
           <!-- Username/Email Field -->
@@ -218,6 +219,14 @@
           >
             Sign In
           </button>
+
+                    <!-- Forgot password link -->
+          <div class="mt-3 text-center">
+            <button type="button" id="forgotLink" class="text-sm font-medium" style="color: var(--item-purple);">
+              Forgot your password?
+            </button>
+          </div>
+
         </form>
 
         <!-- Additional Links -->
@@ -230,6 +239,22 @@
           </div>
         </div>
       </div>
+    <!-- Forgot Password Modal -->
+    <div id="forgotModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
+      <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-2">Reset your password</h3>
+        <p class="text-sm text-gray-600 mb-4">Enter your account email and we’ll send a reset link if it exists.</p>
+        <form id="forgotForm" class="space-y-4">
+          <input type="email" name="email" required placeholder="your@email.com"
+                class="item-input w-full px-4 py-3 text-gray-900 placeholder-gray-500" />
+          <div class="flex items-center justify-end space-x-2">
+            <button type="button" id="cancelForgot" class="px-4 py-2 rounded-md border border-gray-300 text-gray-700">Cancel</button>
+            <button type="submit" id="sendForgot" class="item-button px-4 py-2 text-white">Send reset link</button>
+          </div>
+          <p id="forgotMsg" class="text-sm text-gray-700 mt-2 hidden"></p>
+        </form>
+      </div>
+    </div>
 
       <!-- Footer -->
       <div class="text-center mt-8 animate-slide-up" style="animation-delay: 0.3s;">
@@ -242,7 +267,7 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const form = document.querySelector('form');
+      const form = document.querySelector('loginForm');
       const submitButton = document.getElementById('submitButton');
 
       // Clean loading state
@@ -260,6 +285,46 @@
         `;
       });
 
+      const forgotLink = document.getElementById('forgotLink');
+      const forgotModal = document.getElementById('forgotModal');
+      const cancelForgot = document.getElementById('cancelForgot');
+      const forgotForm = document.getElementById('forgotForm');
+      const sendForgot = document.getElementById('sendForgot');
+      const forgotMsg = document.getElementById('forgotMsg');
+
+      const openModal = () => { forgotModal.classList.remove('hidden'); forgotModal.classList.add('flex'); }
+      const closeModal = () => { forgotModal.classList.add('hidden'); forgotModal.classList.remove('flex'); forgotMsg.classList.add('hidden'); forgotForm.reset(); sendForgot.disabled = false; }
+
+      forgotLink.addEventListener('click', openModal);
+      cancelForgot.addEventListener('click', closeModal);
+      forgotModal.addEventListener('click', (e) => { if (e.target === forgotModal) closeModal(); });
+
+      forgotForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        sendForgot.disabled = true;
+        const formData = new FormData(forgotForm);
+        const email = formData.get('email');
+
+        try {
+          const res = await fetch('/auth/forgot', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+          });
+          // always generic for privacy
+          forgotMsg.textContent = 'If that email exists, a reset link has been sent.';
+          forgotMsg.classList.remove('hidden');
+          setTimeout(closeModal, 1800);
+        } catch (err) {
+          // Still show generic
+          forgotMsg.textContent = 'If that email exists, a reset link has been sent.';
+          forgotMsg.classList.remove('hidden');
+          setTimeout(closeModal, 1800);
+        }
+      });
+    });
+
+
       // Clean input focus effects
       const inputs = document.querySelectorAll('.item-input');
       inputs.forEach(input => {
@@ -271,7 +336,6 @@
           this.style.transform = 'translateY(0)';
         });
       });
-    });
   </script>
 </body>
 </html>

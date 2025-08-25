@@ -29,11 +29,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from rapidfuzz import fuzz, process
 from openai import OpenAI
+import secrets, hashlib
 
 # === Local Modules ===
 from SendMail import SendMail
 from SendSMSViaAPI import SendSMSViaAPI
-from models import db, Employee, Visitor, VisitLog, Notification, Location
+from models import db, Employee, Visitor, VisitLog, Notification, Location, PasswordReset
+
+
 
 
 secrets.token_hex(32)
@@ -133,6 +136,17 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 QR_FOLDER = 'static/qr'
 os.makedirs(QR_FOLDER, exist_ok=True)
 PST = pytz.timezone('America/Los_Angeles')
+
+# add to exempt_exact or exempt_startswith
+exempt_exact = {
+    '/login',
+    '/logout',
+    '/app/',
+    '/index',
+    '/auth/forgot',
+    '/reset-password',
+}
+
 
 def _is_api_or_json_request():
     # Treat /api/* as API; also respect JSON requests/accept headers
@@ -1454,6 +1468,141 @@ def format_us_number(raw):
     else:
         raise ValueError(f"Invalid US phone number: {raw}")
 
+def validate_password_strength(pw: str):
+    errors = []
+    if len(pw) < 12:
+        errors.append("Password must be at least 12 characters.")
+    if not re.search(r'[A-Z]', pw):
+        errors.append("Include at least one uppercase letter.")
+    if not re.search(r'[a-z]', pw):
+        errors.append("Include at least one lowercase letter.")
+    if not re.search(r'\d', pw):
+        errors.append("Include at least one digit.")
+    if not re.search(r'[^\w\s]', pw):
+        errors.append("Include at least one symbol (e.g., !@#$%).")
+    # return errors
+    return []
+
+@app.route('/auth/forgot', methods=['POST'])
+def forgot_password():
+    try:
+        data = request.get_json() or request.form
+        email = (data.get('email') or '').strip().lower()
+
+        # Generic response for privacy
+        generic = {"message": "If that email exists, a reset link has been sent."}
+
+        # basic email sanity
+        if not email or not is_valid_email(email):
+            return jsonify(generic), 200
+
+        # simple rate limit (1 req / 60s per email)
+        rl_key = f"pwreset:rl:{email}"
+        if app_cache.get(rl_key):
+            return jsonify(generic), 200
+        app_cache.set(rl_key, True, 60)
+
+        user = Employee.query.filter(db.func.lower(Employee.email) == email).first()
+        if user:
+            token = secrets.token_urlsafe(32)
+            token_hash = hashlib.sha256(token.encode()).hexdigest()
+            expires = datetime.utcnow() + timedelta(hours=1)
+
+            reset = PasswordReset(
+                user_id=user.id,
+                token_hash=token_hash,
+                expires_at=expires,
+                request_ip=request.headers.get('X-Forwarded-For', request.remote_addr),
+                user_agent=(request.headers.get('User-Agent') or '')[:255],
+            )
+            db.session.add(reset)
+            db.session.commit()
+
+            reset_url = f"{BASE_URL}/reset-password?token={token}"
+            email_html = f"""
+                <h3>Password Reset</h3>
+                <p>We received a request to reset the password for your account.</p>
+                <p>This link will expire in 1 hour. If you didn't request this, you can ignore this email.</p>
+                <p><a href="{reset_url}">{reset_url}</a></p>
+            """
+            try:
+                SendMail().send(
+                    recipients=user.email,
+                    subject="Reset your password",
+                    body=email_html
+                )
+            except Exception as mail_err:
+                logger.error(f"Reset email send failed: {mail_err}")
+
+        # Always return generic
+        return jsonify(generic), 200
+
+    except Exception as e:
+        logger.error(f"forgot_password error: {e}")
+        return jsonify({"message": "If that email exists, a reset link has been sent."}), 200
+
+def _find_valid_reset_by_token(raw_token: str):
+    if not raw_token:
+        return None
+    token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
+    pr = PasswordReset.query.filter_by(token_hash=token_hash).first()
+    if not pr:
+        return None
+    if pr.used_at is not None:
+        return None
+    if pr.expires_at < datetime.utcnow():
+        return None
+    return pr
+
+@app.route('/reset-password', methods=['GET', 'POST'])
+def reset_password():
+    token = request.args.get('token') if request.method == 'GET' else request.form.get('token')
+
+    if request.method == 'GET':
+        valid = _find_valid_reset_by_token(token) is not None
+        return render_template('reset_password.html', token=token or '', valid=valid)
+
+    # POST
+    password = request.form.get('password', '')
+    confirm = request.form.get('confirm', '')
+
+    # Always render the same template with messages
+    pr = _find_valid_reset_by_token(token)
+    if not pr:
+        return render_template('reset_password.html', token=token or '', valid=False, error="Invalid or expired link.")
+
+    if password != confirm:
+        return render_template('reset_password.html', token=token or '', valid=True, error="Passwords do not match.")
+
+    errs = validate_password_strength(password)
+    if errs:
+        return render_template('reset_password.html', token=token or '', valid=True, error=" ".join(errs))
+
+    try:
+        user = Employee.query.get(pr.user_id)
+        if not user:
+            return render_template('reset_password.html', token=token or '', valid=False, error="Invalid link.")
+
+        # Update password hash in MySQL
+        user.password_hash = generate_password_hash(password)
+        pr.used_at = datetime.utcnow()
+        db.session.commit()
+
+        # Invalidate caches
+        try:
+            cached_service.invalidate_employee_cache(user.id)
+        except Exception:
+            pass
+
+        flash("Your password has been reset. Please sign in.", "success")
+        return redirect(url_for('login'))
+
+    except Exception as e:
+        db.session.rollback()
+        logger.error(f"Password reset error: {e}")
+        return render_template('reset_password.html', token=token or '', valid=True, error="Server error. Try again.")
+
+
 
 @app.route('/')
 def dashboard():
@@ -1608,6 +1757,52 @@ def add_no_store(resp):
         resp.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
         resp.headers['Pragma'] = 'no-cache'
     return resp
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,4 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
 
 db = SQLAlchemy()
 
@@ -98,3 +100,18 @@ class Location(db.Model):
 
     default_employee = db.Column(db.Integer, db.ForeignKey('employees.id'), nullable=True)
     default_employee_obj = db.relationship('Employee', backref='default_locations', foreign_keys=[default_employee])
+
+
+
+class PasswordReset(db.Model):
+    __tablename__ = 'password_resets'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('employees.id'), nullable=False)
+    token_hash = db.Column(db.String(64), unique=True, index=True, nullable=False)  # sha256 hex
+    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    expires_at = db.Column(db.DateTime, nullable=False)
+    used_at = db.Column(db.DateTime)
+    request_ip = db.Column(db.String(45))
+    user_agent = db.Column(db.String(255))
+
+    user = db.relationship('Employee', backref='password_resets')
