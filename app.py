@@ -1758,8 +1758,220 @@ def add_no_store(resp):
         resp.headers['Pragma'] = 'no-cache'
     return resp
 
+from datetime import datetime, timedelta, time as dtime
+from openpyxl import load_workbook
+
+SCHEDULE_FILE = os.path.join(app.root_path, 'data', 'emp.xlsx')
+
+DAY_MAP = {
+    'mon': 0, 'monday': 0,
+    'tue': 1, 'tues': 1, 'tuesday': 1,
+    'wed': 2, 'weds': 2, 'wednesday': 2,
+    'thu': 3, 'thur': 3, 'thurs': 3, 'thursday': 3,
+    'fri': 4, 'friday': 4,
+    'sat': 5, 'saturday': 5,
+    'sun': 6, 'sunday': 6,
+}
+
+# Accept common header names
+COL_ALIASES = {
+    'email': {'email', 'work email', 'employee email', 'user email'},
+    'clock_in': {'clock_in', 'clock in', 'start', 'start time', 'start_time'},
+    'clock_out': {'clock_out', 'clock out', 'end', 'end time', 'end_time'},
+    'day': {'day', 'weekday', 'dow'}
+}
+
+def _parse_time(val) -> dtime | None:
+    """Robustly parse Excel times (strings, time/datetime, or Excel floats)."""
+    if val is None or val == "":
+        return None
+    # Datetime/time objects
+    if isinstance(val, datetime):
+        return val.time()
+    if isinstance(val, dtime):
+        return val
+    # Excel numeric time (fraction of a day)
+    if isinstance(val, (int, float)):
+        seconds = int(round(float(val) * 24 * 60 * 60))
+        seconds %= 24 * 3600
+        hh = seconds // 3600
+        mm = (seconds % 3600) // 60
+        ss = seconds % 60
+        return dtime(hh, mm, ss)
+    # Strings
+    s = str(val).strip()
+    # e.g. "8" -> "08:00"
+    if s.isdigit():
+        try:
+            hh = int(s)
+            return dtime(hh, 0, 0)
+        except Exception:
+            pass
+    # tolerate "8:00", "8:00 AM", "17:00:00", etc.
+    for fmt in ("%H:%M", "%H:%M:%S", "%I:%M %p", "%I:%M:%S %p", "%H"):
+        try:
+            return datetime.strptime(s, fmt).time()
+        except ValueError:
+            continue
+    return None
+
+def _resolve_columns(header_cells):
+    """Map actual header names to canonical keys using COL_ALIASES."""
+    names = [str(c.value).strip().lower() if c.value else "" for c in header_cells]
+    colmap = {}
+    for key, aliases in COL_ALIASES.items():
+        for i, name in enumerate(names):
+            if name in aliases:
+                colmap[key] = i
+                break
+    return colmap
+
+def _load_schedule_from_excel(path: str):
+    """
+    Build index: { email_lower: [ {day:int|None, start:time, end:time} ] }
+    Accepts headers like:
+      - 'Work Email' for email
+      - 'Start Time' for clock_in
+      - 'End Time' for clock_out
+      - optional 'Day' / 'Weekday' / 'DOW'
+    Extra columns (Preferred/First Name, Department, etc.) are ignored.
+    """
+    idx = {}
+    if not os.path.exists(path):
+        logger.warning(f"Schedule file not found: {path}")
+        return idx
+
+    wb = load_workbook(path, data_only=True, read_only=True)
+    ws = wb.active
+
+    rows = ws.iter_rows()
+    header = next(rows, None)
+    if not header:
+        return idx
+
+    col = _resolve_columns(header)
+
+    # Require at least email + start/end
+    if not {'email', 'clock_in', 'clock_out'}.issubset(col.keys()):
+        logger.error(f"Schedule missing required columns. Found: {col}. "
+                     f"Need any aliases of email/start time/end time.")
+        return idx
+
+    for row in rows:
+        email_cell = row[col['email']].value
+        email = (email_cell or "").strip().lower()
+        if not email:
+            continue
+
+        # optional day
+        day = None
+        if 'day' in col and row[col['day']].value:
+            dv = str(row[col['day']].value).strip().lower()
+            day = DAY_MAP.get(dv, None)
+
+        start = _parse_time(row[col['clock_in']].value)
+        end = _parse_time(row[col['clock_out']].value)
+        if not start or not end:
+            continue
+
+        idx.setdefault(email, []).append({'day': day, 'start': start, 'end': end})
+
+    return idx
+
+def _get_schedule_index():
+    cache_key = "schedule:index"
+    cached = app_cache.get(cache_key)
+    if cached is not None:
+        return cached
+    idx = _load_schedule_from_excel(SCHEDULE_FILE)
+    app_cache.set(cache_key, idx, 300)
+    return idx
+
+def _is_now_in_window(now_dt: datetime, start_t: dtime, end_t: dtime) -> bool:
+    today = now_dt.date()
+    start_dt = datetime.combine(today, start_t, tzinfo=now_dt.tzinfo)
+    end_dt = datetime.combine(today, end_t, tzinfo=now_dt.tzinfo)
+    if end_dt <= start_dt:
+        end_dt += timedelta(days=1)
+    if start_dt <= now_dt <= end_dt:
+        return True
+    y_start = start_dt - timedelta(days=1)
+    y_end = end_dt - timedelta(days=1)
+    return y_start <= now_dt <= y_end
+
+def _find_matching_windows(email: str, now_dt: datetime):
+    sched = _get_schedule_index()
+    entries = sched.get((email or "").lower(), [])
+    if not entries:
+        return []
+    dow = now_dt.weekday()
+    candidates = []
+    for e in entries:
+        if e['day'] is None or e['day'] == dow or e['day'] == (dow - 1) % 7:
+            candidates.append(e)
+    return candidates
 
 
+@app.route('/api/schedule/verify', methods=['GET'])
+def schedule_verify():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Not logged in'}), 401
+
+    # Get user (from cache)
+    user = cached_service.get_employee_by_id(session.get('user_id'))
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    email = (user.get('email') or '').lower()
+    now = datetime.now(PST)
+
+    matches = _find_matching_windows(email, now)
+    if not matches:
+        return jsonify({
+            'allowed': False,
+            'reason': 'No schedule on file for this user.',
+            'now_local': now.strftime('%Y-%m-%d %H:%M'),
+            'windows': []
+        })
+
+    # Are we inside any window?
+    for e in matches:
+        if _is_now_in_window(now, e['start'], e['end']):
+            start_local = datetime.combine(now.date(), e['start']).strftime('%H:%M')
+            # end may wrap to next day; display time only
+            end_local = e['end'].strftime('%H:%M')
+            return jsonify({
+                'allowed': True,
+                'now_local': now.strftime('%Y-%m-%d %H:%M'),
+                'window': {
+                    'day': now.strftime('%A'),
+                    'start_local': start_local,
+                    'end_local': end_local
+                }
+            })
+
+    # Not inside any window; return windows for context
+    windows = [{
+        'day': ('Everyday' if e['day'] is None else ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][e['day']]),
+        'start_local': e['start'].strftime('%H:%M'),
+        'end_local': e['end'].strftime('%H:%M'),
+    } for e in matches]
+
+    return jsonify({
+        'allowed': False,
+        'reason': 'Current time is outside your scheduled window.',
+        'now_local': now.strftime('%Y-%m-%d %H:%M'),
+        'windows': windows
+    })
+
+@app.route('/api/schedule/reload', methods=['POST'])
+def schedule_reload():
+    # optional: restrict to admin
+    if session.get('user_role') != 'admin':
+        return jsonify({'error': 'Only admin users can reload schedule'}), 403
+    app_cache.delete("schedule:index")
+    _ = _get_schedule_index()
+    return jsonify({'message': 'Schedule reloaded'})
 
 
 
