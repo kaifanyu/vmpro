@@ -264,78 +264,68 @@
       </div>
     </div>
   </div>
-
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const form = document.querySelector('loginForm');
-      const submitButton = document.getElementById('submitButton');
+  document.addEventListener('DOMContentLoaded', function () {
+    const loginForm = document.getElementById('loginForm');
+    const submitButton = document.getElementById('submitButton');
 
-      // Clean loading state
-      form.addEventListener('submit', function() {
-        submitButton.disabled = true;
-        submitButton.style.background = 'var(--item-purple-dark)';
-        submitButton.innerHTML = `
-          <div class="flex items-center justify-center">
-            <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Signing in...
-          </div>
-        `;
-      });
-
-      const forgotLink = document.getElementById('forgotLink');
-      const forgotModal = document.getElementById('forgotModal');
-      const cancelForgot = document.getElementById('cancelForgot');
-      const forgotForm = document.getElementById('forgotForm');
-      const sendForgot = document.getElementById('sendForgot');
-      const forgotMsg = document.getElementById('forgotMsg');
-
-      const openModal = () => { forgotModal.classList.remove('hidden'); forgotModal.classList.add('flex'); }
-      const closeModal = () => { forgotModal.classList.add('hidden'); forgotModal.classList.remove('flex'); forgotMsg.classList.add('hidden'); forgotForm.reset(); sendForgot.disabled = false; }
-
-      forgotLink.addEventListener('click', openModal);
-      cancelForgot.addEventListener('click', closeModal);
-      forgotModal.addEventListener('click', (e) => { if (e.target === forgotModal) closeModal(); });
-
-      forgotForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        sendForgot.disabled = true;
-        const formData = new FormData(forgotForm);
-        const email = formData.get('email');
-
-        try {
-          const res = await fetch('/auth/forgot', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email })
-          });
-          // always generic for privacy
-          forgotMsg.textContent = 'If that email exists, a reset link has been sent.';
-          forgotMsg.classList.remove('hidden');
-          setTimeout(closeModal, 1800);
-        } catch (err) {
-          // Still show generic
-          forgotMsg.textContent = 'If that email exists, a reset link has been sent.';
-          forgotMsg.classList.remove('hidden');
-          setTimeout(closeModal, 1800);
-        }
-      });
+    loginForm.addEventListener('submit', function () {
+      submitButton.disabled = true;
+      submitButton.style.background = 'var(--item-purple-dark)';
+      submitButton.innerHTML = `
+        <div class="flex items-center justify-center">
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Signing in...
+        </div>`;
     });
 
+    // Forgot password modal wiring
+    const forgotLink = document.getElementById('forgotLink');
+    const forgotModal = document.getElementById('forgotModal');
+    const cancelForgot = document.getElementById('cancelForgot');
+    const forgotForm = document.getElementById('forgotForm');
+    const sendForgot = document.getElementById('sendForgot');
+    const forgotMsg = document.getElementById('forgotMsg');
 
-      // Clean input focus effects
-      const inputs = document.querySelectorAll('.item-input');
-      inputs.forEach(input => {
-        input.addEventListener('focus', function() {
-          this.style.transform = 'translateY(-1px)';
-        });
+    const openModal = () => { forgotModal.classList.remove('hidden'); forgotModal.classList.add('flex'); };
+    const closeModal = () => {
+      forgotModal.classList.add('hidden'); forgotModal.classList.remove('flex');
+      forgotMsg.classList.add('hidden'); forgotForm.reset(); sendForgot.disabled = false;
+    };
 
-        input.addEventListener('blur', function() {
-          this.style.transform = 'translateY(0)';
+    forgotLink.addEventListener('click', openModal);
+    cancelForgot.addEventListener('click', closeModal);
+    forgotModal.addEventListener('click', (e) => { if (e.target === forgotModal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+    forgotForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      sendForgot.disabled = true;
+      const email = new FormData(forgotForm).get('email');
+      try {
+        await fetch('/auth/forgot', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email })
         });
-      });
+      } finally {
+        // Always show generic success to avoid enumeration
+        forgotMsg.textContent = 'If that email exists, a reset link has been sent.';
+        forgotMsg.classList.remove('hidden');
+        setTimeout(closeModal, 1800);
+      }
+    });
+
+    // Input focus effect (keep inside DOMContentLoaded)
+    document.querySelectorAll('.item-input').forEach(input => {
+      input.addEventListener('focus', function () { this.style.transform = 'translateY(-1px)'; });
+      input.addEventListener('blur', function () { this.style.transform = 'translateY(0)'; });
+    });
+  });
   </script>
+
 </body>
 </html>
